@@ -1,3 +1,21 @@
+# About Bun
+
+Hi! I used [Bun](https://bun.sh) instead of [NodeJS](https://nodejs.org) in this project.
+
+If you don't have installed Bun yet, then install via:
+
+```js
+npm install -g bun
+```
+
+After this, you can use bun ...
+
+```js
+bun install
+bun add <package-name>
+bunx ...
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -17,9 +35,9 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
 }
