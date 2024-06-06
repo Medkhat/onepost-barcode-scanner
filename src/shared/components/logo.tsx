@@ -1,5 +1,17 @@
 import logo from "@/assets/logo.svg"
 
 export default function Logo() {
-  return <img src={logo} alt="UDA Express" />
+  return (
+    <div className="flex items-center">
+      <div className="text-right mr-2">
+        <h3 className="text-primary text-3xl tracking-wide font-semibold -mb-1">
+          uda
+        </h3>
+        <h3 className="text-primary text-[9px] font-medium uppercase">
+          express
+        </h3>
+      </div>
+      <img src={logo} alt="UDA Express" className="w-12 h-12" />
+    </div>
+  )
 }
