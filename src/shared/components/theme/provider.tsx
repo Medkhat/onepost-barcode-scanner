@@ -17,7 +17,7 @@ export const ThemeProviderContext =
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "udo-color-mode",
+  storageKey = "uda-color-mode",
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(

@@ -1,5 +1,7 @@
+import Logo from "@/shared/components/logo"
+
 function RootRoute() {
-  return <div>Root Route</div>
+  return <Logo />
 }
 
 export default RootRoute
