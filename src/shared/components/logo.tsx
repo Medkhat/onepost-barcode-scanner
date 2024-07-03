@@ -1,8 +1,9 @@
 import logo from "@/assets/logo.svg"
+import { cn } from "@/shared/lib/utils"
 
-export default function Logo() {
+export default function Logo({ className }: { className?: string }) {
   return (
-    <div className="flex items-center">
+    <div className={cn("flex items-center", className)}>
       <div className="text-right mr-2">
         <h3 className="text-primary text-3xl tracking-wide font-semibold -mb-1">
           uda

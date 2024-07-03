@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react"
+
 export type Theme = "dark" | "light" | "system"
 
 export type ThemeProviderProps = {
@@ -9,4 +11,10 @@ export type ThemeProviderProps = {
 export type ThemeProviderState = {
   theme: Theme
   setTheme: (theme: Theme) => void
+}
+
+export type ColorMode = {
+  label: string
+  value: Theme
+  Icon: LucideIcon
 }

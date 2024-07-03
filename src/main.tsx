@@ -2,9 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { RouterProvider } from "react-router-dom"
 
+import { router } from "@/router"
 import { ThemeProvider } from "@/shared/components/theme/provider.tsx"
 
-import { router } from "./router.tsx"
+import "@/shared/i18n/config"
 
 import "@/shared/styles/index.css"
 

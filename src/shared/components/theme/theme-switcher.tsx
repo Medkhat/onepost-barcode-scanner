@@ -1,6 +1,5 @@
-import { Moon, Sun } from "lucide-react"
-
-import { useTheme } from "@/shared/components/theme/use-theme"
+import { ColorMode } from "@/shared/components/theme/theme.types"
+import { useColorModes, useTheme } from "@/shared/components/theme/use-theme"
 import { Button } from "@/shared/components/ui/button"
 import {
   DropdownMenu,
@@ -9,28 +8,34 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
 
-export function ModeToggle() {
-  const { setTheme } = useTheme()
+export default function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme()
+  const colorModes = useColorModes()
+
+  const activeColorMode = colorModes.find(
+    (item) => item.value === theme
+  ) as ColorMode
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <Button variant="outline">
+          <activeColorMode.Icon className="w-5 h-5 mr-2" />
+          {activeColorMode.label}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
+        {colorModes.map((item) => (
+          <DropdownMenuItem
+            key={item.value}
+            onClick={() => setTheme(item.value)}
+            className="flex items-center"
+          >
+            {<item.Icon className="w-5 h-5 mr-2" />}
+            {item.label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )
