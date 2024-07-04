@@ -28,6 +28,7 @@ export default function LanguageSwitcher() {
           <DropdownMenuItem
             key={item}
             onClick={() => handleLanguageChange(item as Locale)}
+            className="justify-center"
           >
             {locales[item as Locale]}
           </DropdownMenuItem>

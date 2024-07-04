@@ -12,10 +12,10 @@ export default function AuthenticationPage() {
 
   return (
     <div className="container relative fixed-h-screen flex-col items-stretch justify-center md:grid md:grid-cols-2 px-0 lg:max-w-none">
-      <div className="relative h-1/2 md:h-full flex flex-col bg-muted p-10 text-white dark:border-r bg-[url('/images/supply-chain.jpeg')] bg-no-repeat bg-cover bg-center">
+      <div className="relative h-1/2 md:h-full flex flex-col items-center sm:items-start bg-muted p-10 text-white dark:border-r bg-[url('/images/supply-chain.jpeg')] bg-no-repeat bg-cover bg-center">
         <div className="absolute inset-0 bg-black/65" />
         <Logo className="z-10" />
-        <div className="relative z-20 mt-auto">
+        <div className="relative z-20 mt-auto text-center sm:text-left">
           <blockquote className="space-y-2">
             <p className="text-lg">
               &ldquo;This library has saved me countless hours of work and
@@ -26,23 +26,22 @@ export default function AuthenticationPage() {
           </blockquote>
         </div>
       </div>
-      <div className="flex items-center justify-center">
-        <div className="absolute top-10 right-10 flex items-center gap-3">
-          <ThemeSwitcher />
-          <LanguageSwitcher />
-        </div>
-        <div className="p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                {authT("loginTitle")}
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                {authT("loginSubtitle")}
-              </p>
-            </div>
-            <UserAuthForm />
+      <div className="flex flex-col items-center justify-between">
+        <div className="sm:flex-1 mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] px-3 py-8 md:p-8">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              {authT("loginTitle")}
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {authT("loginSubtitle")}
+            </p>
           </div>
+          <UserAuthForm />
+        </div>
+
+        <div className="mb-5 flex items-center justify-center gap-3">
+          <LanguageSwitcher />
+          <ThemeSwitcher />
         </div>
       </div>
     </div>

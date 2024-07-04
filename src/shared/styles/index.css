@@ -53,22 +53,22 @@
   @font-face {
     font-family: "PTRootUI_Regular";
     src: local("pt-root-ui_regular"),
-      url("../assets/fonts/pt-root-ui_regular.ttf") format("truetype");
+      url("../../assets/fonts/pt-root-ui_regular.ttf") format("truetype");
   }
   @font-face {
     font-family: "PTRootUI_Light";
     src: local("pt-root-ui_light"),
-      url("../assets/fonts/pt-root-ui_light.ttf") format("truetype");
+      url("../../assets/fonts/pt-root-ui_light.ttf") format("truetype");
   }
   @font-face {
     font-family: "PTRootUI_Medium";
     src: local("pt-root-ui_medium"),
-      url("../assets/fonts/pt-root-ui_medium.ttf") format("truetype");
+      url("../../assets/fonts/pt-root-ui_medium.ttf") format("truetype");
   }
   @font-face {
     font-family: "PTRootUI_Bold";
     src: local("pt-root-ui_bold"),
-      url("../assets/fonts/pt-root-ui_bold.ttf") format("truetype");
+      url("../../assets/fonts/pt-root-ui_bold.ttf") format("truetype");
   }
   * {
     @apply border-border font-ptrootui font-medium;
