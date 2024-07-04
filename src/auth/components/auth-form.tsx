@@ -2,8 +2,11 @@ import { useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { ChevronLeftIcon } from "lucide-react"
 import { z } from "zod"
 
+import { getOtp, verifyOtp } from "@/auth/api/requests"
 import { Button } from "@/shared/components/ui/button"
 import {
   Form,
@@ -19,6 +22,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/shared/components/ui/input-otp"
+import { useAuthStore } from "@/shared/store/auth.store"
 
 type PhoneData = {
   isCodeSent: boolean
@@ -32,7 +36,15 @@ export function UserAuthForm() {
   })
 
   return phoneData.isCodeSent ? (
-    <PhoneValidationForm phone={phoneData.phone} />
+    <PhoneValidationForm
+      phone={phoneData.phone}
+      onReset={() =>
+        setPhoneData({
+          isCodeSent: false,
+          phone: "",
+        })
+      }
+    />
   ) : (
     <PhoneNumberForm
       onCodeSent={(phone) => {
@@ -57,15 +69,22 @@ function PhoneNumberForm({
       z.object({
         phone: z
           .string()
-          .min(11, {
+          .min(12, {
             message: authT("phoneValidation"),
           })
-          .max(11, {
+          .max(12, {
             message: authT("phoneValidation"),
           }),
       }),
     [authT]
   )
+
+  const getOtpMutation = useMutation({
+    mutationFn: getOtp,
+    onSuccess: (_data, vars) => {
+      onCodeSent("+" + vars.country_code + vars.phone)
+    },
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,8 +94,11 @@ function PhoneNumberForm({
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    onCodeSent(values.phone)
+    getOtpMutation.mutate({
+      code_type: "login",
+      phone: values.phone.substring(2),
+      country_code: "7",
+    })
   }
 
   return (
@@ -95,7 +117,12 @@ function PhoneNumberForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button
+          disabled={getOtpMutation.isPending}
+          isLoading={getOtpMutation.isPending}
+          type="submit"
+          className="w-full"
+        >
           {authT("getOTP")}
         </Button>
       </form>
@@ -103,17 +130,36 @@ function PhoneNumberForm({
   )
 }
 
-function PhoneValidationForm({ phone }: { phone: string }) {
+function PhoneValidationForm({
+  phone,
+  onReset,
+}: {
+  phone: string
+  onReset: () => void
+}) {
   const { t: authT } = useTranslation("auth")
+
   const formSchema = useMemo(
     () =>
       z.object({
         verification_code: z.string().min(4, {
-          message: authT("phoneValidation"),
+          message: authT("otpValidation"),
         }),
       }),
     [authT]
   )
+
+  const verifyOtpMutation = useMutation({
+    mutationFn: verifyOtp,
+    onSuccess: (data) => {
+      useAuthStore.getState().setStoreData({
+        isLoggedIn: true,
+        token: data.access_token,
+        userData: data.data,
+      })
+    },
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -121,17 +167,28 @@ function PhoneValidationForm({ phone }: { phone: string }) {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {}
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    verifyOtpMutation.mutate({
+      code_type: "login",
+      country_code: "7",
+      phone: phone.substring(2),
+      verification_code: data.verification_code,
+    })
+  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <Button variant="ghost" className="mb-2" onClick={onReset}>
+        <ChevronLeftIcon className="mr-2" />
+        {authT("changePhone")}
+      </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="verification_code"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>One-Time Password</FormLabel>
+              <FormLabel>{authT("enterOtp")}</FormLabel>
               <FormControl>
                 <InputOTP maxLength={4} {...field}>
                   <InputOTPGroup>
@@ -139,8 +196,6 @@ function PhoneValidationForm({ phone }: { phone: string }) {
                     <InputOTPSlot index={1} />
                     <InputOTPSlot index={2} />
                     <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
@@ -149,7 +204,14 @@ function PhoneValidationForm({ phone }: { phone: string }) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button
+          disabled={verifyOtpMutation.isPending}
+          isLoading={verifyOtpMutation.isPending}
+          type="submit"
+          className="w-full"
+        >
+          {authT("sendOtp")}
+        </Button>
       </form>
     </Form>
   )

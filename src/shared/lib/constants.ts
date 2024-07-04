@@ -7,6 +7,7 @@ export enum RouteNames {
 
 export enum StorageKeys {
   LANGUAGE = "language",
+  TOKEN = "token",
 }
 
 export const locales: Record<Locale, string> = {

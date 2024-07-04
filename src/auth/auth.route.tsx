@@ -12,15 +12,14 @@ export default function AuthenticationPage() {
 
   return (
     <div className="container relative fixed-h-screen flex-col items-stretch justify-center md:grid md:grid-cols-2 px-0 lg:max-w-none">
-      <div className="relative h-1/2 md:h-full flex flex-col items-center sm:items-start bg-muted p-10 text-white dark:border-r bg-[url('/images/supply-chain.jpeg')] bg-no-repeat bg-cover bg-center">
+      <div className="relative h-1/3 md:h-full flex flex-col items-center sm:items-start bg-muted p-10 text-white dark:border-r bg-[url('/images/supply-chain.jpeg')] bg-no-repeat bg-cover bg-center">
         <div className="absolute inset-0 bg-black/65" />
         <Logo className="z-10" />
         <div className="relative z-20 mt-auto text-center sm:text-left">
           <blockquote className="space-y-2">
-            <p className="text-lg">
+            <p className="text-base sm:text-lg">
               &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
+              helped.&rdquo;
             </p>
             <footer className="text-sm">Sofia Davis</footer>
           </blockquote>
@@ -39,7 +38,7 @@ export default function AuthenticationPage() {
           <UserAuthForm />
         </div>
 
-        <div className="mb-5 flex items-center justify-center gap-3">
+        <div className="mb-2 flex items-center justify-center gap-3">
           <LanguageSwitcher />
           <ThemeSwitcher />
         </div>
