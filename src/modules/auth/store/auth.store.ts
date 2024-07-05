@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-import { CurrentUserData } from "@/auth/api/types"
+import { CurrentUserData } from "@/auth/api/auth.types"
 import { StorageKeys } from "@/shared/lib/constants"
 
 type AuthStore = {
@@ -12,10 +12,13 @@ type AuthStore = {
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  isLoggedIn: false,
+  isLoggedIn: !!localStorage.getItem(StorageKeys.TOKEN),
   token: localStorage.getItem(StorageKeys.TOKEN) || "",
   userData: null,
-  logout: () => set({ isLoggedIn: false, token: "" }),
+  logout: () => {
+    localStorage.removeItem(StorageKeys.TOKEN)
+    set({ isLoggedIn: false, token: "" })
+  },
   setStoreData: (data) => {
     set(data)
     localStorage.setItem(StorageKeys.TOKEN, data.token as string)

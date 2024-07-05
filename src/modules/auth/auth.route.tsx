@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { UserAuthForm } from "@/auth/components/auth-form"
+import { UserAuthForm } from "@/modules/auth/components/auth-form"
 import LanguageSwitcher from "@/shared/components/language-switcher"
 import Logo from "@/shared/components/logo"
 import ThemeSwitcher from "@/shared/components/theme/theme-switcher"

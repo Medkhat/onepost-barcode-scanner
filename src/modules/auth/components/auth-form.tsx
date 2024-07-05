@@ -1,12 +1,14 @@
 import { useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { ChevronLeftIcon } from "lucide-react"
 import { z } from "zod"
 
-import { getOtp, verifyOtp } from "@/auth/api/requests"
+import { getOtp, verifyOtp } from "@/modules/auth/api/requests"
+import { useAuthStore } from "@/modules/auth/store/auth.store"
 import { Button } from "@/shared/components/ui/button"
 import {
   Form,
@@ -22,7 +24,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/shared/components/ui/input-otp"
-import { useAuthStore } from "@/shared/store/auth.store"
+import { RouteNames } from "@/shared/lib/constants"
 
 type PhoneData = {
   isCodeSent: boolean
@@ -138,6 +140,7 @@ function PhoneValidationForm({
   onReset: () => void
 }) {
   const { t: authT } = useTranslation("auth")
+  const navigate = useNavigate()
 
   const formSchema = useMemo(
     () =>
@@ -157,6 +160,7 @@ function PhoneValidationForm({
         token: data.access_token,
         userData: data.data,
       })
+      navigate(RouteNames.ROOT, { replace: true })
     },
   })
 

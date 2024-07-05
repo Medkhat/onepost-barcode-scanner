@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { useAuthStore } from "@/shared/store/auth.store"
+import { useAuthStore } from "@/auth/store/auth.store"
 
 export const axiosInstance = axios.create({
   baseURL: "/api",

@@ -1,7 +1,16 @@
 import logo from "@/assets/logo.svg"
 import { cn } from "@/shared/lib/utils"
 
-export default function Logo({ className }: { className?: string }) {
+export default function Logo({
+  className,
+  onlyImg,
+}: {
+  className?: string
+  onlyImg?: boolean
+}) {
+  if (onlyImg) {
+    return <img src={logo} alt="UDA Express" className="w-8 h-8" />
+  }
   return (
     <div className={cn("flex items-center", className)}>
       <div className="text-right mr-2">
