@@ -1,24 +1,26 @@
-import LanguageSwitcher from "@/shared/components/language-switcher"
+import OrganizationFormSheet from "@/modules/organizations/components/form/form-sheet"
+import { columns } from "@/modules/organizations/components/table/columns"
+import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
-import ThemeSwitcher from "@/shared/components/theme/theme-switcher"
+import PageTitle from "@/shared/components/page-title"
+import { DataTable } from "@/shared/components/table/data-table"
 import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
+import { tasks } from "@/shared/mock/tasks"
 
 export default function Organizations() {
   useAuthChecker()
   return (
     <Layout>
-      <Layout.Header>
-        <h1>Organizations</h1>
-        <div className="ml-auto flex items-center space-x-4">
-          <LanguageSwitcher />
-          <ThemeSwitcher />
-        </div>
-      </Layout.Header>
-
+      <GeneralHeader />
       <Layout.Body>
-        <div className="mb-2 flex items-center justify-between space-y-2">
-          <h1 className="text-2xl font-bold tracking-tight">Organizations</h1>
+        <div className="space-y-2 sm:space-y-0 sm:flex items-start justify-between">
+          <PageTitle
+            title="Welcome to organizations!"
+            subtitle="You can see the list, add or update:)"
+          />
+          <OrganizationFormSheet />
         </div>
+        <DataTable data={tasks} columns={columns} />
       </Layout.Body>
     </Layout>
   )

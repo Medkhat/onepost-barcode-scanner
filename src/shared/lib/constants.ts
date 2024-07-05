@@ -9,6 +9,7 @@ export enum RouteNames {
 export enum StorageKeys {
   LANGUAGE = "language",
   TOKEN = "UDA_ACCESS_TOKEN",
+  USER_DATA = "UDA_USER_DATA",
   SIDEBAR_COLLAPSED = "sidebar_collapsed",
 }
 

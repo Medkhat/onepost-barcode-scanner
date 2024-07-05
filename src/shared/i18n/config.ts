@@ -1,9 +1,11 @@
 import { initReactI18next } from "react-i18next"
 import i18n from "i18next"
 
-import kkAuth from "@/shared/i18n/kk/auth.json"
+import kkAuth from "@/modules/auth/i18n/kk/auth.json"
+import ruAuth from "@/modules/auth/i18n/ru/auth.json"
+import kkOrgs from "@/modules/organizations/i18n/kk/organizations.json"
+import ruOrgs from "@/modules/organizations/i18n/ru/organizations.json"
 import kkCommon from "@/shared/i18n/kk/common.json"
-import ruAuth from "@/shared/i18n/ru/auth.json"
 import ruCommon from "@/shared/i18n/ru/common.json"
 import { StorageKeys } from "@/shared/lib/constants"
 
@@ -15,10 +17,12 @@ i18n.use(initReactI18next).init<{
     kk: {
       common: kkCommon,
       auth: kkAuth,
+      organizations: kkOrgs,
     },
     ru: {
       common: ruCommon,
       auth: ruAuth,
+      organizations: ruOrgs,
     },
   },
   lng: localStorage.getItem(StorageKeys.LANGUAGE) || "kk",
@@ -27,7 +31,7 @@ i18n.use(initReactI18next).init<{
   supportedLngs: ["kk", "ru"],
   compatibilityJSON: "v4",
   defaultNS: "common",
-  ns: ["common", "auth"],
+  ns: ["common", "auth", "organizations"],
   interpolation: {
     escapeValue: false,
   },

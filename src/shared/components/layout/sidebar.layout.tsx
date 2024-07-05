@@ -3,7 +3,7 @@ import { ChevronsLeftIcon, MenuIcon, XIcon } from "lucide-react"
 
 import { Layout } from "@/shared/components/layout/main.layout"
 import Nav from "@/shared/components/layout/navigation"
-import { sidelinks } from "@/shared/components/layout/sidelinks"
+import { useSidelinks } from "@/shared/components/layout/sidelinks"
 import Logo from "@/shared/components/logo"
 import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
@@ -19,6 +19,7 @@ export default function Sidebar({
   setIsCollapsed,
 }: SidebarProps) {
   const [navOpened, setNavOpened] = useState(false)
+  const sidelinks = useSidelinks()
 
   /* Make body not scrollable when navBar is opened */
   useEffect(() => {

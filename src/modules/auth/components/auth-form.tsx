@@ -113,7 +113,7 @@ function PhoneNumberForm({
             <FormItem>
               <FormLabel>{authT("phonePh")}</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder={authT("phonePh")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

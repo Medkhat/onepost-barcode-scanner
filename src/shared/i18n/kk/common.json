@@ -6,5 +6,9 @@
     "light": "Жарық",
     "dark": "Күңгірт",
     "system": "Жүйелік"
+  },
+  "nav": {
+    "dashboard": "Бақылау тақтасы",
+    "organizations": "Ұйымдар"
   }
 }

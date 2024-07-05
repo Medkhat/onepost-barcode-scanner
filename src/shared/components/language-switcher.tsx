@@ -21,7 +21,9 @@ export default function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{locales[i18n.language as Locale]}</Button>
+        <Button variant="outline" size="sm">
+          {locales[i18n.language as Locale]}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
         {Object.keys(locales).map((item) => (

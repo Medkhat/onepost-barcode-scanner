@@ -1,0 +1,35 @@
+{
+  "create": "Жаңа ұйым құру",
+  "enterData": "Жаңа ұйымның деректерін енгізіңіз",
+  "formInstruction": "Деректерді енгізу сәтінде олардың дұрыстығына көз жеткізіңіз. Бұл өте маңызды:)",
+  "formValidation": {
+    "stationName": "Станция атауы міндетті",
+    "stationCode": "Станция коды міндетті",
+    "stationTel": "Телефон нөмірі 10 таңбалы болуы керек",
+    "stationOwner": "Иесі жарамды UUID болуы керек",
+    "stationArea": "Аумағы жарамды UUID болуы керек",
+    "stationPrice": "Баға оң сан болуы керек",
+    "priceCurrency": "Валюта USD, EUR немесе KZT болуы керек",
+    "addressKz": "Қазақша мекенжай міндетті",
+    "addressEn": "Ағылшынша мекенжай міндетті",
+    "addressRu": "Орысша мекенжай міндетті",
+    "latitude": "Ендікті енгізу міндетті",
+    "longitude": "Бойлықты енгізу міндетті"
+  },
+  "formLabel": {
+    "stationName": "Станция атауы",
+    "extraStationName": "Қосымша станция атауы",
+    "stationCode": "Станция коды",
+    "extraCode": "Қосымша код",
+    "stationTel": "Телефон нөмірі",
+    "stationOwner": "Иесі",
+    "stationArea": "Аумағы",
+    "stationPrice": "Бағасы",
+    "priceCurrency": "Валюта",
+    "addressKz": "Қазақша мекенжай",
+    "addressEn": "Ағылшынша мекенжай",
+    "addressRu": "Орысша мекенжай",
+    "latitude": "Ендік",
+    "longitude": "Бойлық"
+  }
+}
