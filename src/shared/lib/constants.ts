@@ -1,4 +1,4 @@
-import { LabelValue, Locale } from "@/shared/lib/common.types"
+import { LabelValue, Locale } from "@/shared/types/common.types"
 
 export enum RouteNames {
   ROOT = "/",

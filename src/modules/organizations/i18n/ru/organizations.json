@@ -18,9 +18,9 @@
   },
   "formLabel": {
     "stationName": "Название станции",
-    "extraStationName": "Дополнительное название станции",
+    "extraStationName": "Доп. название",
     "stationCode": "Код станции",
-    "extraCode": "Дополнительный код",
+    "extraCode": "Доп. код",
     "stationTel": "Номер телефона",
     "stationOwner": "Владелец",
     "stationArea": "Область",

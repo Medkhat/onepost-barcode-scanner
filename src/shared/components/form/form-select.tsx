@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { LabelValue } from "@/shared/lib/common.types"
+import { LabelValue } from "@/shared/types/common.types"
 
 interface FormSelectProps {
   onValueChange: (value: string) => void

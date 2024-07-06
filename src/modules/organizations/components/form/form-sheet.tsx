@@ -25,8 +25,10 @@ export default function OrganizationFormSheet() {
       </SheetTrigger>
       <SheetContent className="p-0">
         <SheetHeader className="p-6 pb-0 mb-3">
-          <SheetTitle>{organizationsT("enterData")}</SheetTitle>
-          <SheetDescription>
+          <SheetTitle className="line-clamp-1">
+            {organizationsT("enterData")}
+          </SheetTitle>
+          <SheetDescription className="line-clamp-2">
             {organizationsT("formInstruction")}
           </SheetDescription>
         </SheetHeader>

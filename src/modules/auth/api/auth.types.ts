@@ -10,7 +10,7 @@ export type VerifyOTPPayload = GetOTPPayload & {
   verification_code: string
 }
 
-export type CurrentUserData = BaseDataFields & {
+export type UserFields = BaseDataFields & {
   first_name: string
   last_name: string
   email: string
@@ -19,7 +19,7 @@ export type CurrentUserData = BaseDataFields & {
 }
 
 export type VerifyOTPResponse = {
-  data: CurrentUserData
+  data: UserFields
   access_token: string
   refresh_token: string
 }

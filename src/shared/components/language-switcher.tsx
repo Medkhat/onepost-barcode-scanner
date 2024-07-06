@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
-import { Locale } from "@/shared/lib/common.types"
 import { locales, StorageKeys } from "@/shared/lib/constants"
+import { Locale } from "@/shared/types/common.types"
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation()

@@ -1,12 +1,12 @@
 import { create } from "zustand"
 
-import { CurrentUserData } from "@/modules/auth/api/auth.types"
+import { UserFields } from "@/modules/auth/api/auth.types"
 import { StorageKeys } from "@/shared/lib/constants"
 
 type AuthStore = {
   isLoggedIn: boolean
   token: string
-  userData: CurrentUserData | null
+  userData: UserFields | null
   logout: () => void
   setStoreData: (data: Partial<AuthStore>) => void
 }

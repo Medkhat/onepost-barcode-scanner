@@ -1,11 +1,15 @@
+import { useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useQuery } from "@tanstack/react-query"
 
+import { getOrgOwners } from "@/modules/organizations/api/requests"
 import {
   OrgFormValues,
   useOrgFormSchema,
 } from "@/modules/organizations/components/form/form-schema"
+import FormAutocomplete from "@/shared/components/form/form-autocomplete"
 import FormSelect from "@/shared/components/form/form-select"
 import {
   Form,
@@ -17,14 +21,45 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { currencies } from "@/shared/lib/constants"
+import { LabelValue } from "@/shared/types/common.types"
 
 export default function OrganizationForm() {
   const { t: organizationsT } = useTranslation("organizations")
   const formSchema = useOrgFormSchema()
 
+  const { data } = useQuery({
+    queryKey: ["orgOwners"],
+    queryFn: () => getOrgOwners(),
+  })
+  const formattedOwners = useMemo(
+    (): LabelValue[] =>
+      data?.results?.length
+        ? data?.results.map((owner) => ({
+            label: owner.user.first_name + " " + owner.user.last_name,
+            value: owner.user.id as string,
+            sublabel: owner.user.email,
+          }))
+        : [],
+    [data]
+  )
+
   const form = useForm<OrgFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      station_name: "",
+      extra_station_name: "",
+      station_owner: "",
+      station_code: "",
+      extra_code: "",
+      station_tel: "",
+      station_price: 0,
+      price_currency: "KZT",
+      address_kz: "",
+      address_en: "",
+      address_ru: "",
+      latitude: 0,
+      longitude: 0,
+    },
   })
 
   const submitForm = (values: OrgFormValues) => {
@@ -58,6 +93,21 @@ export default function OrganizationForm() {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="station_owner"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.stationOwner")}</FormLabel>
+              <FormAutocomplete
+                options={formattedOwners}
+                value={field.value}
+                onChange={field.onChange}
+              />
               <FormMessage />
             </FormItem>
           )}
