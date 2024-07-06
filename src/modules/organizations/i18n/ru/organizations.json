@@ -26,6 +26,7 @@
     "stationArea": "Область",
     "stationPrice": "Цена",
     "priceCurrency": "Валюта",
+    "priceCurrencyPh": "Выберите валюту",
     "addressKz": "Адрес на казахском языке",
     "addressEn": "Адрес на английском языке",
     "addressRu": "Адрес на русском языке",

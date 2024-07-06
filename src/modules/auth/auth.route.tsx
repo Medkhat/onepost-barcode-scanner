@@ -4,9 +4,11 @@ import { UserAuthForm } from "@/modules/auth/components/auth-form"
 import LanguageSwitcher from "@/shared/components/language-switcher"
 import Logo from "@/shared/components/logo"
 import ThemeSwitcher from "@/shared/components/theme/theme-switcher"
+import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
 import { useVhVar } from "@/shared/hooks/use-vh-var"
 
 export default function AuthenticationPage() {
+  useAuthChecker()
   useVhVar()
   const { t: authT } = useTranslation("auth")
 

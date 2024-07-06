@@ -23,14 +23,16 @@ export default function OrganizationFormSheet() {
           {organizationsT("create")}
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader className="mb-3">
+      <SheetContent className="p-0">
+        <SheetHeader className="p-6 pb-0 mb-3">
           <SheetTitle>{organizationsT("enterData")}</SheetTitle>
           <SheetDescription>
             {organizationsT("formInstruction")}
           </SheetDescription>
         </SheetHeader>
-        <OrganizationForm />
+        <div className="p-6 pt-0 max-h-[calc(100svh-112px)] overflow-auto">
+          <OrganizationForm />
+        </div>
       </SheetContent>
     </Sheet>
   )

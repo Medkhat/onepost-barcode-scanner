@@ -6,6 +6,7 @@ import {
   OrgFormValues,
   useOrgFormSchema,
 } from "@/modules/organizations/components/form/form-schema"
+import FormSelect from "@/shared/components/form/form-select"
 import {
   Form,
   FormControl,
@@ -15,6 +16,7 @@ import {
   FormMessage,
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
+import { currencies } from "@/shared/lib/constants"
 
 export default function OrganizationForm() {
   const { t: organizationsT } = useTranslation("organizations")
@@ -60,7 +62,7 @@ export default function OrganizationForm() {
             </FormItem>
           )}
         />
-        <div className="flex items-center justify-between space-x-3">
+        <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
           <FormField
             control={form.control}
             name="station_code"
@@ -95,7 +97,110 @@ export default function OrganizationForm() {
             <FormItem>
               <FormLabel>{organizationsT("formLabel.stationTel")}</FormLabel>
               <FormControl>
+                <Input type="tel" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
+          <FormField
+            control={form.control}
+            name="station_price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {organizationsT("formLabel.stationPrice")}
+                </FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="price_currency"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {organizationsT("formLabel.priceCurrency")}
+                </FormLabel>
+                <FormControl>
+                  <FormSelect
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                    options={currencies}
+                    placeholder={organizationsT("formLabel.priceCurrencyPh")}
+                    isFormItem
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormField
+          control={form.control}
+          name="address_kz"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.addressKz")}</FormLabel>
+              <FormControl>
                 <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address_en"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.addressEn")}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address_ru"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.addressRu")}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="latitude"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.latitude")}</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="longitude"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{organizationsT("formLabel.longitude")}</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

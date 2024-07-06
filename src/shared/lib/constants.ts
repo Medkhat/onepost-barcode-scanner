@@ -1,4 +1,4 @@
-import { Locale } from "@/shared/lib/common.types"
+import { LabelValue, Locale } from "@/shared/lib/common.types"
 
 export enum RouteNames {
   ROOT = "/",
@@ -24,3 +24,18 @@ export const iconSizes = {
   md: 24,
   lg: 32,
 }
+
+export const currencies: LabelValue[] = [
+  {
+    label: "KZT",
+    value: "KZT",
+  },
+  {
+    label: "USD",
+    value: "USD",
+  },
+  {
+    label: "EUR",
+    value: "EUR",
+  },
+]
