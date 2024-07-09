@@ -1,6 +1,8 @@
 {
   "button": {
-    "login": "Войти"
+    "login": "Войти",
+    "back": "Назад",
+    "cancel": "Отмена"
   },
   "theme": {
     "light": "Светлая",
@@ -10,6 +12,18 @@
   "nav": {
     "dashboard": "Панель управления",
     "organizations": "Организации"
+  },
+  "tableHeaderTitles": {
+    "name": "Название",
+    "phone": "Телефон",
+    "code": "Код",
+    "price": "Цена",
+    "org": {
+      "owner": "Владелец",
+      "area": "Район",
+      "address": "Адрес"
+    },
+    "postalCode": "Почтовый индекс"
   },
   "search": "Поиск"
 }

@@ -1,6 +1,8 @@
 {
   "button": {
-    "login": "Кіру"
+    "login": "Кіру",
+    "back": "Артқа",
+    "cancel": "Болдырмау"
   },
   "theme": {
     "light": "Жарық",
@@ -10,6 +12,18 @@
   "nav": {
     "dashboard": "Бақылау тақтасы",
     "organizations": "Ұйымдар"
+  },
+  "tableHeaderTitles": {
+    "name": "Атауы",
+    "phone": "Телефон",
+    "code": "Код",
+    "price": "Баға",
+    "org": {
+      "owner": "Иесі",
+      "area": "Аймақ",
+      "address": "Мекенжай"
+    },
+    "postalCode": "Пошта индексі"
   },
   "search": "Іздеу"
 }

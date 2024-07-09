@@ -3,9 +3,10 @@
   "enterData": "Жаңа ұйымның деректерін енгізіңіз",
   "formInstruction": "Деректерді енгізу сәтінде олардың дұрыстығына көз жеткізіңіз. Бұл өте маңызды:)",
   "formValidation": {
-    "stationName": "Станция атауы міндетті",
-    "stationCode": "Станция коды міндетті",
-    "stationTel": "Телефон нөмірі 10 таңбалы болуы керек",
+    "stationName": "Ұйым атауы міндетті",
+    "stationCode": "Ұйым коды міндетті",
+    "postalCode": "Пошта индексі міндетті",
+    "stationTel": "Телефон нөмірі 11 таңбалы болуы керек",
     "stationOwner": "Иесі жарамды UUID болуы керек",
     "stationArea": "Аумағы жарамды UUID болуы керек",
     "stationPrice": "Баға оң сан болуы керек",
@@ -17,21 +18,25 @@
     "longitude": "Бойлықты енгізу міндетті"
   },
   "formLabel": {
-    "stationName": "Станция атауы",
-    "extraStationName": "Қосымша станция атауы",
-    "stationCode": "Станция коды",
+    "stationName": "Ұйым атауы",
+    "extraStationName": "Қосымша ұйым атауы",
+    "stationCode": "Ұйым коды",
     "extraCode": "Қосымша код",
+    "postalCode": "Пошта индексі",
     "stationTel": "Телефон нөмірі",
     "stationOwner": "Ұйым иесі",
     "stationOwnerPh": "Ұйым иесін таңдаңыз",
     "stationArea": "Аумағы",
+    "stationAreaPh": "Ұйым аумағын таңдаңыз",
     "stationPrice": "Бағасы",
     "priceCurrency": "Валюта",
     "priceCurrencyPh": "Валютаны таңдаңыз",
-    "addressKz": "Қазақша мекенжай",
-    "addressEn": "Ағылшынша мекенжай",
-    "addressRu": "Орысша мекенжай",
+    "addressKz": "Мекенжай (қазақша)",
+    "addressEn": "Мекенжай (ағылшынша)",
+    "addressRu": "Мекенжай (орысша)",
     "latitude": "Ендік",
     "longitude": "Бойлық"
-  }
+  },
+  "createOrg": "Ұйым құру",
+  "createOrgSuccess": "Ұйым сәтті құрылды"
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { Column } from "@tanstack/react-table"
 import {
   ArrowDownIcon,
@@ -19,16 +20,18 @@ import { cn } from "@/shared/lib/utils"
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
-  title: string
+  titleKey: string
 }
 
 export function DataTableColumnHeader<TData, TValue>({
   column,
-  title,
+  titleKey,
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
+  const { t: commonT } = useTranslation("common")
+
   if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>
+    return <div className={cn(className)}>{commonT(titleKey)}</div>
   }
 
   return (
@@ -40,7 +43,7 @@ export function DataTableColumnHeader<TData, TValue>({
             size="sm"
             className="-ml-3 h-8 data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            <span>{commonT(titleKey)}</span>
             {column.getIsSorted() === "desc" ? (
               <ArrowDownIcon className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (

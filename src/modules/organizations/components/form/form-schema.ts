@@ -13,29 +13,29 @@ export const useOrgFormSchema = () => {
       .string()
       .min(1, organizationsT("formValidation.stationCode")),
     extra_code: z.string().optional(),
+    post_code: z.string().min(1, organizationsT("formValidation.postalCode")),
     station_tel: z
       .string()
-      .regex(/^\d{10}$/, organizationsT("formValidation.stationTel")),
+      .min(12, organizationsT("formValidation.stationTel"))
+      .max(12, organizationsT("formValidation.stationTel")),
     station_owner: z
       .string()
       .uuid(organizationsT("formValidation.stationOwner")),
     station_area: z.string().uuid(organizationsT("formValidation.stationArea")),
     station_price: z
-      .number()
-      .positive(organizationsT("formValidation.stationPrice")),
+      .string()
+      .min(1, organizationsT("formValidation.stationPrice")),
     price_currency: z.enum(["USD", "EUR", "KZT"], {
       message: organizationsT("formValidation.priceCurrency"),
     }),
     address_kz: z.string().min(1, organizationsT("formValidation.addressKz")),
     address_en: z.string().min(1, organizationsT("formValidation.addressEn")),
     address_ru: z.string().min(1, organizationsT("formValidation.addressRu")),
-    latitude: z.number().refine((value) => value !== undefined, {
+    latitude: z.string().refine((value) => value !== undefined, {
       message: organizationsT("formValidation.latitude"),
     }),
-    longitude: z.number().refine((value) => value !== undefined, {
+    longitude: z.string().refine((value) => value !== undefined, {
       message: organizationsT("formValidation.longitude"),
     }),
   })
 }
-
-export type OrgFormValues = z.infer<ReturnType<typeof useOrgFormSchema>>

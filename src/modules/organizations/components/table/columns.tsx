@@ -1,13 +1,14 @@
 import { ColumnDef } from "@tanstack/react-table"
 
+import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
-import { Badge } from "@/shared/components/ui/badge"
 import { Checkbox } from "@/shared/components/ui/checkbox"
-import { Task } from "@/shared/mock/schema"
-import { labels, priorities, statuses } from "@/shared/mock/table-data"
+import i18n from "@/shared/i18n/config"
+import { getLocaleKey } from "@/shared/lib/utils"
+import { Locale } from "@/shared/types/common.types"
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<OrganizationItem>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -33,85 +34,105 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "station_name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.name"
+      />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
+    enableSorting: true,
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "station_code",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.code"
+      />
+    ),
+  },
+  {
+    accessorKey: "station_price",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.price"
+      />
+    ),
+    cell: ({ row }) => (
+      <span>
+        {row.getValue("station_price")} {row.original.price_currency}
+      </span>
+    ),
+  },
+  {
+    accessorKey: "station_tel",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.phone"
+      />
+    ),
+  },
+  {
+    accessorKey: "station_owner",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.owner"
+      />
+    ),
+    cell: ({ row }) => (
+      <span className="whitespace-nowrap">
+        {row.original.station_owner.user.first_name}
+        <br />
+        {row.original.station_owner.user.last_name}
+      </span>
+    ),
+  },
+  {
+    accessorKey: "station_area",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.area"
+      />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
-
+      const lang = i18n.language as Locale
       return (
-        <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("title")}
-          </span>
-        </div>
+        <span className="whitespace-nowrap">
+          {
+            row.original.station_area.parent_area[
+              `area_name_${getLocaleKey(lang)}`
+            ]
+          }
+          ,
+          <br />
+          {row.original.station_area[`area_name_${getLocaleKey(lang)}`]}
+        </span>
       )
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: `address_${getLocaleKey(i18n.language as Locale)}`,
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.address"
+      />
     ),
-    cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      )
-
-      if (!status) {
-        return null
-      }
-
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
   },
   {
-    accessorKey: "priority",
+    accessorKey: "post_code",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.postalCode"
+      />
     ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      )
-
-      if (!priority) {
-        return null
-      }
-
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
   },
   {
     id: "actions",

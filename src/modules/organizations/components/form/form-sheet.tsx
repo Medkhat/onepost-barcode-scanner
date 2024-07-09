@@ -23,7 +23,7 @@ export default function OrganizationFormSheet() {
           {organizationsT("create")}
         </Button>
       </SheetTrigger>
-      <SheetContent className="p-0">
+      <SheetContent className="p-0 w-3/4">
         <SheetHeader className="p-6 pb-0 mb-3">
           <SheetTitle className="line-clamp-1">
             {organizationsT("enterData")}

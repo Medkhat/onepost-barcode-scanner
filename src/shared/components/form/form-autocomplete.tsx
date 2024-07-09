@@ -1,6 +1,11 @@
-import React, { useMemo } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { CheckIcon, ChevronsUpDown } from "lucide-react"
+import {
+  ArrowLeftIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  ChevronsUpDownIcon,
+} from "lucide-react"
 
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -33,14 +38,45 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   placeholder = "Select an option",
 }) => {
   const { t: commonT } = useTranslation("common")
+  const [currentOptions, setCurrentOptions] = useState<LabelValue[]>(options)
+  const [optionsHistory, setOptionsHistory] = useState<LabelValue[][]>([])
 
   const selectedOption = useMemo(
-    () => options.find((option) => option.value === value),
-    [options, value]
+    () => currentOptions.find((option) => option.value === value),
+    [currentOptions, value]
   )
 
+  const handleSelectOption = useCallback(
+    (option: LabelValue) => {
+      if (option.subOptions && option.subOptions.length > 0) {
+        setOptionsHistory((prevHistory) => [...prevHistory, currentOptions])
+        setCurrentOptions(option.subOptions)
+      } else {
+        onChange(option.value)
+      }
+    },
+    [currentOptions, onChange]
+  )
+
+  const handleBack = useCallback(() => {
+    setOptionsHistory((prevHistory) => {
+      const history = [...prevHistory]
+      const previousOptions = history.pop()
+      if (previousOptions) {
+        setCurrentOptions(previousOptions)
+      }
+      return history
+    })
+  }, [])
+
+  useEffect(() => {
+    if (options.length > 0 && currentOptions.length === 0) {
+      setCurrentOptions(options)
+    }
+  }, [options, currentOptions])
+
   return (
-    <Popover>
+    <Popover modal>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
@@ -48,24 +84,31 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             role="combobox"
             className={cn(
               "flex w-full justify-between",
-              !value && "text-muted-foreground"
+              !selectedOption && "text-muted-foreground"
             )}
           >
             {selectedOption ? selectedOption.label : placeholder}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </FormControl>
       </PopoverTrigger>
       <PopoverContent className="p-0">
         <Command>
-          <CommandInput placeholder={commonT("search")} />
+          <div className="flex items-center">
+            {optionsHistory.length > 0 && (
+              <Button variant="ghost" className="mr-1" onClick={handleBack}>
+                <ArrowLeftIcon className="w-4 h-4 mr-1" />
+              </Button>
+            )}
+            <CommandInput className="flex-1" placeholder={commonT("search")} />
+          </div>
           <CommandEmpty>No options found.</CommandEmpty>
           <CommandList>
-            {options.map((option) => (
+            {currentOptions.map((option) => (
               <CommandItem
                 value={option.value}
                 key={option.value}
-                onSelect={() => onChange(option.value)}
+                onSelect={() => handleSelectOption(option)}
               >
                 <CheckIcon
                   className={cn(
@@ -73,7 +116,7 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
                     option.value === value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                <div className="ml-2">
+                <div className="flex-1 ml-2">
                   <p className="font-semibold text-md mb-1">{option.label}</p>
                   {option.sublabel && (
                     <span className="text-sm text-muted-foreground">
@@ -81,6 +124,9 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
                     </span>
                   )}
                 </div>
+                {option.subOptions && option.subOptions.length > 0 && (
+                  <ChevronRightIcon className="h-5 w-5 text-muted-foreground" />
+                )}
               </CommandItem>
             ))}
           </CommandList>
