@@ -15,7 +15,6 @@ import {
 } from "@tanstack/react-table"
 
 import { DataTablePagination } from "@/shared/components/table/data-table-pagination"
-import { DataTableToolbar } from "@/shared/components/table/data-table-toolbar"
 import {
   Table,
   TableBody,
@@ -28,11 +27,13 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data?: TData[]
+  pageCount?: number
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data = [],
+  pageCount = 1,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -51,7 +52,9 @@ export function DataTable<TData, TValue>({
       rowSelection,
       columnFilters,
     },
+    pageCount,
     enableRowSelection: true,
+    manualPagination: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 import { AreaItem } from "@/shared/api/areas.types"
+import { DEFAULT_PAGE_SIZE } from "@/shared/lib/constants"
 import { LabelValue, Locale } from "@/shared/types/common.types"
 
 export function cn(...inputs: ClassValue[]) {
@@ -29,4 +30,16 @@ export function convertAreas(
  */
 export function getLocaleKey(lang: Locale) {
   return lang === "kk" ? "kz" : lang
+}
+
+/**
+ * Get pageCount from total and pageSize
+ * @param total
+ * @param pageSize
+ */
+export function getPageCount(
+  total: number = 0,
+  pageSize: number = DEFAULT_PAGE_SIZE
+) {
+  return Math.ceil(total / pageSize)
 }

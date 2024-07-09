@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 
 import { getOrgs } from "@/modules/organizations/api/requests"
@@ -8,13 +9,19 @@ import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
 import { DataTable } from "@/shared/components/table/data-table"
 import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
+import { useQueryParams } from "@/shared/hooks/use-query-params"
+import { getPageCount } from "@/shared/lib/utils"
 
-export default function Organizations() {
+export default function OrganizationsRoute() {
   useAuthChecker()
+  const { t: organizationsT } = useTranslation("organizations")
+  const {
+    queryParams: { page, pSize },
+  } = useQueryParams()
 
   const { data: orgsData } = useQuery({
-    queryKey: ["orgs"],
-    queryFn: getOrgs,
+    queryKey: ["orgs" + page + pSize],
+    queryFn: () => getOrgs({ page, pSize }),
   })
 
   return (
@@ -23,12 +30,16 @@ export default function Organizations() {
       <Layout.Body>
         <div className="space-y-2 sm:space-y-0 sm:flex items-start justify-between">
           <PageTitle
-            title="Welcome to organizations!"
-            subtitle="You can see the list, add or update:)"
+            title={organizationsT("welcome")}
+            subtitle={organizationsT("welcomeText")}
           />
           <OrganizationFormSheet />
         </div>
-        <DataTable data={orgsData?.results} columns={columns} />
+        <DataTable
+          data={orgsData?.results}
+          columns={columns}
+          pageCount={getPageCount(orgsData?.count, pSize)}
+        />
       </Layout.Body>
     </Layout>
   )

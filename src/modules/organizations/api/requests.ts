@@ -5,6 +5,7 @@ import {
   OrganizationListResponse,
 } from "@/modules/organizations/api/organizations.types"
 import { axiosInstanceWithToken, BaseApiPaths } from "@/shared/api/axios-config"
+import { BaseQueryParams } from "@/shared/api/types"
 
 export const getOrgOwners = async () => {
   return (
@@ -23,10 +24,12 @@ export const createOrg = async (data: CreateOrgPayload) => {
   ).data
 }
 
-export const getOrgs = async () => {
+export const getOrgs = async ({ page, pSize }: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(
       BaseApiPaths.USER
-    ).get<OrganizationListResponse>("/receiving-organization/")
+    ).get<OrganizationListResponse>("/receiving-organization/", {
+      params: { page, pSize },
+    })
   ).data
 }

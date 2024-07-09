@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
@@ -30,7 +29,7 @@ export function DataTableRowActions<TData extends { id?: string }>(
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuSeparator />
+        <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuItem className="text-destructive">
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

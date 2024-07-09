@@ -25,5 +25,10 @@
     },
     "postalCode": "Почтовый индекс"
   },
+  "tablePagination": {
+    "rowsPerPage": "Строк на странице",
+    "of": "из",
+    "page": "Стр."
+  },
   "search": "Поиск"
 }

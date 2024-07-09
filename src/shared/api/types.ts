@@ -35,3 +35,9 @@ export type BaseResponse<T> = {
   previous: string | null
   results: T[]
 }
+
+export interface BaseQueryParams {
+  page?: number
+  pSize?: number
+  search?: string
+}

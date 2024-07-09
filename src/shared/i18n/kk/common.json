@@ -25,5 +25,10 @@
     },
     "postalCode": "Пошта индексі"
   },
+  "tablePagination": {
+    "rowsPerPage": "Жолдар саны",
+    "of": "-ші",
+    "page": "Бет"
+  },
   "search": "Іздеу"
 }

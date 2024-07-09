@@ -39,3 +39,5 @@ export const currencies: LabelValue[] = [
     value: "EUR",
   },
 ]
+
+export const DEFAULT_PAGE_SIZE = 10
