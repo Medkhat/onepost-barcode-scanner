@@ -33,13 +33,11 @@ export default function OrganizationForm() {
   })
   const formattedOwners = useMemo(
     (): LabelValue[] =>
-      data?.results?.length
-        ? data?.results.map((owner) => ({
-            label: owner.user.first_name + " " + owner.user.last_name,
-            value: owner.user.id as string,
-            sublabel: owner.user.email,
-          }))
-        : [],
+      data?.results?.map((owner) => ({
+        label: owner.user.first_name + " " + owner.user.last_name,
+        value: owner.user.id as string,
+        sublabel: owner.user.email,
+      })) as LabelValue[],
     [data]
   )
 
@@ -107,6 +105,7 @@ export default function OrganizationForm() {
                 options={formattedOwners}
                 value={field.value}
                 onChange={field.onChange}
+                placeholder={organizationsT("formLabel.stationOwnerPh")}
               />
               <FormMessage />
             </FormItem>

@@ -23,6 +23,7 @@
     "extraCode": "Доп. код",
     "stationTel": "Номер телефона",
     "stationOwner": "Владелец",
+    "stationOwnerPh": "Выберите владельца",
     "stationArea": "Область",
     "stationPrice": "Цена",
     "priceCurrency": "Валюта",
