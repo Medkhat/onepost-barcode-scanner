@@ -1,5 +1,9 @@
 import { useTranslation } from "react-i18next"
-import { Building2Icon, LayoutDashboardIcon } from "lucide-react"
+import {
+  BringToFrontIcon,
+  Building2Icon,
+  LayoutDashboardIcon,
+} from "lucide-react"
 
 import { iconSizes, RouteNames } from "@/shared/lib/constants"
 
@@ -25,9 +29,15 @@ export const useSidelinks = (): SideLink[] => {
     },
     {
       title: commonT("nav.organizations"),
-      label: "3",
+      label: "",
       href: RouteNames.ORGANIZATIONS,
       icon: <Building2Icon size={iconSizes.xs} />,
+    },
+    {
+      title: commonT("nav.ordersStatuses"),
+      label: "",
+      href: RouteNames.ORDERS_STATUSES,
+      icon: <BringToFrontIcon size={iconSizes.xs} />,
     },
   ]
 }

@@ -18,11 +18,17 @@ export const queryClient = new QueryClient({
     onError: (error) => {
       const errorData = (error as AxiosError<GeneralErrorResponse>).response
         ?.data
-      toast.error(
-        GeneralErrorCodes[
-          errorData?.message as unknown as keyof typeof GeneralErrorCodes
-        ]
-      )
+      if (errorData?.code && errorData?.code >= 500) {
+        toast.error(
+          "Internal server error, please try again later or contact support."
+        )
+      } else {
+        toast.error(
+          GeneralErrorCodes[
+            errorData?.message as unknown as keyof typeof GeneralErrorCodes
+          ]
+        )
+      }
     },
   }),
   queryCache: new QueryCache({

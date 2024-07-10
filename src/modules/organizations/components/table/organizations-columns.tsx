@@ -129,7 +129,7 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
     ),
   },
   {
-    accessorKey: "post_code",
+    accessorKey: "station_area.post_code",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}

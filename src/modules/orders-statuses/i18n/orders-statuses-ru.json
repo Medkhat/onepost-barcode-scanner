@@ -1,0 +1,18 @@
+{
+  "welcome": "Список заказов",
+  "welcomeText": "Посмотрите информацию о заказах и измените их статус",
+  "changeStatus": "Изменить статус",
+  "changeStatusText": "Выберите статус заказа из списка ниже",
+  "changeStatusSuccess": "Статус успешно изменен",
+  "statuses": {
+    "unknown": "Неизвестно",
+    "waiting": "Ожидание",
+    "inWarehouse": "На складе",
+    "inDepartment": "В отделении",
+    "onTheWay": "В пути",
+    "atTheBorder": "На границе",
+    "sorted": "Сортировано",
+    "delivered": "Доставлено",
+    "taken": "Принято"
+  }
+}

@@ -2,7 +2,8 @@
   "button": {
     "login": "Войти",
     "back": "Назад",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "save": "Сохранить"
   },
   "theme": {
     "light": "Светлая",
@@ -11,7 +12,8 @@
   },
   "nav": {
     "dashboard": "Панель управления",
-    "organizations": "Организации"
+    "organizations": "Организации",
+    "ordersStatuses": "Статусы заказов"
   },
   "tableHeaderTitles": {
     "name": "Название",
@@ -23,6 +25,13 @@
       "area": "Район",
       "address": "Адрес"
     },
+    "order": {
+      "no": "№"
+    },
+    "img": "Изображение",
+    "company": "Компания",
+    "payment": "Оплата",
+    "status": "Статус",
     "postalCode": "Почтовый индекс"
   },
   "tablePagination": {

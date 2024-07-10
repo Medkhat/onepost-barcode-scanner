@@ -1,0 +1,18 @@
+{
+  "welcome": "Тапсырыстар тізімі",
+  "welcomeText": "Тапсырыстар туралы көріңіз және статусын өзгертіңіз",
+  "changeStatus": "Статусты өзгерту",
+  "changeStatusText": "Тапсырысқа төмендегі статустардан сәйкесін таңдаңыз",
+  "changeStatusSuccess": "Статус сәтті өзгертілді",
+  "statuses": {
+    "unknown": "Белгісіз",
+    "waiting": "Күту",
+    "inWarehouse": "Қоймада",
+    "inDepartment": "Бөлімшеде",
+    "onTheWay": "Жолда",
+    "atTheBorder": "Шекарада",
+    "sorted": "Сұрыпталған",
+    "delivered": "Жеткізілген",
+    "taken": "Берілді"
+  }
+}

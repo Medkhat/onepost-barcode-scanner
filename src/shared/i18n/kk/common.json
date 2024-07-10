@@ -2,7 +2,8 @@
   "button": {
     "login": "Кіру",
     "back": "Артқа",
-    "cancel": "Болдырмау"
+    "cancel": "Болдырмау",
+    "save": "Сақтау"
   },
   "theme": {
     "light": "Жарық",
@@ -11,7 +12,8 @@
   },
   "nav": {
     "dashboard": "Бақылау тақтасы",
-    "organizations": "Ұйымдар"
+    "organizations": "Ұйымдар",
+    "ordersStatuses": "Тапсырыс статустары"
   },
   "tableHeaderTitles": {
     "name": "Атауы",
@@ -23,6 +25,13 @@
       "area": "Аймақ",
       "address": "Мекенжай"
     },
+    "order": {
+      "no": "№"
+    },
+    "img": "Сурет",
+    "company": "Компания",
+    "payment": "Төлем",
+    "status": "Статус",
     "postalCode": "Пошта индексі"
   },
   "tablePagination": {

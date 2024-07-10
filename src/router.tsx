@@ -28,6 +28,14 @@ export const router = createBrowserRouter([
           ).default,
         }),
       },
+      {
+        path: RouteNames.ORDERS_STATUSES,
+        lazy: async () => ({
+          Component: (
+            await import("@/modules/orders-statuses/orders-statuses.route")
+          ).default,
+        }),
+      },
     ],
   },
   {
