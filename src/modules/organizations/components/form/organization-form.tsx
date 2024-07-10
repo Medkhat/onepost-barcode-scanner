@@ -2,7 +2,7 @@ import { useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
@@ -11,7 +11,10 @@ import {
   OrganizationFields,
   OrganizationItem,
 } from "@/modules/organizations/api/organizations.types"
-import { createOrg, getOrgOwners } from "@/modules/organizations/api/requests"
+import {
+  createOrg,
+  getOrgOwners,
+} from "@/modules/organizations/api/orgs-requests"
 import { useOrgFormSchema } from "@/modules/organizations/components/form/form-schema"
 import { getAreas } from "@/shared/api/requests"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
@@ -27,6 +30,7 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { SheetClose } from "@/shared/components/ui/sheet"
+import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { currencies } from "@/shared/lib/constants"
 import { convertAreas } from "@/shared/lib/utils"
 import { LabelValue, Locale } from "@/shared/types/common.types"
@@ -37,7 +41,9 @@ export default function OrganizationForm() {
   const { t: organizationsT, i18n } = useTranslation("organizations")
   const { t: commonT } = useTranslation("common")
   const formSchema = useOrgFormSchema()
+  const { queryParams } = useQueryParams()
 
+  const qc = useQueryClient()
   const { data: ownersData } = useQuery({
     queryKey: ["orgOwners"],
     queryFn: () => getOrgOwners(),
@@ -55,6 +61,9 @@ export default function OrganizationForm() {
     onSuccess: () => {
       toast.success(organizationsT("createOrgSuccess"))
       closeBtnRef.current?.click()
+      qc.invalidateQueries({
+        queryKey: ["orgs" + queryParams.page + queryParams.pSize],
+      })
     },
   })
 

@@ -8,7 +8,7 @@ import i18n from "@/shared/i18n/config"
 import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
-export const columns: ColumnDef<OrganizationItem>[] = [
+export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -40,6 +40,9 @@ export const columns: ColumnDef<OrganizationItem>[] = [
         column={column}
         titleKey="tableHeaderTitles.name"
       />
+    ),
+    cell: ({ row }) => (
+      <span className="min-w-32 line-clamp-2">{row.original.station_name}</span>
     ),
     enableSorting: true,
     enableHiding: false,

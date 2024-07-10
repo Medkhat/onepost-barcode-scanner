@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query"
 import { ChevronLeftIcon } from "lucide-react"
 import { z } from "zod"
 
-import { getOtp, verifyOtp } from "@/modules/auth/api/requests"
+import { getOtp, verifyOtp } from "@/modules/auth/api/auth-requests"
 import { useAuthStore } from "@/modules/auth/store/auth.store"
 import { Button } from "@/shared/components/ui/button"
 import {

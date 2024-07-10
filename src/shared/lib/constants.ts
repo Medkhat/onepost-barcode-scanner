@@ -41,3 +41,4 @@ export const currencies: LabelValue[] = [
 ]
 
 export const DEFAULT_PAGE_SIZE = 10
+export const TABLE_SKELETONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

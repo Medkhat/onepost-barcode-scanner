@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 
-import { getOrgs } from "@/modules/organizations/api/requests"
+import { getOrgs } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormSheet from "@/modules/organizations/components/form/form-sheet"
-import { columns } from "@/modules/organizations/components/table/columns"
+import { organizationsColumns } from "@/modules/organizations/components/table/organizations-columns"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
@@ -19,7 +19,7 @@ export default function OrganizationsRoute() {
     queryParams: { page, pSize },
   } = useQueryParams()
 
-  const { data: orgsData } = useQuery({
+  const { data: orgsData, isLoading } = useQuery({
     queryKey: ["orgs" + page + pSize],
     queryFn: () => getOrgs({ page, pSize }),
   })
@@ -37,8 +37,9 @@ export default function OrganizationsRoute() {
         </div>
         <DataTable
           data={orgsData?.results}
-          columns={columns}
+          columns={organizationsColumns}
           pageCount={getPageCount(orgsData?.count, pSize)}
+          isLoading={isLoading}
         />
       </Layout.Body>
     </Layout>

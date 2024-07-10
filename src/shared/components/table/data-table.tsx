@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table"
 
 import { DataTablePagination } from "@/shared/components/table/data-table-pagination"
+import { Skeleton } from "@/shared/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -28,12 +29,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data?: TData[]
   pageCount?: number
+  isLoading?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data = [],
   pageCount = 1,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -91,7 +94,20 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              Array.from(
+                { length: table.getState().pagination.pageSize },
+                (_, item) => (
+                  <TableRow key={item}>
+                    {Array.from({ length: columns.length }, (_, i) => (
+                      <TableCell key={i}>
+                        <Skeleton className="h-5 w-20" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                )
+              )
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
