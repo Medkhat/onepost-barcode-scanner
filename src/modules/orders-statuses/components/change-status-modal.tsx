@@ -30,7 +30,7 @@ export default function ChangeStatusModal() {
 
   const changeStatusMut = useMutation({
     mutationFn: () =>
-      changeOrderStatus(selectedOrderStatus?.order.id as string, {
+      changeOrderStatus(selectedOrderStatus?.id as string, {
         status_type: selectedValue,
       }),
     onSuccess: () => {
