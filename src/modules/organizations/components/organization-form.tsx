@@ -15,7 +15,7 @@ import {
   createOrg,
   getOrgOwners,
 } from "@/modules/organizations/api/orgs-requests"
-import { useOrgFormSchema } from "@/modules/organizations/components/form/form-schema"
+import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { getAreas } from "@/shared/api/requests"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
 import FormSelect from "@/shared/components/form/form-select"

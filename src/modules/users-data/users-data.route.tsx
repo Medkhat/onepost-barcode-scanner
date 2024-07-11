@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next"
-import { DialogDescription } from "@radix-ui/react-dialog"
 import { useQuery } from "@tanstack/react-query"
 
-import { getOrdersStatuses } from "@/modules/orders-statuses/api/orders-statuses-requests"
-import ChangeStatusModal from "@/modules/orders-statuses/components/change-status-modal"
-import { ordersStatusesColumns } from "@/modules/orders-statuses/components/orders-statuses-columns"
+import { getUsersData } from "@/modules/users-data/api/users-data-requests"
+import ChangeUserStatusModal from "@/modules/users-data/components/change-user-status-modal"
+import { usersDataColumns } from "@/modules/users-data/components/users-data-columns"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
@@ -12,6 +11,7 @@ import { DataTable } from "@/shared/components/table/data-table"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
@@ -19,15 +19,15 @@ import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { getPageCount } from "@/shared/lib/utils"
 
 export default function OrdersStatusesRoute() {
-  const { t: ordersT } = useTranslation("orders")
+  const { t: usersDataT } = useTranslation("usersData")
 
   const {
     queryParams: { page, pSize },
   } = useQueryParams()
 
-  const { data: statusesData, isLoading } = useQuery({
-    queryKey: ["statuses" + page + pSize],
-    queryFn: () => getOrdersStatuses({ page, pSize }),
+  const { data: usersData, isLoading } = useQuery({
+    queryKey: ["usersData" + page + pSize],
+    queryFn: () => getUsersData({ page, pSize }),
   })
 
   return (
@@ -35,23 +35,23 @@ export default function OrdersStatusesRoute() {
       <GeneralHeader />
       <Layout.Body>
         <PageTitle
-          title={ordersT("welcome")}
-          subtitle={ordersT("welcomeText")}
+          title={usersDataT("title")}
+          subtitle={usersDataT("subtitle")}
         />
         <Dialog>
           <DataTable
-            data={statusesData?.results}
-            columns={ordersStatusesColumns}
+            data={usersData?.results}
+            columns={usersDataColumns}
             isLoading={isLoading}
-            pageCount={getPageCount(statusesData?.count, pSize)}
+            pageCount={getPageCount(usersData?.count, pSize)}
           />
           <DialogContent className="max-h-[calc(100svh-24px)] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{ordersT("changeStatus")}</DialogTitle>
+              <DialogTitle>{usersDataT("changeStatus")}</DialogTitle>
               <DialogDescription>
-                {ordersT("changeStatusText")}
+                {usersDataT("changeStatusText")}
               </DialogDescription>
-              <ChangeStatusModal />
+              <ChangeUserStatusModal />
             </DialogHeader>
           </DialogContent>
         </Dialog>

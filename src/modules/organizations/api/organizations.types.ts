@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 import { UserFields } from "@/modules/auth/api/auth.types"
-import { useOrgFormSchema } from "@/modules/organizations/components/form/form-schema"
+import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { AreaItem } from "@/shared/api/areas.types"
 import { BaseDataFields, BaseResponse } from "@/shared/api/types"
 

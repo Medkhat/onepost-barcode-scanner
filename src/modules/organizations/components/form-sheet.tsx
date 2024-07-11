@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { PlusCircleIcon } from "lucide-react"
 
-import OrganizationForm from "@/modules/organizations/components/form/organization-form"
+import OrganizationForm from "@/modules/organizations/components/organization-form"
 import { Button } from "@/shared/components/ui/button"
 import {
   Sheet,

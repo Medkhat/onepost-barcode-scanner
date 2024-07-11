@@ -11,9 +11,10 @@
     "system": "Системная"
   },
   "nav": {
-    "dashboard": "Панель управления",
+    "dashboard": "Аналитика",
     "organizations": "Организации",
-    "ordersStatuses": "Статусы заказов"
+    "ordersStatuses": "Статусы заказов",
+    "usersData": "Данные пользователей"
   },
   "tableHeaderTitles": {
     "name": "Название",
@@ -27,6 +28,12 @@
     },
     "order": {
       "no": "№"
+    },
+    "fullName": "ФИО",
+    "usersData": {
+      "idCardFront": "Уд. личночти (Спереди)",
+      "idCardBack": "Уд. личночти (Сзади)",
+      "signature": "Подпись"
     },
     "img": "Изображение",
     "company": "Компания",

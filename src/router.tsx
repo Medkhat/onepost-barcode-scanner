@@ -36,6 +36,13 @@ export const router = createBrowserRouter([
           ).default,
         }),
       },
+      {
+        path: RouteNames.USERS_DATA,
+        lazy: async () => ({
+          Component: (await import("@/modules/users-data/users-data.route"))
+            .default,
+        }),
+      },
     ],
   },
   {

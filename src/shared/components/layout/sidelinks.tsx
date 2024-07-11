@@ -3,6 +3,7 @@ import {
   BringToFrontIcon,
   Building2Icon,
   LayoutDashboardIcon,
+  Users2Icon,
 } from "lucide-react"
 
 import { iconSizes, RouteNames } from "@/shared/lib/constants"
@@ -38,6 +39,12 @@ export const useSidelinks = (): SideLink[] => {
       label: "",
       href: RouteNames.ORDERS_STATUSES,
       icon: <BringToFrontIcon size={iconSizes.xs} />,
+    },
+    {
+      title: commonT("nav.usersData"),
+      label: "",
+      href: RouteNames.USERS_DATA,
+      icon: <Users2Icon size={iconSizes.xs} />,
     },
   ]
 }

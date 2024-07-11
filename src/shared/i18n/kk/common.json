@@ -11,9 +11,10 @@
     "system": "Жүйелік"
   },
   "nav": {
-    "dashboard": "Бақылау тақтасы",
+    "dashboard": "Аналитика",
     "organizations": "Ұйымдар",
-    "ordersStatuses": "Тапсырыс статустары"
+    "ordersStatuses": "Тапсырыс статустары",
+    "usersData": "Қолданушылар мәліметі"
   },
   "tableHeaderTitles": {
     "name": "Атауы",
@@ -27,6 +28,12 @@
     },
     "order": {
       "no": "№"
+    },
+    "fullName": "Аты-жөні",
+    "usersData": {
+      "idCardFront": "Жеке куәлік (Алды)",
+      "idCardBack": "Жеке куәлік (Арты)",
+      "signature": "Қолы"
     },
     "img": "Сурет",
     "company": "Компания",

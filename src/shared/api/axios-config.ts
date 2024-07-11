@@ -14,6 +14,7 @@ export const BaseApiPaths = {
   USER: import.meta.env.UDA_USER_API_URL,
   APP: import.meta.env.UDA_APP_API_URL,
   EXPRESS: import.meta.env.UDA_EXPRESS_API_URL,
+  IDENTITY: import.meta.env.UDA_IDENTITY_API_URL,
 }
 
 export const axiosInstanceWithoutToken = (basePath: string) => {
