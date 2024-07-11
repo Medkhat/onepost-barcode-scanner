@@ -5,7 +5,6 @@ import { DataTableFacetedFilter } from "@/shared/components/table/data-table-fac
 import { DataTableViewOptions } from "@/shared/components/table/data-table-view-options"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
-import { priorities, statuses } from "@/shared/mock/table-data"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -32,14 +31,14 @@ export function DataTableToolbar<TData>({
             <DataTableFacetedFilter
               column={table.getColumn("status")}
               title="Status"
-              options={statuses}
+              options={[]}
             />
           )}
           {table.getColumn("priority") && (
             <DataTableFacetedFilter
               column={table.getColumn("priority")}
               title="Priority"
-              options={priorities}
+              options={[]}
             />
           )}
         </div>

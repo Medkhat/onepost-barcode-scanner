@@ -6,7 +6,7 @@ import { toast } from "sonner"
 
 import { OrdersStatuses } from "@/modules/orders-statuses/api/orders-statuses.types"
 import { changeOrderStatus } from "@/modules/orders-statuses/api/orders-statuses-requests"
-import OrderStatusComponent from "@/modules/orders-statuses/components/table/order-status"
+import OrderStatusComponent from "@/modules/orders-statuses/components/order-status"
 import { useOrderStatusLabels } from "@/modules/orders-statuses/lib/orders-statuses-constants"
 import { useOrdersStatusesStore } from "@/modules/orders-statuses/store/status.store"
 import { Button } from "@/shared/components/ui/button"

@@ -4,6 +4,7 @@ export enum RouteNames {
   ROOT = "/",
   ORGANIZATIONS = "/organizations",
   ORDERS_STATUSES = "/orders-statuses",
+  USERS_DATA = "/users-data",
   LOGIN = "/login",
 }
 

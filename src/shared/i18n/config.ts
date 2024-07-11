@@ -7,6 +7,8 @@ import kkOrders from "@/modules/orders-statuses/i18n/orders-statuses-kk.json"
 import ruOrders from "@/modules/orders-statuses/i18n/orders-statuses-ru.json"
 import kkOrgs from "@/modules/organizations/i18n/organizations-kk.json"
 import ruOrgs from "@/modules/organizations/i18n/organizations-ru.json"
+import kkUsersData from "@/modules/users-data/i18n/users-data-kk.json"
+import ruUsersData from "@/modules/users-data/i18n/users-data-ru.json"
 import kkCommon from "@/shared/i18n/kk/common.json"
 import ruCommon from "@/shared/i18n/ru/common.json"
 import { StorageKeys } from "@/shared/lib/constants"
@@ -17,12 +19,14 @@ i18n.use(initReactI18next).init<{
     auth: typeof kkAuth
     organizations: typeof kkOrgs
     orders: typeof kkOrders
+    usersData: typeof kkUsersData
   }
   ru: {
     common: typeof ruCommon
     auth: typeof ruAuth
     organizations: typeof ruOrgs
     orders: typeof ruOrders
+    usersData: typeof ruUsersData
   }
 }>({
   resources: {
@@ -31,12 +35,14 @@ i18n.use(initReactI18next).init<{
       auth: kkAuth,
       organizations: kkOrgs,
       orders: kkOrders,
+      usersData: kkUsersData,
     },
     ru: {
       common: ruCommon,
       auth: ruAuth,
       organizations: ruOrgs,
       orders: ruOrders,
+      usersData: ruUsersData,
     },
   },
   lng: localStorage.getItem(StorageKeys.LANGUAGE) || "kk",
@@ -45,7 +51,7 @@ i18n.use(initReactI18next).init<{
   supportedLngs: ["kk", "ru"],
   compatibilityJSON: "v4",
   defaultNS: "common",
-  ns: ["common", "auth", "organizations", "orders"],
+  ns: ["common", "auth", "organizations", "orders", "usersData"],
   interpolation: {
     escapeValue: false,
   },

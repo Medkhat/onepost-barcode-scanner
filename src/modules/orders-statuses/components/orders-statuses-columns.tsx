@@ -2,54 +2,30 @@ import { ColumnDef } from "@tanstack/react-table"
 import { CheckCheckIcon, CircleXIcon } from "lucide-react"
 
 import { OrderStatus } from "@/modules/orders-statuses/api/orders-statuses.types"
-import ChangeStatusButton from "@/modules/orders-statuses/components/table/change-status-button"
-import OrderCompanyLogo from "@/modules/orders-statuses/components/table/order-company"
-import OrderStatusComponent from "@/modules/orders-statuses/components/table/order-status"
+import ChangeStatusButton from "@/modules/orders-statuses/components/change-status-button"
+import OrderCompanyLogo from "@/modules/orders-statuses/components/order-company"
+import OrderStatusComponent from "@/modules/orders-statuses/components/order-status"
+import CellImage from "@/shared/components/table/cell-image"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
-import { Checkbox } from "@/shared/components/ui/checkbox"
 import i18n from "@/shared/i18n/config"
 import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
 export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     id: "order_img",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} titleKey="tableHeaderTitles.img" />
     ),
     cell: ({ row }) => (
-      <img
-        src={row.original.order.order_goods[0].goods_image}
-        alt={
+      <CellImage
+        image={row.original.order.order_goods[0].goods_image}
+        title={
           row.original.order.order_goods[0][
             `goods_name_${getLocaleKey(i18n.language as Locale)}`
           ]
         }
-        className="w-8 h-8 rounded-lg"
+        className="w-8 h-8"
       />
     ),
   },

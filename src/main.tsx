@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query"
 
 import { router } from "@/router"
 import { queryClient } from "@/shared/api/query"
+import ImageViewer from "@/shared/components/image-viewer"
 import { ThemeProvider } from "@/shared/components/theme/provider.tsx"
 import { Toaster } from "@/shared/components/ui/sonner"
 
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ThemeProvider defaultTheme="system">
         <RouterProvider router={router} />
         <Toaster />
+        <ImageViewer />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
