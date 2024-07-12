@@ -43,6 +43,12 @@ export const router = createBrowserRouter([
             .default,
         }),
       },
+      {
+        path: RouteNames.STAFF,
+        lazy: async () => ({
+          Component: (await import("@/modules/staff/staff.route")).default,
+        }),
+      },
     ],
   },
   {

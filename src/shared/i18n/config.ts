@@ -7,28 +7,15 @@ import kkOrders from "@/modules/orders-statuses/i18n/orders-statuses-kk.json"
 import ruOrders from "@/modules/orders-statuses/i18n/orders-statuses-ru.json"
 import kkOrgs from "@/modules/organizations/i18n/organizations-kk.json"
 import ruOrgs from "@/modules/organizations/i18n/organizations-ru.json"
+import kkStaff from "@/modules/staff/i18n/staff-kk.json"
+import ruStaff from "@/modules/staff/i18n/staff-ru.json"
 import kkUsersData from "@/modules/users-data/i18n/users-data-kk.json"
 import ruUsersData from "@/modules/users-data/i18n/users-data-ru.json"
 import kkCommon from "@/shared/i18n/kk/common.json"
 import ruCommon from "@/shared/i18n/ru/common.json"
 import { StorageKeys } from "@/shared/lib/constants"
 
-i18n.use(initReactI18next).init<{
-  kk: {
-    common: typeof kkCommon
-    auth: typeof kkAuth
-    organizations: typeof kkOrgs
-    orders: typeof kkOrders
-    usersData: typeof kkUsersData
-  }
-  ru: {
-    common: typeof ruCommon
-    auth: typeof ruAuth
-    organizations: typeof ruOrgs
-    orders: typeof ruOrders
-    usersData: typeof ruUsersData
-  }
-}>({
+i18n.use(initReactI18next).init({
   resources: {
     kk: {
       common: kkCommon,
@@ -36,6 +23,7 @@ i18n.use(initReactI18next).init<{
       organizations: kkOrgs,
       orders: kkOrders,
       usersData: kkUsersData,
+      staff: kkStaff,
     },
     ru: {
       common: ruCommon,
@@ -43,6 +31,7 @@ i18n.use(initReactI18next).init<{
       organizations: ruOrgs,
       orders: ruOrders,
       usersData: ruUsersData,
+      staff: ruStaff,
     },
   },
   lng: localStorage.getItem(StorageKeys.LANGUAGE) || "kk",

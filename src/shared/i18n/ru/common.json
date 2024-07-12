@@ -14,7 +14,8 @@
     "dashboard": "Аналитика",
     "organizations": "Организации",
     "ordersStatuses": "Статусы заказов",
-    "usersData": "Данные пользователей"
+    "usersData": "Данные пользователей",
+    "staff": "Персонал"
   },
   "tableHeaderTitles": {
     "name": "Название",
@@ -39,7 +40,8 @@
     "company": "Компания",
     "payment": "Оплата",
     "status": "Статус",
-    "postalCode": "Почтовый индекс"
+    "postalCode": "Почтовый индекс",
+    "email": "Эл. почта"
   },
   "tablePagination": {
     "rowsPerPage": "Строк на странице",

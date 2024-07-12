@@ -14,7 +14,8 @@
     "dashboard": "Аналитика",
     "organizations": "Ұйымдар",
     "ordersStatuses": "Тапсырыс статустары",
-    "usersData": "Қолданушылар мәліметі"
+    "usersData": "Қолданушылар мәліметі",
+    "staff": "Қызметкерлер"
   },
   "tableHeaderTitles": {
     "name": "Атауы",
@@ -39,7 +40,8 @@
     "company": "Компания",
     "payment": "Төлем",
     "status": "Статус",
-    "postalCode": "Пошта индексі"
+    "postalCode": "Пошта индексі",
+    "email": "Эл. пошта"
   },
   "tablePagination": {
     "rowsPerPage": "Жолдар саны",
