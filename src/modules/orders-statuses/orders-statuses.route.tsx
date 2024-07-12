@@ -15,10 +15,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
+import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { getPageCount } from "@/shared/lib/utils"
 
 export default function OrdersStatusesRoute() {
+  useAuthChecker()
   const { t: ordersT } = useTranslation("orders")
 
   const {
