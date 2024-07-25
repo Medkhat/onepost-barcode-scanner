@@ -29,11 +29,16 @@ export const router = createBrowserRouter([
         }),
       },
       {
-        path: RouteNames.ORDERS_STATUSES,
+        path: RouteNames.ORG_OWNERS,
         lazy: async () => ({
-          Component: (
-            await import("@/modules/orders-statuses/orders-statuses.route")
-          ).default,
+          Component: (await import("@/modules/org-owners/org-owners.route"))
+            .default,
+        }),
+      },
+      {
+        path: RouteNames.STAFF,
+        lazy: async () => ({
+          Component: (await import("@/modules/staff/staff.route")).default,
         }),
       },
       {
@@ -44,9 +49,11 @@ export const router = createBrowserRouter([
         }),
       },
       {
-        path: RouteNames.STAFF,
+        path: RouteNames.ORDERS_STATUSES,
         lazy: async () => ({
-          Component: (await import("@/modules/staff/staff.route")).default,
+          Component: (
+            await import("@/modules/orders-statuses/orders-statuses.route")
+          ).default,
         }),
       },
     ],

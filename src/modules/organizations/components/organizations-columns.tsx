@@ -4,7 +4,7 @@ import { OrganizationItem } from "@/modules/organizations/api/organizations.type
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import { Checkbox } from "@/shared/components/ui/checkbox"
-import i18n from "@/shared/i18n/config"
+import i18n from "@/shared/i18n/i18n.config"
 import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 

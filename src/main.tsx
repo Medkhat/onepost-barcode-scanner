@@ -9,7 +9,7 @@ import ImageViewer from "@/shared/components/image-viewer"
 import { ThemeProvider } from "@/shared/components/theme/provider.tsx"
 import { Toaster } from "@/shared/components/ui/sonner"
 
-import "@/shared/i18n/config"
+import "@/shared/i18n/i18n.config"
 
 import "@/shared/styles/index.css"
 

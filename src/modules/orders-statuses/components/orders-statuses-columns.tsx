@@ -7,7 +7,7 @@ import OrderCompanyLogo from "@/modules/orders-statuses/components/order-company
 import OrderStatusComponent from "@/modules/orders-statuses/components/order-status"
 import CellImage from "@/shared/components/table/cell-image"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
-import i18n from "@/shared/i18n/config"
+import i18n from "@/shared/i18n/i18n.config"
 import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 

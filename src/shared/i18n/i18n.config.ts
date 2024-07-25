@@ -5,6 +5,8 @@ import kkAuth from "@/modules/auth/i18n/auth-kk.json"
 import ruAuth from "@/modules/auth/i18n/auth-ru.json"
 import kkOrders from "@/modules/orders-statuses/i18n/orders-statuses-kk.json"
 import ruOrders from "@/modules/orders-statuses/i18n/orders-statuses-ru.json"
+import kkOrgOwners from "@/modules/org-owners/i18n/org-owners-kk.json"
+import ruOrgOwners from "@/modules/org-owners/i18n/org-owners-ru.json"
 import kkOrgs from "@/modules/organizations/i18n/organizations-kk.json"
 import ruOrgs from "@/modules/organizations/i18n/organizations-ru.json"
 import kkStaff from "@/modules/staff/i18n/staff-kk.json"
@@ -21,6 +23,7 @@ i18n.use(initReactI18next).init({
       common: kkCommon,
       auth: kkAuth,
       organizations: kkOrgs,
+      orgOwners: kkOrgOwners,
       orders: kkOrders,
       usersData: kkUsersData,
       staff: kkStaff,
@@ -29,6 +32,7 @@ i18n.use(initReactI18next).init({
       common: ruCommon,
       auth: ruAuth,
       organizations: ruOrgs,
+      orgOwners: ruOrgOwners,
       orders: ruOrders,
       usersData: ruUsersData,
       staff: ruStaff,

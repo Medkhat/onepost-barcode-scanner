@@ -1,12 +1,12 @@
 {
-  "welcome": "Ұйымдарға қош келдіңіз!",
-  "welcomeText": "Тізімді көре аласыз, жаңа ұйым қоса аласыз немесе ұйымды өзгертуге болады",
-  "create": "Жаңа ұйым құру",
-  "enterData": "Жаңа ұйымның деректерін енгізіңіз",
+  "welcome": "Бөлімшелерге қош келдіңіз!",
+  "welcomeText": "Бөлімшелер тізімін көре аласыз, жаңасын қоса аласыз немесе өзгертуге болады",
+  "create": "Жаңа бөлімше құру",
+  "enterData": "Жаңа бөлімшеның деректерін енгізіңіз",
   "formInstruction": "Деректерді енгізу сәтінде олардың дұрыстығына көз жеткізіңіз. Бұл өте маңызды:)",
   "formValidation": {
-    "stationName": "Ұйым атауы міндетті",
-    "stationCode": "Ұйым коды міндетті",
+    "stationName": "Бөлімше атауы міндетті",
+    "stationCode": "Бөлімше коды міндетті",
     "postalCode": "Пошта индексі міндетті",
     "stationTel": "Телефон нөмірі 11 таңбалы болуы керек",
     "stationOwner": "Иесі жарамды UUID болуы керек",
@@ -20,16 +20,16 @@
     "longitude": "Бойлықты енгізу міндетті"
   },
   "formLabel": {
-    "stationName": "Ұйым атауы",
-    "extraStationName": "Қосымша ұйым атауы",
-    "stationCode": "Ұйым коды",
+    "stationName": "Бөлімше атауы",
+    "extraStationName": "Қосымша Бөлімше атауы",
+    "stationCode": "Бөлімше коды",
     "extraCode": "Қосымша код",
     "postalCode": "Пошта индексі",
     "stationTel": "Телефон нөмірі",
-    "stationOwner": "Ұйым иесі",
-    "stationOwnerPh": "Ұйым иесін таңдаңыз",
+    "stationOwner": "Бөлімше иесі",
+    "stationOwnerPh": "Бөлімше иесін таңдаңыз",
     "stationArea": "Аумағы",
-    "stationAreaPh": "Ұйым аумағын таңдаңыз",
+    "stationAreaPh": "Бөлімше аумағын таңдаңыз",
     "stationPrice": "Бағасы",
     "priceCurrency": "Валюта",
     "priceCurrencyPh": "Валютаны таңдаңыз",
@@ -39,6 +39,6 @@
     "latitude": "Ендік",
     "longitude": "Бойлық"
   },
-  "createOrg": "Ұйым құру",
-  "createOrgSuccess": "Ұйым сәтті құрылды"
+  "createOrg": "Бөлімше құру",
+  "createOrgSuccess": "Бөлімше сәтті құрылды"
 }

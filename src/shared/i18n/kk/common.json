@@ -12,7 +12,8 @@
   },
   "nav": {
     "dashboard": "Аналитика",
-    "organizations": "Ұйымдар",
+    "organizations": "Бөлімшелер",
+    "orgOwners": "Бөлімше басшылары",
     "ordersStatuses": "Тапсырыс статустары",
     "usersData": "Қолданушылар мәліметі",
     "staff": "Қызметкерлер"

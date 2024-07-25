@@ -6,15 +6,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
+import { getOrgOwners } from "@/modules/org-owners/api/org-owners-requests"
 import {
   CreateOrgPayload,
   OrganizationFields,
   OrganizationItem,
 } from "@/modules/organizations/api/organizations.types"
-import {
-  createOrg,
-  getOrgOwners,
-} from "@/modules/organizations/api/orgs-requests"
+import { createOrg } from "@/modules/organizations/api/orgs-requests"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { getAreas } from "@/shared/api/requests"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
@@ -46,7 +44,7 @@ export default function OrganizationForm() {
   const qc = useQueryClient()
   const { data: ownersData } = useQuery({
     queryKey: ["orgOwners"],
-    queryFn: () => getOrgOwners(),
+    queryFn: () => getOrgOwners({ page: 1, pSize: 50 }),
   })
   const { data: areasData } = useQuery({
     queryKey: ["areas"],

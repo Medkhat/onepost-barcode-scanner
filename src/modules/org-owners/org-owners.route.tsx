@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 
-import { getStaff } from "@/modules/staff/api/staff-requests"
-import { staffColumns } from "@/modules/staff/components/staff-columns"
-import StaffFormSheet from "@/modules/staff/components/staff-form-sheet"
+import { getOrgOwners } from "@/modules/org-owners/api/org-owners-requests"
+import OrgOwnerFormSheet from "@/modules/org-owners/components/org-owner-form-sheet"
+import { orgOwnersColumns } from "@/modules/org-owners/components/org-owners-columns"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
@@ -12,17 +12,17 @@ import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { getPageCount } from "@/shared/lib/utils"
 
-export default function StaffRoute() {
+export default function OrgOwnersRoute() {
   useAuthChecker()
-  const { t: staffT } = useTranslation("staff")
+  const { t: orgOwnersT } = useTranslation("orgOwners")
 
   const {
     queryParams: { page, pSize },
   } = useQueryParams()
 
-  const { data: staffData, isLoading } = useQuery({
-    queryKey: ["staff" + page + pSize],
-    queryFn: () => getStaff({ page, pSize }),
+  const { data: orgOwnersData, isLoading } = useQuery({
+    queryKey: ["orgOwners" + page + pSize],
+    queryFn: () => getOrgOwners({ page, pSize }),
   })
 
   return (
@@ -30,14 +30,17 @@ export default function StaffRoute() {
       <GeneralHeader />
       <Layout.Body>
         <div className="space-y-2 sm:space-y-0 sm:flex items-start justify-between">
-          <PageTitle title={staffT("title")} subtitle={staffT("subTitle")} />
-          <StaffFormSheet />
+          <PageTitle
+            title={orgOwnersT("title")}
+            subtitle={orgOwnersT("subTitle")}
+          />
+          <OrgOwnerFormSheet />
         </div>
         <DataTable
-          data={staffData?.results}
-          columns={staffColumns}
+          data={orgOwnersData?.results}
+          columns={orgOwnersColumns}
           isLoading={isLoading}
-          pageCount={getPageCount(staffData?.count, pSize)}
+          pageCount={getPageCount(orgOwnersData?.count, pSize)}
         />
       </Layout.Body>
     </Layout>

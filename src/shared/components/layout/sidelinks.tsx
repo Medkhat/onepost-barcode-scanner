@@ -4,6 +4,7 @@ import {
   BringToFrontIcon,
   Building2Icon,
   LayoutDashboardIcon,
+  SquareUserRoundIcon,
   UserRoundSearchIcon,
 } from "lucide-react"
 
@@ -36,10 +37,16 @@ export const useSidelinks = (): SideLink[] => {
       icon: <Building2Icon size={iconSizes.xs} />,
     },
     {
-      title: commonT("nav.ordersStatuses"),
+      title: commonT("nav.orgOwners"),
       label: "",
-      href: RouteNames.ORDERS_STATUSES,
-      icon: <BringToFrontIcon size={iconSizes.xs} />,
+      href: RouteNames.ORG_OWNERS,
+      icon: <SquareUserRoundIcon size={iconSizes.xs} />,
+    },
+    {
+      title: commonT("nav.staff"),
+      label: "",
+      href: RouteNames.STAFF,
+      icon: <UserRoundSearchIcon size={iconSizes.xs} />,
     },
     {
       title: commonT("nav.usersData"),
@@ -48,10 +55,10 @@ export const useSidelinks = (): SideLink[] => {
       icon: <BookUserIcon size={iconSizes.xs} />,
     },
     {
-      title: commonT("nav.staff"),
+      title: commonT("nav.ordersStatuses"),
       label: "",
-      href: RouteNames.STAFF,
-      icon: <UserRoundSearchIcon size={iconSizes.xs} />,
+      href: RouteNames.ORDERS_STATUSES,
+      icon: <BringToFrontIcon size={iconSizes.xs} />,
     },
   ]
 }

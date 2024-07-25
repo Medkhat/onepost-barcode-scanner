@@ -1,16 +1,9 @@
 import { z } from "zod"
 
-import { UserFields } from "@/modules/auth/api/auth.types"
+import { OrgOwner } from "@/modules/org-owners/api/org-owners.types"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { AreaItem } from "@/shared/api/areas.types"
 import { BaseDataFields, BaseResponse } from "@/shared/api/types"
-
-export type OrgOwner = BaseDataFields & {
-  user: Omit<UserFields, "user">
-  role: string
-}
-
-export type GetOrgOwnersResponse = BaseResponse<OrgOwner>
 
 export type OrganizationFields = z.infer<ReturnType<typeof useOrgFormSchema>>
 export type CreateOrgPayload = Omit<
