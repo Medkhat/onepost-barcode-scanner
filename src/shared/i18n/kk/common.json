@@ -27,7 +27,8 @@
     "org": {
       "owner": "Иесі",
       "area": "Аймақ",
-      "address": "Мекенжай"
+      "address": "Мекенжай",
+      "workingHours": "Жұмыс уақыты"
     },
     "order": {
       "no": "№"
@@ -49,6 +50,15 @@
     "rowsPerPage": "Жолдар саны",
     "of": "-ші",
     "page": "Бет"
+  },
+  "weekdays": {
+    "monday": "Дс",
+    "tuesday": "Сс",
+    "wednesday": "Ср",
+    "thursday": "Бс",
+    "friday": "Жм",
+    "saturday": "Сб",
+    "sunday": "Жс"
   },
   "search": "Іздеу"
 }

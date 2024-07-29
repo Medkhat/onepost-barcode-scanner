@@ -27,7 +27,8 @@
     "org": {
       "owner": "Владелец",
       "area": "Район",
-      "address": "Адрес"
+      "address": "Адрес",
+      "workingHours": "Время работы"
     },
     "order": {
       "no": "№"
@@ -49,6 +50,15 @@
     "rowsPerPage": "Строк на странице",
     "of": "из",
     "page": "Стр."
+  },
+  "weekdays": {
+    "monday": "Пн",
+    "tuesday": "Вт",
+    "wednesday": "Ср",
+    "thursday": "Чт",
+    "friday": "Пт",
+    "saturday": "Сб",
+    "sunday": "Вс"
   },
   "search": "Поиск"
 }

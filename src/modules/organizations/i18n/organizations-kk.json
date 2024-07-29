@@ -40,5 +40,13 @@
     "longitude": "Бойлық"
   },
   "createOrg": "Бөлімше құру",
-  "createOrgSuccess": "Бөлімше сәтті құрылды"
+  "createOrgSuccess": "Бөлімше сәтті құрылды",
+  "workingHours": "Жұмыс уақыты",
+  "workingHoursText": "Бөлімшенің жұмыс уақыттарын толтырыңыз",
+  "open": "Ашылуы",
+  "close": "Жабылуы",
+  "notWork": "Демалыс",
+  "workingHoursSaved": "Жұмыс уақыты сәтті сақталды",
+  "sameTime": "Бірдей уақыт",
+  "alwaysOpen": "Тәулік бойы (24/7) ашық"
 }

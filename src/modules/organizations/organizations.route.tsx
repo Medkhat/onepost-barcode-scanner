@@ -1,9 +1,11 @@
+import { Fragment } from "react/jsx-runtime"
 import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 
 import { getOrgs } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormSheet from "@/modules/organizations/components/form-sheet"
 import { organizationsColumns } from "@/modules/organizations/components/organizations-columns"
+import WorkingHoursSheet from "@/modules/organizations/components/work-hours"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
@@ -25,23 +27,26 @@ export default function OrganizationsRoute() {
   })
 
   return (
-    <Layout>
-      <GeneralHeader />
-      <Layout.Body>
-        <div className="space-y-2 sm:space-y-0 sm:flex items-start justify-between">
-          <PageTitle
-            title={organizationsT("welcome")}
-            subtitle={organizationsT("welcomeText")}
+    <Fragment>
+      <Layout>
+        <GeneralHeader />
+        <Layout.Body>
+          <div className="space-y-2 sm:space-y-0 sm:flex items-start justify-between">
+            <PageTitle
+              title={organizationsT("welcome")}
+              subtitle={organizationsT("welcomeText")}
+            />
+            <OrganizationFormSheet />
+          </div>
+          <DataTable
+            data={orgsData?.results}
+            columns={organizationsColumns}
+            pageCount={getPageCount(orgsData?.count, pSize)}
+            isLoading={isLoading}
           />
-          <OrganizationFormSheet />
-        </div>
-        <DataTable
-          data={orgsData?.results}
-          columns={organizationsColumns}
-          pageCount={getPageCount(orgsData?.count, pSize)}
-          isLoading={isLoading}
-        />
-      </Layout.Body>
-    </Layout>
+        </Layout.Body>
+      </Layout>
+      <WorkingHoursSheet />
+    </Fragment>
   )
 }

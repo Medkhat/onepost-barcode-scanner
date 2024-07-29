@@ -1,33 +1,23 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
+import WorkingHoursTrigger from "@/modules/organizations/components/working-hours-trigger"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
-import { Checkbox } from "@/shared/components/ui/checkbox"
 import i18n from "@/shared/i18n/i18n.config"
 import { Locale } from "@/shared/types/common.types"
 
 export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
+    id: "workingHours",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.workingHours"
       />
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
+      <WorkingHoursTrigger orgId={row.original.id as string} />
     ),
     enableSorting: false,
     enableHiding: false,

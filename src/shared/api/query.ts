@@ -35,10 +35,10 @@ export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onSuccess: () => {},
     onError: (error) => {
-      const errorData = (error as AxiosError<GeneralErrorResponse>).response
-        ?.data
+      const status = (error as AxiosError<GeneralErrorResponse>).response
+        ?.status
 
-      if (errorData?.code === 401) {
+      if (status === 401) {
         useAuthStore.getState().logout()
       }
     },

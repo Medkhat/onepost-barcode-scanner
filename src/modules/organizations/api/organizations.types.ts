@@ -22,3 +22,14 @@ export type OrganizationItem = BaseDataFields &
     }
   }
 export type OrganizationListResponse = BaseResponse<OrganizationItem>
+
+export type WorkingHour = {
+  day: number
+  open_time: string
+  close_time: string
+}
+
+export type OrgWorkingHours = {
+  organization: string
+  work_time: WorkingHour[]
+}
