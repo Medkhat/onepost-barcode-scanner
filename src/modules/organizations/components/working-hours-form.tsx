@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
 import { WorkingHour } from "@/modules/organizations/api/organizations.types"
@@ -87,14 +87,17 @@ export default function WorkingHoursForm() {
     }
   }, [workingHoursData])
 
+  const queryClient = useQueryClient()
   const setWorkingHoursMutation = useMutation({
     mutationFn: setWorkingHours,
     onSuccess: () => {
       useOrganizationsStore.setState({
         workingHoursModal: false,
-        organizationId: null,
       })
       toast.success(organizationsT("workingHoursSaved"))
+      queryClient.invalidateQueries({
+        queryKey: ["workingHours", orgId],
+      })
     },
   })
 
