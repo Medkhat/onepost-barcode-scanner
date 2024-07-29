@@ -8,7 +8,6 @@ import OrderStatusComponent from "@/modules/orders-statuses/components/order-sta
 import CellImage from "@/shared/components/table/cell-image"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import i18n from "@/shared/i18n/i18n.config"
-import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
 export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
@@ -22,7 +21,7 @@ export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
         image={row.original.order.order_goods[0].goods_image}
         title={
           row.original.order.order_goods[0][
-            `goods_name_${getLocaleKey(i18n.language as Locale)}`
+            `goods_name_${i18n.language as Locale}`
           ]
         }
         className="w-8 h-8"
@@ -41,7 +40,7 @@ export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
       <span className="min-w-32 line-clamp-2">
         {
           row.original.order.order_goods[0][
-            `goods_name_${getLocaleKey(i18n.language as Locale)}`
+            `goods_name_${i18n.language as Locale}`
           ]
         }
       </span>

@@ -28,7 +28,7 @@ export const useOrgFormSchema = () => {
     price_currency: z.enum(["USD", "EUR", "KZT"], {
       message: organizationsT("formValidation.priceCurrency"),
     }),
-    address_kz: z.string().min(1, organizationsT("formValidation.addressKz")),
+    address_kk: z.string().min(1, organizationsT("formValidation.addressKz")),
     address_en: z.string().min(1, organizationsT("formValidation.addressEn")),
     address_ru: z.string().min(1, organizationsT("formValidation.addressRu")),
     latitude: z.string().refine((value) => value !== undefined, {

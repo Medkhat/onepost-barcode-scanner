@@ -20,10 +20,10 @@ export default function AuthenticationPage() {
         <div className="relative z-20 mt-auto text-center sm:text-left">
           <blockquote className="space-y-2">
             <p className="text-base sm:text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped.&rdquo;
+              &ldquo;UDA Express is the great delivery company. We love
+              it:)&rdquo;
             </p>
-            <footer className="text-sm">Sofia Davis</footer>
+            <footer className="text-sm">Baktiyar Aydar</footer>
           </blockquote>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
+import { useAuthStore } from "@/modules/auth/store/auth.store"
 import { GeneralErrorCodes, GeneralErrorResponse } from "@/shared/api/types"
 
 export const queryClient = new QueryClient({
@@ -33,6 +34,13 @@ export const queryClient = new QueryClient({
   }),
   queryCache: new QueryCache({
     onSuccess: () => {},
-    onError: () => {},
+    onError: (error) => {
+      const errorData = (error as AxiosError<GeneralErrorResponse>).response
+        ?.data
+
+      if (errorData?.code === 401) {
+        useAuthStore.getState().logout()
+      }
+    },
   }),
 })

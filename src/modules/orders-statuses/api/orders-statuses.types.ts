@@ -12,7 +12,7 @@ export type OrdersStatuses =
   | "TAKEN"
 
 export type OrderGoods = BaseDataFields & {
-  goods_name_kz: string
+  goods_name_kk: string
   goods_name_en: string
   goods_name_ru: string
   goods_image: string

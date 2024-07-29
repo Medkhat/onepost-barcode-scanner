@@ -5,7 +5,6 @@ import { DataTableColumnHeader } from "@/shared/components/table/data-table-colu
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import { Checkbox } from "@/shared/components/ui/checkbox"
 import i18n from "@/shared/i18n/i18n.config"
-import { getLocaleKey } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
 export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
@@ -107,20 +106,16 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
       const lang = i18n.language as Locale
       return (
         <span className="whitespace-nowrap">
-          {
-            row.original.station_area.parent_area[
-              `area_name_${getLocaleKey(lang)}`
-            ]
-          }
+          {row.original.station_area.parent_area[`area_name_${lang}`]}
           ,
           <br />
-          {row.original.station_area[`area_name_${getLocaleKey(lang)}`]}
+          {row.original.station_area[`area_name_${lang}`]}
         </span>
       )
     },
   },
   {
-    accessorKey: `address_${getLocaleKey(i18n.language as Locale)}`,
+    accessorKey: `address_${i18n.language as Locale}`,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}

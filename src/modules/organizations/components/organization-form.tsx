@@ -92,7 +92,7 @@ export default function OrganizationForm() {
       station_tel: "+7",
       station_price: "",
       price_currency: "KZT",
-      address_kz: "",
+      address_kk: "",
       address_en: "",
       address_ru: "",
       latitude: "",
@@ -270,7 +270,7 @@ export default function OrganizationForm() {
         </div>
         <FormField
           control={form.control}
-          name="address_kz"
+          name="address_kk"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{organizationsT("formLabel.addressKz")}</FormLabel>
