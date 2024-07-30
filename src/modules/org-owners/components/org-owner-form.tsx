@@ -52,7 +52,7 @@ export default function OrgOwnerForm() {
   })
 
   const submitForm = (values: OrgOwnerPayload) => {
-    creatMutation.mutate(values)
+    creatMutation.mutate({ ...values, phone: values.phone.substring(2) })
   }
 
   const handleReset = () => {

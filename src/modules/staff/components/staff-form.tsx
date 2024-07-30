@@ -52,7 +52,7 @@ export default function StaffForm() {
   })
 
   const submitForm = (values: CreateStaffPayload) => {
-    creatMutation.mutate(values)
+    creatMutation.mutate({ ...values, phone: values.phone.substring(2) })
   }
 
   const handleReset = () => {

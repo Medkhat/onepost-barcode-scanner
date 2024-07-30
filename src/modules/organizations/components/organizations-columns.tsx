@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
+import OrganizationType from "@/modules/organizations/components/organization-type"
 import WorkingHoursTrigger from "@/modules/organizations/components/working-hours-trigger"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
@@ -44,6 +45,16 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
         titleKey="tableHeaderTitles.code"
       />
     ),
+  },
+  {
+    accessorKey: "station_type",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.type"
+      />
+    ),
+    cell: ({ row }) => <OrganizationType type={row.original.station_type} />,
   },
   {
     accessorKey: "station_price",

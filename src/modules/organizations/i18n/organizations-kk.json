@@ -48,5 +48,12 @@
   "notWork": "Демалыс",
   "workingHoursSaved": "Жұмыс уақыты сәтті сақталды",
   "sameTime": "Бірдей уақыт",
-  "alwaysOpen": "Тәулік бойы (24/7) ашық"
+  "alwaysOpen": "Тәулік бойы (24/7) ашық",
+  "orgType": {
+    "other": "Басқа",
+    "station": "Бөлімше",
+    "warehiuse": "Сақтау қоймасы",
+    "office": "Кеңсе",
+    "market": "Дүкен"
+  }
 }

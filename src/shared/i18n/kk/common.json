@@ -28,7 +28,8 @@
       "owner": "Иесі",
       "area": "Аймақ",
       "address": "Мекенжай",
-      "workingHours": "Жұмыс уақыты"
+      "workingHours": "Жұмыс уақыты",
+      "type": "Түрі"
     },
     "order": {
       "no": "№"

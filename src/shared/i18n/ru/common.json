@@ -28,7 +28,8 @@
       "owner": "Владелец",
       "area": "Район",
       "address": "Адрес",
-      "workingHours": "Время работы"
+      "workingHours": "Время работы",
+      "type": "Тип"
     },
     "order": {
       "no": "№"

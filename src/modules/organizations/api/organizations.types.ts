@@ -2,6 +2,7 @@ import { z } from "zod"
 
 import { OrgOwner } from "@/modules/org-owners/api/org-owners.types"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
+import { STATION_TYPE } from "@/modules/organizations/hooks/use-station-type-label"
 import { AreaItem } from "@/shared/api/areas.types"
 import { BaseDataFields, BaseResponse } from "@/shared/api/types"
 
@@ -21,6 +22,7 @@ export type OrganizationItem = BaseDataFields &
       parent_area: Omit<AreaItem, "sub_area">
     }
     work_times: WorkingHour[]
+    station_type: keyof typeof STATION_TYPE
   }
 export type OrganizationListResponse = BaseResponse<OrganizationItem>
 
