@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
@@ -7,7 +7,7 @@ import { toast } from "sonner"
 
 import { WorkingHour } from "@/modules/organizations/api/organizations.types"
 import {
-  getWorkingHours,
+  getOrgDetail,
   setWorkingHours,
 } from "@/modules/organizations/api/orgs-requests"
 import {
@@ -26,6 +26,7 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Separator } from "@/shared/components/ui/separator"
+import { Skeleton } from "@/shared/components/ui/skeleton"
 import { Switch } from "@/shared/components/ui/switch"
 import { useWeekdayLabels } from "@/shared/hooks/use-weekday-labels"
 
@@ -61,31 +62,10 @@ export default function WorkingHoursForm() {
     name: "workingHours",
   })
 
-  const { data: workingHoursData } = useQuery({
-    queryFn: () => getWorkingHours(orgId as string),
-    queryKey: ["workingHours", orgId],
+  const { data: orgDetail, isLoading: isLoadingOrgDetail } = useQuery({
+    queryFn: () => getOrgDetail(orgId as string),
+    queryKey: ["orgDetail", orgId],
   })
-
-  useEffect(() => {
-    if (workingHoursData && workingHoursData.length > 0) {
-      setDefaultValues(
-        workingHoursData.map((item) => {
-          if (isOrgAlwaysOpen(workingHoursData)) {
-            setIsAlwaysOpen(true)
-            return { ...item, disabled: false }
-          }
-          if (isOrgWorkTimeSame(workingHoursData)) {
-            setIsSameTime(true)
-            return { ...item, disabled: false }
-          }
-          return {
-            ...item,
-            disabled: item.open_time === "00:00" && item.close_time === "00:00",
-          }
-        })
-      )
-    }
-  }, [workingHoursData])
 
   const queryClient = useQueryClient()
   const setWorkingHoursMutation = useMutation({
@@ -96,7 +76,7 @@ export default function WorkingHoursForm() {
       })
       toast.success(organizationsT("workingHoursSaved"))
       queryClient.invalidateQueries({
-        queryKey: ["workingHours", orgId],
+        queryKey: ["orgDetail", orgId],
       })
     },
   })
@@ -153,7 +133,38 @@ export default function WorkingHoursForm() {
     })
   }, [form])
 
-  return (
+  const workingHoursData = useMemo(
+    () =>
+      orgDetail?.work_times.map((item) => ({
+        ...item,
+        open_time: item.open_time.slice(0, 5),
+        close_time: item.close_time.slice(0, 5),
+      })),
+    [orgDetail?.work_times]
+  )
+
+  useEffect(() => {
+    if (workingHoursData && workingHoursData.length > 0) {
+      if (isOrgWorkTimeSame(workingHoursData)) {
+        setIsSameTime(true)
+      } else if (isOrgAlwaysOpen(workingHoursData)) {
+        setIsAlwaysOpen(true)
+        setIsSameTime(true)
+      }
+      const newValues = workingHoursData.map((item) => {
+        return {
+          ...item,
+          disabled: item.open_time === "00:00" && item.close_time === "00:00",
+        }
+      })
+      setDefaultValues(newValues)
+      form.setValue("workingHours", newValues)
+    }
+  }, [form, workingHoursData])
+
+  return isLoadingOrgDetail ? (
+    <FormSkeleton />
+  ) : (
     <Fragment>
       <label className="flex items-center justify-between p-3 rounded-xl border border-border mb-3">
         <h3 className="text-lg font-bold">{organizationsT("sameTime")}</h3>
@@ -253,6 +264,45 @@ export default function WorkingHoursForm() {
           </div>
         </form>
       </Form>
+    </Fragment>
+  )
+}
+
+function FormSkeleton() {
+  return (
+    <Fragment>
+      <Skeleton className="h-8 rounded-lg mb-2" />
+      <Skeleton className="h-8 rounded-lg mb-2" />
+      <div className="flex items-start justify-between space-x-3 mb-2">
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+      </div>
+      <div className="flex items-start justify-between space-x-3 mb-2">
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+      </div>
+      <div className="flex items-start justify-between space-x-3 mb-2">
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+      </div>
+      <div className="flex items-start justify-between space-x-3 mb-2">
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+      </div>
+      <div className="flex items-start justify-between space-x-3 mb-2">
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-8 rounded-lg" />
+        <Skeleton className="flex-1 h-5 rounded-lg" />
+      </div>
     </Fragment>
   )
 }
