@@ -17,11 +17,11 @@ export const useStationTypeLabel = ({
   const { t: organizationT } = useTranslation("organizations")
   const stattionType = useMemo(
     () => ({
-      1: organizationT("stationType.other"),
-      2: organizationT("stationType.station"),
-      3: organizationT("stationType.warehouse"),
-      4: organizationT("stationType.office"),
-      5: organizationT("stationType.market"),
+      1: organizationT("orgType.other"),
+      2: organizationT("orgType.station"),
+      3: organizationT("orgType.warehouse"),
+      4: organizationT("orgType.office"),
+      5: organizationT("orgType.market"),
     }),
     [organizationT]
   )
