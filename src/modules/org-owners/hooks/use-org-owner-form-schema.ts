@@ -7,7 +7,7 @@ export const useOrgOwnerFormSchema = () => {
   return z.object({
     first_name: z.string().min(1, orgOwnersT("validation.firstName")),
     last_name: z.string().min(1, orgOwnersT("validation.lastName")),
-    email: z.string().email(orgOwnersT("validation.email")).optional(),
+    email: z.string().optional(),
     phone: z
       .string()
       .min(12, orgOwnersT("validation.phone"))

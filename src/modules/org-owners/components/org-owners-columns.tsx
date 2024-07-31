@@ -28,8 +28,10 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
       />
     ),
     cell: ({ row }) =>
-      row.original.user.email ?? (
-        <Badge className="bg-destructive">No email</Badge>
+      row.original.user.email ? (
+        row.original.user.email
+      ) : (
+        <Badge className="bg-destructive">Email isn't provided</Badge>
       ),
   },
   {
