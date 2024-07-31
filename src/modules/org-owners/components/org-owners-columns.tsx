@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { OrgOwner } from "@/modules/org-owners/api/org-owners.types"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
+import { Badge } from "@/shared/components/ui/badge"
 
 export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
   {
@@ -26,6 +27,10 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
         titleKey="tableHeaderTitles.email"
       />
     ),
+    cell: ({ row }) =>
+      row.original.user.email ?? (
+        <Badge className="bg-destructive">No email</Badge>
+      ),
   },
   {
     accessorKey: "user.phone",
