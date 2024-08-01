@@ -6,7 +6,11 @@ import {
 import { axiosInstanceWithToken, BaseApiPaths } from "@/shared/api/axios-config"
 import { BaseQueryParams } from "@/shared/api/types"
 
-export const getOrgOwners = async ({ pSize, page }: BaseQueryParams) => {
+export const getOrgOwners = async ({
+  pSize,
+  page,
+  search,
+}: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).get<GetOrgOwnersResponse>(
       "/organization-owner/",
@@ -14,6 +18,7 @@ export const getOrgOwners = async ({ pSize, page }: BaseQueryParams) => {
         params: {
           page,
           pSize,
+          search,
         },
       }
     )

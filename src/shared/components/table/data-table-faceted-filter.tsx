@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Column } from "@tanstack/react-table"
 import { CheckIcon, CirclePlusIcon } from "lucide-react"
 
@@ -19,24 +18,22 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Separator } from "@/shared/components/ui/separator"
+import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { cn } from "@/shared/lib/utils"
+import { LabelValue } from "@/shared/types/common.types"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
   title?: string
-  options: {
-    label: string
-    value: string
-    icon?: React.ComponentType<{ className?: string }>
-  }[]
+  options?: LabelValue[]
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
-  options,
+  options = [],
 }: DataTableFacetedFilterProps<TData, TValue>) {
-  const facets = column?.getFacetedUniqueValues()
+  const { navToNewParams } = useQueryParams()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
   return (
@@ -98,9 +95,10 @@ export function DataTableFacetedFilter<TData, TValue>({
                         selectedValues.add(option.value)
                       }
                       const filterValues = Array.from(selectedValues)
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      )
+                      navToNewParams({
+                        [column?.id as string]:
+                          filterValues.length > 0 ? filterValues : undefined,
+                      })
                     }}
                   >
                     <div
@@ -113,15 +111,10 @@ export function DataTableFacetedFilter<TData, TValue>({
                     >
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                    {option.Icon && (
+                      <option.Icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     )}
                     <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
                   </CommandItem>
                 )
               })}

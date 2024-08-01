@@ -13,6 +13,12 @@ export function useQueryParams<TParams extends BaseQueryParams>(): {
     queryParams: {
       page: Number(searchParams.get("page") ?? 1),
       pSize: Number(searchParams.get("pSize") ?? DEFAULT_PAGE_SIZE),
+      search: searchParams.get("search") ?? "",
+      autocomplete: searchParams.get("autocomplete") ?? "",
+      station_area: searchParams.get("station_area") ?? "",
+      station_type: searchParams.get("station_type")
+        ? Number(searchParams.get("station_type"))
+        : undefined,
     } as TParams,
     navToNewParams: (params: TParams) => {
       const newSearchParams = new URLSearchParams(searchParams)

@@ -1,20 +1,21 @@
-import { useMemo, useRef } from "react"
+import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
-import { getOrgOwners } from "@/modules/org-owners/api/org-owners-requests"
 import {
-  CreateOrgPayload,
   OrganizationFields,
+  OrganizationFormFields,
   OrganizationItem,
+  STATION_TYPE_VALUE,
 } from "@/modules/organizations/api/organizations.types"
 import { createOrg } from "@/modules/organizations/api/orgs-requests"
+import OrganizationFormOwners from "@/modules/organizations/components/organization-form-owners"
+import OrganizationFormStationType from "@/modules/organizations/components/organization-form-station-type"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
-import { getAreas } from "@/shared/api/requests"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
 import FormSelect from "@/shared/components/form/form-select"
 import { Button } from "@/shared/components/ui/button"
@@ -28,32 +29,25 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { SheetClose } from "@/shared/components/ui/sheet"
+import { useAreas } from "@/shared/hooks/use-areas"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { currencies } from "@/shared/lib/constants"
-import { convertAreas } from "@/shared/lib/utils"
-import { LabelValue, Locale } from "@/shared/types/common.types"
 
 export default function OrganizationForm() {
   const closeBtnRef = useRef<HTMLButtonElement>(null)
 
-  const { t: organizationsT, i18n } = useTranslation("organizations")
+  const { t: organizationsT } = useTranslation("organizations")
   const { t: commonT } = useTranslation("common")
   const formSchema = useOrgFormSchema()
   const { queryParams } = useQueryParams()
 
+  const areas = useAreas()
   const qc = useQueryClient()
-  const { data: ownersData } = useQuery({
-    queryKey: ["orgOwners"],
-    queryFn: () => getOrgOwners({ page: 1, pSize: 50 }),
-  })
-  const { data: areasData } = useQuery({
-    queryKey: ["areas"],
-    queryFn: () => getAreas(),
-  })
+
   const creatMutation = useMutation<
     OrganizationItem,
     AxiosError,
-    CreateOrgPayload
+    OrganizationFormFields
   >({
     mutationFn: createOrg,
     onSuccess: () => {
@@ -65,21 +59,6 @@ export default function OrganizationForm() {
     },
   })
 
-  const formattedOwners = useMemo(
-    (): LabelValue[] =>
-      ownersData?.results?.map((owner) => ({
-        label: owner.user.first_name + " " + owner.user.last_name,
-        value: owner.user.id as string,
-        sublabel: owner.user.email,
-      })) as LabelValue[],
-    [ownersData]
-  )
-  const formattedAreas = useMemo(
-    (): LabelValue[] =>
-      convertAreas(areasData, i18n.language as Locale) as LabelValue[],
-    [areasData, i18n.language]
-  )
-
   const form = useForm<OrganizationFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -90,6 +69,7 @@ export default function OrganizationForm() {
       post_code: "",
       extra_code: "",
       station_tel: "+7",
+      station_type: "station",
       station_price: "",
       price_currency: "KZT",
       address_kk: "",
@@ -106,6 +86,7 @@ export default function OrganizationForm() {
       station_price: Number(values.station_price),
       latitude: Number(values.latitude),
       longitude: Number(values.longitude),
+      station_type: STATION_TYPE_VALUE[values.station_type],
     })
   }
 
@@ -150,32 +131,50 @@ export default function OrganizationForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>{organizationsT("formLabel.stationOwner")}</FormLabel>
-              <FormAutocomplete
-                options={formattedOwners}
+              <OrganizationFormOwners
                 value={field.value}
                 onChange={field.onChange}
-                placeholder={organizationsT("formLabel.stationOwnerPh")}
               />
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="station_area"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{organizationsT("formLabel.stationArea")}</FormLabel>
-              <FormAutocomplete
-                options={formattedAreas}
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={organizationsT("formLabel.stationAreaPh")}
-              />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
+          <FormField
+            control={form.control}
+            name="station_area"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{organizationsT("formLabel.stationArea")}</FormLabel>
+                <FormAutocomplete
+                  options={areas}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder={organizationsT("formLabel.stationAreaPh")}
+                  title={organizationsT("formLabel.stationAreaPh")}
+                  isLocalSearch
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="station_type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{organizationsT("formLabel.stationType")}</FormLabel>
+                <FormControl>
+                  <OrganizationFormStationType
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
           <FormField
             control={form.control}

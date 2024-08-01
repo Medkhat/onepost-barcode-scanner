@@ -40,4 +40,7 @@ export interface BaseQueryParams {
   page?: number
   pSize?: number
   search?: string
+  autocomplete?: string
+  station_area?: string
+  station_type?: number
 }

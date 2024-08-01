@@ -1,5 +1,5 @@
 import {
-  CreateOrgPayload,
+  OrganizationFormFields,
   OrganizationItem,
   OrganizationListResponse,
   OrgWorkingHours,
@@ -7,7 +7,7 @@ import {
 import { axiosInstanceWithToken, BaseApiPaths } from "@/shared/api/axios-config"
 import { BaseQueryParams } from "@/shared/api/types"
 
-export const createOrg = async (data: CreateOrgPayload) => {
+export const createOrg = async (data: OrganizationFormFields) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).post<OrganizationItem>(
       "/receiving-organization/",
@@ -16,12 +16,18 @@ export const createOrg = async (data: CreateOrgPayload) => {
   ).data
 }
 
-export const getOrgs = async ({ page, pSize }: BaseQueryParams) => {
+export const getOrgs = async ({
+  page,
+  pSize,
+  search,
+  station_area,
+  station_type,
+}: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(
       BaseApiPaths.USER
     ).get<OrganizationListResponse>("/receiving-organization/", {
-      params: { page, pSize },
+      params: { page, pSize, search, station_area, station_type },
     })
   ).data
 }

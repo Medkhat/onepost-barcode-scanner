@@ -2,27 +2,13 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
 import OrganizationType from "@/modules/organizations/components/organization-type"
-import WorkingHoursTrigger from "@/modules/organizations/components/working-hours-trigger"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import i18n from "@/shared/i18n/i18n.config"
+import { formatPhoneNumber } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
 export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
-  {
-    id: "workingHours",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.org.workingHours"
-      />
-    ),
-    cell: ({ row }) => (
-      <WorkingHoursTrigger orgId={row.original.id as string} />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "station_name",
     header: ({ column }) => (
@@ -44,6 +30,25 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
         column={column}
         titleKey="tableHeaderTitles.code"
       />
+    ),
+    cell: ({ row }) => (
+      <span className="whitespace-nowrap">{row.original.station_code}</span>
+    ),
+  },
+  {
+    accessorKey: "station_owner",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.org.owner"
+      />
+    ),
+    cell: ({ row }) => (
+      <span className="whitespace-nowrap">
+        {row.original.station_owner.user.first_name}
+        <br />
+        {row.original.station_owner.user.last_name}
+      </span>
     ),
   },
   {
@@ -78,20 +83,9 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
         titleKey="tableHeaderTitles.phone"
       />
     ),
-  },
-  {
-    accessorKey: "station_owner",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.org.owner"
-      />
-    ),
     cell: ({ row }) => (
       <span className="whitespace-nowrap">
-        {row.original.station_owner.user.first_name}
-        <br />
-        {row.original.station_owner.user.last_name}
+        {formatPhoneNumber(row.original.station_tel)}
       </span>
     ),
   },

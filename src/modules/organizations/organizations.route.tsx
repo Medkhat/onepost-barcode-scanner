@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getOrgs } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormSheet from "@/modules/organizations/components/form-sheet"
 import { organizationsColumns } from "@/modules/organizations/components/organizations-columns"
+import { useOrgTableFilters } from "@/modules/organizations/components/table-filters"
 import WorkingHoursSheet from "@/modules/organizations/components/work-hours"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
@@ -13,17 +14,19 @@ import { DataTable } from "@/shared/components/table/data-table"
 import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { getPageCount } from "@/shared/lib/utils"
+import { LabelValue } from "@/shared/types/common.types"
 
 export default function OrganizationsRoute() {
   useAuthChecker()
   const { t: organizationsT } = useTranslation("organizations")
-  const {
-    queryParams: { page, pSize },
-  } = useQueryParams()
+
+  const tableFilters: LabelValue[] = useOrgTableFilters()
+
+  const { queryParams } = useQueryParams()
 
   const { data: orgsData, isLoading } = useQuery({
-    queryKey: ["orgs" + page + pSize],
-    queryFn: () => getOrgs({ page, pSize }),
+    queryKey: ["orgs", JSON.stringify(queryParams)],
+    queryFn: () => getOrgs(queryParams),
   })
 
   return (
@@ -41,8 +44,10 @@ export default function OrganizationsRoute() {
           <DataTable
             data={orgsData?.results}
             columns={organizationsColumns}
-            pageCount={getPageCount(orgsData?.count, pSize)}
+            pageCount={getPageCount(orgsData?.count, queryParams.pSize)}
             isLoading={isLoading}
+            inputPlaceholder={organizationsT("searchPh")}
+            filters={tableFilters}
           />
         </Layout.Body>
       </Layout>

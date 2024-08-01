@@ -17,12 +17,12 @@ export default function OrgOwnersRoute() {
   const { t: orgOwnersT } = useTranslation("orgOwners")
 
   const {
-    queryParams: { page, pSize },
+    queryParams: { page, pSize, search },
   } = useQueryParams()
 
   const { data: orgOwnersData, isLoading } = useQuery({
-    queryKey: ["orgOwners" + page + pSize],
-    queryFn: () => getOrgOwners({ page, pSize }),
+    queryKey: ["orgOwners", page, pSize, search],
+    queryFn: () => getOrgOwners({ page, pSize, search }),
   })
 
   return (
@@ -41,6 +41,7 @@ export default function OrgOwnersRoute() {
           columns={orgOwnersColumns}
           isLoading={isLoading}
           pageCount={getPageCount(orgOwnersData?.count, pSize)}
+          inputPlaceholder={orgOwnersT("searchPh")}
         />
       </Layout.Body>
     </Layout>

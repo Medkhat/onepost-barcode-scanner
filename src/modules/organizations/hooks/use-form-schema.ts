@@ -21,6 +21,12 @@ export const useOrgFormSchema = () => {
     station_owner: z
       .string()
       .uuid(organizationsT("formValidation.stationOwner")),
+    station_type: z.enum(
+      ["other", "station", "warehouse", "office", "market"],
+      {
+        message: organizationsT("formValidation.stationType"),
+      }
+    ),
     station_area: z.string().uuid(organizationsT("formValidation.stationArea")),
     station_price: z
       .string()
@@ -31,11 +37,7 @@ export const useOrgFormSchema = () => {
     address_kk: z.string().min(1, organizationsT("formValidation.addressKz")),
     address_en: z.string().min(1, organizationsT("formValidation.addressEn")),
     address_ru: z.string().min(1, organizationsT("formValidation.addressRu")),
-    latitude: z.string().refine((value) => value !== undefined, {
-      message: organizationsT("formValidation.latitude"),
-    }),
-    longitude: z.string().refine((value) => value !== undefined, {
-      message: organizationsT("formValidation.longitude"),
-    }),
+    latitude: z.string().min(1, organizationsT("formValidation.latitude")),
+    longitude: z.string().min(1, organizationsT("formValidation.longitude")),
   })
 }

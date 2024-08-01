@@ -1,21 +1,17 @@
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-export const STATION_TYPE = {
-  1: "other",
-  2: "station",
-  3: "warehouse",
-  4: "office",
-  5: "market",
-}
+import { STATION_TYPE_VALUE } from "@/modules/organizations/api/organizations.types"
 
 export const useStationTypeLabel = ({
   type,
+  returnAll,
 }: {
-  type: keyof typeof STATION_TYPE
+  type?: number
+  returnAll?: boolean
 }) => {
   const { t: organizationT } = useTranslation("organizations")
-  const stattionType = useMemo(
+  const stationType = useMemo(
     () => ({
       1: organizationT("orgType.other"),
       2: organizationT("orgType.station"),
@@ -25,5 +21,18 @@ export const useStationTypeLabel = ({
     }),
     [organizationT]
   )
-  return stattionType[type]
+  const stationStringTypes: Record<keyof typeof STATION_TYPE_VALUE, string> =
+    useMemo(
+      () => ({
+        other: organizationT("orgType.other"),
+        station: organizationT("orgType.station"),
+        warehouse: organizationT("orgType.warehouse"),
+        office: organizationT("orgType.office"),
+        market: organizationT("orgType.market"),
+      }),
+      [organizationT]
+    )
+  return returnAll
+    ? stationStringTypes
+    : stationType[type as keyof typeof stationType]
 }

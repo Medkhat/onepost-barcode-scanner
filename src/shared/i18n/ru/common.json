@@ -4,7 +4,9 @@
     "back": "Назад",
     "cancel": "Отмена",
     "save": "Сохранить",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "selectAndClose": "Выбрать и закрыть",
+    "reset": "Сбросить"
   },
   "theme": {
     "light": "Светлая",
@@ -61,5 +63,6 @@
     "saturday": "Сб",
     "sunday": "Вс"
   },
-  "search": "Поиск"
+  "search": "Поиск",
+  "loading": "Загружаем"
 }

@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react"
+
 export type Locale = "kk" | "ru"
 
 export type LabelValue = {
@@ -5,4 +7,5 @@ export type LabelValue = {
   value: string
   sublabel?: string
   subOptions?: LabelValue[]
+  Icon?: LucideIcon
 }

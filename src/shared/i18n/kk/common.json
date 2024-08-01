@@ -4,7 +4,9 @@
     "back": "Артқа",
     "cancel": "Болдырмау",
     "save": "Сақтау",
-    "logout": "Шығу"
+    "logout": "Шығу",
+    "selectAndClose": "Таңдау және жабу",
+    "reset": "Қалпына келтіру"
   },
   "theme": {
     "light": "Жарық",
@@ -61,5 +63,6 @@
     "saturday": "Сб",
     "sunday": "Жс"
   },
-  "search": "Іздеу"
+  "search": "Іздеу",
+  "loading": "Жүктелуде"
 }

@@ -36,3 +36,20 @@ export function getPageCount(
 ) {
   return Math.ceil(total / pageSize)
 }
+
+/**
+ * Format a phone number
+ * @param phoneNumber - The phone number
+ * @example formatPhoneNumber("+77777777777") // +7 (777) 777-77-77
+ */
+export function formatPhoneNumber(phoneNumber: string): string {
+  if (!phoneNumber) {
+    return ""
+  }
+  const code = phoneNumber.slice(0, 2)
+  const area = phoneNumber.slice(2, 5)
+  const mid = phoneNumber.slice(5, 8)
+  const end1 = phoneNumber.slice(8, 10)
+  const end2 = phoneNumber.slice(10, 12)
+  return `${code} (${area}) ${mid}-${end1}-${end2}`
+}
