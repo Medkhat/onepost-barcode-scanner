@@ -20,14 +20,14 @@ export const getOrgs = async ({
   page,
   pSize,
   search,
-  station_area,
+  station_region,
   station_type,
 }: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(
       BaseApiPaths.USER
     ).get<OrganizationListResponse>("/receiving-organization/", {
-      params: { page, pSize, search, station_area, station_type },
+      params: { page, pSize, search, station_region, station_type },
     })
   ).data
 }
