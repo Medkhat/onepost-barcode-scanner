@@ -3,6 +3,7 @@ import { LabelValue, Locale } from "@/shared/types/common.types"
 export enum RouteNames {
   ROOT = "/",
   ORGANIZATIONS = "/organizations",
+  ORGANIZATION_DETAIL = "/organizations/:id",
   ORG_OWNERS = "/owners",
   ORDERS_STATUSES = "/orders-statuses",
   USERS_DATA = "/users-data",

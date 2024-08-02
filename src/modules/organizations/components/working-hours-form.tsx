@@ -2,14 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
 import { WorkingHour } from "@/modules/organizations/api/organizations.types"
-import {
-  getOrgDetail,
-  setWorkingHours,
-} from "@/modules/organizations/api/orgs-requests"
+import { setWorkingHours } from "@/modules/organizations/api/orgs-requests"
+import WorkingHourFormSkeleton from "@/modules/organizations/components/workin-hours-form-skeleton"
 import {
   isOrgAlwaysOpen,
   isOrgWorkTimeSame,
@@ -26,7 +24,6 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Separator } from "@/shared/components/ui/separator"
-import { Skeleton } from "@/shared/components/ui/skeleton"
 import { Switch } from "@/shared/components/ui/switch"
 import { useWeekdayLabels } from "@/shared/hooks/use-weekday-labels"
 
@@ -34,7 +31,13 @@ type WorkingHourFormField = WorkingHour & {
   disabled: boolean
 }
 
-export default function WorkingHoursForm() {
+export default function WorkingHoursForm({
+  workTimes = [],
+  isLoading,
+}: {
+  workTimes?: WorkingHour[]
+  isLoading?: boolean
+}) {
   const { t: organizationsT } = useTranslation("organizations")
   const { t: commonT } = useTranslation("common")
 
@@ -60,11 +63,6 @@ export default function WorkingHoursForm() {
   const { fields } = useFieldArray({
     control: form.control,
     name: "workingHours",
-  })
-
-  const { data: orgDetail, isLoading: isLoadingOrgDetail } = useQuery({
-    queryFn: () => getOrgDetail(orgId as string),
-    queryKey: ["orgDetail", orgId],
   })
 
   const queryClient = useQueryClient()
@@ -135,12 +133,12 @@ export default function WorkingHoursForm() {
 
   const workingHoursData = useMemo(
     () =>
-      orgDetail?.work_times.map((item) => ({
+      workTimes.map((item) => ({
         ...item,
         open_time: item.open_time.slice(0, 5),
         close_time: item.close_time.slice(0, 5),
       })),
-    [orgDetail?.work_times]
+    [workTimes]
   )
 
   useEffect(() => {
@@ -162,12 +160,12 @@ export default function WorkingHoursForm() {
     }
   }, [form, workingHoursData])
 
-  return isLoadingOrgDetail ? (
-    <FormSkeleton />
+  return isLoading ? (
+    <WorkingHourFormSkeleton />
   ) : (
     <Fragment>
       <label className="flex items-center justify-between p-3 rounded-xl border border-border mb-3">
-        <h3 className="text-lg font-bold">{organizationsT("sameTime")}</h3>
+        <h3 className="text-lg font-medium">{organizationsT("sameTime")}</h3>
         <Switch
           disabled={isAlwaysOpen}
           checked={isSameTime}
@@ -176,7 +174,9 @@ export default function WorkingHoursForm() {
       </label>
       {isSameTime && (
         <label className="flex items-center justify-between p-3 rounded-xl border border-border mb-3">
-          <h3 className="text-lg font-bold">{organizationsT("alwaysOpen")}</h3>
+          <h3 className="text-lg font-medium">
+            {organizationsT("alwaysOpen")}
+          </h3>
           <Switch
             checked={isAlwaysOpen}
             onCheckedChange={() => setIsAlwaysOpen((prev) => !prev)}
@@ -190,10 +190,7 @@ export default function WorkingHoursForm() {
               .filter((item) => (isSameTime ? item.day === 1 : item))
               .map((fieldItem, index, arr) => (
                 <Fragment key={fieldItem.id}>
-                  <div className="flex items-center justify-between space-x-3">
-                    <p className="text-xl font-semibold mr-5">
-                      {weekdays[fieldItem.day as keyof typeof weekdays]}.
-                    </p>
+                  <div className="flex justify-between space-x-3">
                     <FormField
                       control={form.control}
                       name={`workingHours.${index}.open_time`}
@@ -228,23 +225,30 @@ export default function WorkingHoursForm() {
                         </FormItem>
                       )}
                     />
-                    <Controller
-                      control={form.control}
-                      name={`workingHours.${index}.disabled`}
-                      render={({ field }) => (
-                        <label className="whitespace-nowrap flex items-center ml-5">
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={(checked: boolean) => {
-                              handleChangeNotWork(checked, fieldItem.day)
-                              field.onChange(checked)
-                            }}
-                            className="mr-2 w-5 h-5"
-                          />
-                          {organizationsT("notWork")}
-                        </label>
+                    <div className="flex flex-col justify-between">
+                      <p className="text-xl font-semibold mr-5">
+                        {weekdays[fieldItem.day as keyof typeof weekdays]}.
+                      </p>
+                      {!isSameTime && (
+                        <Controller
+                          control={form.control}
+                          name={`workingHours.${index}.disabled`}
+                          render={({ field }) => (
+                            <label className="whitespace-nowrap flex items-center">
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={(checked: boolean) => {
+                                  handleChangeNotWork(checked, fieldItem.day)
+                                  field.onChange(checked)
+                                }}
+                                className="mr-2 w-5 h-5"
+                              />
+                              {organizationsT("notWork")}
+                            </label>
+                          )}
+                        />
                       )}
-                    />
+                    </div>
                   </div>
                   {index !== arr.length - 1 && <Separator className="my-3" />}
                 </Fragment>
@@ -264,45 +268,6 @@ export default function WorkingHoursForm() {
           </div>
         </form>
       </Form>
-    </Fragment>
-  )
-}
-
-function FormSkeleton() {
-  return (
-    <Fragment>
-      <Skeleton className="h-8 rounded-lg mb-2" />
-      <Skeleton className="h-8 rounded-lg mb-2" />
-      <div className="flex items-start justify-between space-x-3 mb-2">
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-      </div>
-      <div className="flex items-start justify-between space-x-3 mb-2">
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-      </div>
-      <div className="flex items-start justify-between space-x-3 mb-2">
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-      </div>
-      <div className="flex items-start justify-between space-x-3 mb-2">
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-      </div>
-      <div className="flex items-start justify-between space-x-3 mb-2">
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-8 rounded-lg" />
-        <Skeleton className="flex-1 h-5 rounded-lg" />
-      </div>
     </Fragment>
   )
 }

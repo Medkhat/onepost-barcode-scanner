@@ -41,6 +41,8 @@
     "latitude": "Широта",
     "longitude": "Долгота"
   },
+  "address": "Адрес",
+  "coords": "Координаты",
   "createOrg": "Создать организацию",
   "createOrgSuccess": "Организация успешно создана",
   "workingHours": "Рабочее время",
@@ -57,5 +59,6 @@
     "warehouse": "Склад",
     "office": "Офис",
     "market": "Магазин"
-  }
+  },
+  "generalInfo": "Общая информация"
 }

@@ -26,6 +26,7 @@ export type OrganizationItem = BaseDataFields &
     station_area: Omit<AreaItem, "sub_area"> & {
       parent_area: Omit<AreaItem, "sub_area">
     }
+    station_region: AreaItem
     work_times: WorkingHour[]
     station_type: number
   }

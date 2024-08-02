@@ -29,6 +29,14 @@ export const router = createBrowserRouter([
         }),
       },
       {
+        path: RouteNames.ORGANIZATION_DETAIL,
+        lazy: async () => ({
+          Component: (
+            await import("@/modules/organizations/organization.route")
+          ).default,
+        }),
+      },
+      {
         path: RouteNames.ORG_OWNERS,
         lazy: async () => ({
           Component: (await import("@/modules/org-owners/org-owners.route"))

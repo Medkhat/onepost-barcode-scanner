@@ -1,5 +1,5 @@
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Table } from "@tanstack/react-table"
 import { XIcon } from "lucide-react"
 
 import { BaseQueryParams } from "@/shared/api/types"
@@ -9,19 +9,29 @@ import { Button } from "@/shared/components/ui/button"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { LabelValue } from "@/shared/types/common.types"
 
-interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+interface DataTableToolbarProps {
   inputPlaceholder?: string
   filters?: LabelValue[]
 }
 
-export function DataTableToolbar<TData>({
-  table,
+export function DataTableToolbar({
   inputPlaceholder,
   filters,
-}: DataTableToolbarProps<TData>) {
+}: DataTableToolbarProps) {
   const { t: commonT } = useTranslation("common")
-  const { navToNewParams } = useQueryParams()
+  const { queryParams, navToNewParams } = useQueryParams()
+  const [hasFilters, setHasFilters] = useState(false)
+
+  useEffect(() => {
+    let hasFilters = false
+    filters?.forEach((filter) => {
+      if (queryParams[filter.value as keyof BaseQueryParams]) {
+        hasFilters = true
+      }
+    })
+    setHasFilters(hasFilters)
+  }, [filters, queryParams])
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2">
@@ -35,13 +45,13 @@ export function DataTableToolbar<TData>({
             filters.map((filter) => (
               <DataTableFacetedFilter
                 key={filter.value}
-                column={table.getColumn(filter.value)}
                 title={filter.label}
                 options={filter.subOptions}
+                filterKey={filter.value}
               />
             ))}
         </div>
-        {filters && (
+        {hasFilters && (
           <Button
             variant="ghost"
             onClick={() =>

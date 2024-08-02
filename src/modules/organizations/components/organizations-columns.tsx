@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
 import OrganizationType from "@/modules/organizations/components/organization-type"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
+import { Button } from "@/shared/components/ui/button"
 import i18n from "@/shared/i18n/i18n.config"
+import { RouteNames } from "@/shared/lib/constants"
 import { formatPhoneNumber } from "@/shared/lib/utils"
 import { Locale } from "@/shared/types/common.types"
 
@@ -18,7 +21,11 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
       />
     ),
     cell: ({ row }) => (
-      <span className="min-w-32 line-clamp-2">{row.original.station_name}</span>
+      <Link to={RouteNames.ORGANIZATIONS + "/" + row.original.id}>
+        <Button variant="link" className="whitespace-nowrap">
+          {row.original.station_name}
+        </Button>
+      </Link>
     ),
     enableSorting: true,
     enableHiding: false,
@@ -32,7 +39,11 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
       />
     ),
     cell: ({ row }) => (
-      <span className="whitespace-nowrap">{row.original.station_code}</span>
+      <Link to={RouteNames.ORGANIZATIONS + "/" + row.original.id}>
+        <Button variant="link" className="whitespace-nowrap">
+          {row.original.station_code}
+        </Button>
+      </Link>
     ),
   },
   {

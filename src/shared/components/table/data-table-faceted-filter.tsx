@@ -1,6 +1,7 @@
-import { Column } from "@tanstack/react-table"
+import { useEffect, useState } from "react"
 import { CheckIcon, CirclePlusIcon } from "lucide-react"
 
+import { BaseQueryParams } from "@/shared/api/types"
 import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -17,24 +18,29 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
-import { Separator } from "@/shared/components/ui/separator"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { cn } from "@/shared/lib/utils"
 import { LabelValue } from "@/shared/types/common.types"
 
-interface DataTableFacetedFilterProps<TData, TValue> {
-  column?: Column<TData, TValue>
+interface DataTableFacetedFilterProps {
   title?: string
   options?: LabelValue[]
+  filterKey?: string
 }
 
-export function DataTableFacetedFilter<TData, TValue>({
-  column,
+export function DataTableFacetedFilter({
   title,
+  filterKey,
   options = [],
-}: DataTableFacetedFilterProps<TData, TValue>) {
-  const { navToNewParams } = useQueryParams()
-  const selectedValues = new Set(column?.getFilterValue() as string[])
+}: DataTableFacetedFilterProps) {
+  const { queryParams, navToNewParams } = useQueryParams()
+  const [selectedValue, setSelectedValue] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!queryParams[filterKey as keyof BaseQueryParams]) {
+      setSelectedValue(null)
+    }
+  }, [filterKey, queryParams])
 
   return (
     <Popover>
@@ -42,38 +48,10 @@ export function DataTableFacetedFilter<TData, TValue>({
         <Button variant="outline" size="sm" className="h-8 border-dashed">
           <CirclePlusIcon className="mr-2 h-4 w-4" />
           {title}
-          {selectedValues?.size > 0 && (
-            <>
-              <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
-                {selectedValues.size}
-              </Badge>
-              <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedValues.size} selected
-                  </Badge>
-                ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                )}
-              </div>
-            </>
+          {selectedValue && (
+            <Badge variant="secondary" className="rounded-sm px-1 font-normal">
+              {options.find((option) => selectedValue === option.value)?.label}
+            </Badge>
           )}
         </Button>
       </PopoverTrigger>
@@ -84,20 +62,18 @@ export function DataTableFacetedFilter<TData, TValue>({
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
+                const isSelected = option.value === selectedValue
                 return (
                   <CommandItem
                     key={option.value}
                     onSelect={() => {
                       if (isSelected) {
-                        selectedValues.delete(option.value)
+                        setSelectedValue(null)
                       } else {
-                        selectedValues.add(option.value)
+                        setSelectedValue(option.value)
                       }
-                      const filterValues = Array.from(selectedValues)
                       navToNewParams({
-                        [column?.id as string]:
-                          filterValues.length > 0 ? filterValues : undefined,
+                        [filterKey as string]: option.value,
                       })
                     }}
                   >
@@ -119,12 +95,14 @@ export function DataTableFacetedFilter<TData, TValue>({
                 )
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {selectedValue && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => {
+                      setSelectedValue(null), navToNewParams({})
+                    }}
                     className="justify-center text-center"
                   >
                     Clear filters

@@ -41,6 +41,6 @@ export interface BaseQueryParams {
   pSize?: number
   search?: string
   autocomplete?: string
-  station_area?: string
+  station_region?: string
   station_type?: number
 }

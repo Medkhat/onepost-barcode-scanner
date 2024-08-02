@@ -20,6 +20,15 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
     ),
   },
   {
+    accessorKey: "user.phone",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        titleKey="tableHeaderTitles.phone"
+      />
+    ),
+  },
+  {
     accessorKey: "user.email",
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -31,16 +40,7 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
       row.original.user.email ? (
         row.original.user.email
       ) : (
-        <Badge className="bg-destructive">Email isn't provided</Badge>
+        <Badge className="bg-destructive/50">Email isn't provided</Badge>
       ),
-  },
-  {
-    accessorKey: "user.phone",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.phone"
-      />
-    ),
   },
 ]

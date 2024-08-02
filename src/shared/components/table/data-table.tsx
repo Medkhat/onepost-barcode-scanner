@@ -6,7 +6,6 @@ import {
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
-  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
@@ -64,12 +63,12 @@ export function DataTable<TData, TValue>({
     pageCount,
     enableRowSelection: true,
     manualPagination: true,
+    manualFiltering: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
@@ -80,7 +79,6 @@ export function DataTable<TData, TValue>({
     <div className="mt-5 space-y-4">
       {inputPlaceholder && (
         <DataTableToolbar
-          table={table}
           filters={filters}
           inputPlaceholder={inputPlaceholder}
         />

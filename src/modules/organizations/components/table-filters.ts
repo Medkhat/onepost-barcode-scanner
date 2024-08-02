@@ -38,7 +38,7 @@ export const useOrgTableFilters = () => {
       },
       {
         label: organizationsT("formLabel.stationArea"),
-        value: "station_area",
+        value: "station_region",
         subOptions: areas,
       },
     ],

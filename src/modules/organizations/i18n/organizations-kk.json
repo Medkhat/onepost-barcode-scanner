@@ -41,6 +41,8 @@
     "latitude": "Ендік",
     "longitude": "Бойлық"
   },
+  "address": "Мекенжай",
+  "coords": "Координаттар",
   "createOrg": "Бөлімше құру",
   "createOrgSuccess": "Бөлімше сәтті құрылды",
   "workingHours": "Жұмыс уақыты",
@@ -57,5 +59,6 @@
     "warehouse": "Сақтау қоймасы",
     "office": "Кеңсе",
     "market": "Дүкен"
-  }
+  },
+  "generalInfo": "Жалпы ақпарат"
 }
