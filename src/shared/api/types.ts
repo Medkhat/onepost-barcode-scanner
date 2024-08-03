@@ -1,3 +1,8 @@
+import {
+  MarketCompany,
+  OrdersStatuses,
+} from "@/modules/orders-statuses/api/orders-statuses.types"
+
 export enum GeneralErrorCodes {
   "400x1" = "GET_OTP_FAILED",
   "400x2" = "INVALID_PHONE",
@@ -43,4 +48,8 @@ export interface BaseQueryParams {
   autocomplete?: string
   station_region?: string
   station_type?: number
+  status_type?: OrdersStatuses
+  market_company?: MarketCompany
+  station?: string
+  is_payed?: string
 }

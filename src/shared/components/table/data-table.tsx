@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
   isLoading?: boolean
   inputPlaceholder?: string
   filters?: LabelValue[]
+  children?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -42,6 +43,7 @@ export function DataTable<TData, TValue>({
   isLoading,
   inputPlaceholder,
   filters,
+  children,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -77,12 +79,15 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="mt-5 space-y-4">
-      {inputPlaceholder && (
-        <DataTableToolbar
-          filters={filters}
-          inputPlaceholder={inputPlaceholder}
-        />
-      )}
+      <div className="sm:flex items-center justify-between gap-5">
+        {inputPlaceholder && (
+          <DataTableToolbar
+            filters={filters}
+            inputPlaceholder={inputPlaceholder}
+          />
+        )}
+        {children}
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

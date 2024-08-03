@@ -9,7 +9,6 @@ import {
 
 import SearchInput from "@/shared/components/search"
 import { Button } from "@/shared/components/ui/button"
-import { FormControl } from "@/shared/components/ui/form"
 import {
   Sheet,
   SheetClose,
@@ -26,7 +25,7 @@ import { LabelValue } from "@/shared/types/common.types"
 
 type FormAutocompleteProps = {
   options: LabelValue[]
-  value: string
+  value?: string
   placeholder?: string
   isLocalSearch?: boolean
   title: string
@@ -35,6 +34,7 @@ type FormAutocompleteProps = {
   isFetchingNext?: boolean
   isLoading?: boolean
   externalLabel?: string
+  triggerClassName?: string
 }
 
 const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
@@ -48,6 +48,7 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   isFetchingNext,
   isLoading,
   externalLabel,
+  triggerClassName,
 }) => {
   const { queryParams } = useQueryParams()
   const { t: commonT } = useTranslation("common")
@@ -117,21 +118,20 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   return (
     <Sheet modal>
       <SheetTrigger asChild>
-        <FormControl>
-          <Button
-            variant="outline"
-            role="combobox"
-            className={cn(
-              "flex w-full justify-between",
-              !selectedOption && !value && "text-muted-foreground"
-            )}
-          >
-            {value && selectedOption
-              ? selectedOption?.label
-              : externalLabel || placeholder}
-            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </FormControl>
+        <Button
+          variant="outline"
+          role="combobox"
+          className={cn(
+            "flex w-full justify-between",
+            !selectedOption && !value && "text-muted-foreground",
+            triggerClassName
+          )}
+        >
+          {value && selectedOption
+            ? selectedOption?.label
+            : externalLabel || placeholder}
+          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
       </SheetTrigger>
       <SheetContent className="p-6">
         <SheetHeader className="mb-3">
@@ -176,11 +176,11 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
                       : "opacity-0"
                   )}
                 />
-                <div className="ml-5 text-left flex-1">
-                  <p className="font-semibold text-md mb-1">{option.label}</p>
+                <div className="ml-3 text-left flex-1 flex items-center">
+                  <p className="font-semibold text-md">{option.label}</p>
                   {option.sublabel && (
-                    <span className="text-sm text-muted-foreground">
-                      {option.sublabel} asdsdad
+                    <span className="ml-2 text-sm text-muted-foreground">
+                      {option.sublabel}
                     </span>
                   )}
                 </div>

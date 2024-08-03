@@ -4,7 +4,9 @@ import { useQuery } from "@tanstack/react-query"
 
 import { getOrdersStatuses } from "@/modules/orders-statuses/api/orders-statuses-requests"
 import ChangeStatusModal from "@/modules/orders-statuses/components/change-status-modal"
+import FilterByOrganizations from "@/modules/orders-statuses/components/filter-by-organizations"
 import { ordersStatusesColumns } from "@/modules/orders-statuses/components/orders-statuses-columns"
+import { useOrdersStatusesTableFilters } from "@/modules/orders-statuses/hooks/use-orders-statuses-table-filters"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
@@ -23,13 +25,12 @@ export default function OrdersStatusesRoute() {
   useAuthChecker()
   const { t: ordersT } = useTranslation("orders")
 
-  const {
-    queryParams: { page, pSize, search },
-  } = useQueryParams()
+  const { queryParams } = useQueryParams()
+  const filters = useOrdersStatusesTableFilters()
 
   const { data: statusesData, isLoading } = useQuery({
-    queryKey: ["statuses", page, pSize, search],
-    queryFn: () => getOrdersStatuses({ page, pSize, search }),
+    queryKey: ["statuses", JSON.stringify(queryParams)],
+    queryFn: () => getOrdersStatuses(queryParams),
   })
 
   return (
@@ -45,9 +46,12 @@ export default function OrdersStatusesRoute() {
             data={statusesData?.results}
             columns={ordersStatusesColumns}
             isLoading={isLoading}
-            pageCount={getPageCount(statusesData?.count, pSize)}
+            pageCount={getPageCount(statusesData?.count, queryParams.pSize)}
             inputPlaceholder={ordersT("searchPh")}
-          />
+            filters={filters}
+          >
+            <FilterByOrganizations />
+          </DataTable>
           <DialogContent className="max-h-[calc(100svh-24px)] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{ordersT("changeStatus")}</DialogTitle>

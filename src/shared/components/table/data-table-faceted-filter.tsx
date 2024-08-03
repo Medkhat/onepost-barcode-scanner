@@ -45,11 +45,14 @@ export function DataTableFacetedFilter({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button variant="outline" className="border-dashed">
           <CirclePlusIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValue && (
-            <Badge variant="secondary" className="rounded-sm px-1 font-normal">
+            <Badge
+              variant="secondary"
+              className="ml-1 rounded-sm px-1 font-normal"
+            >
               {options.find((option) => selectedValue === option.value)?.label}
             </Badge>
           )}

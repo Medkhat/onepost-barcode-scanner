@@ -156,11 +156,13 @@ export default function OrganizationForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>{organizationsT("formLabel.stationOwner")}</FormLabel>
-              <OrganizationFormOwners
-                value={field.value}
-                onChange={field.onChange}
-                triggerLabel={`${storedOrganization?.station_owner.user.first_name} ${storedOrganization?.station_owner.user.last_name}`}
-              />
+              <FormControl>
+                <OrganizationFormOwners
+                  value={field.value}
+                  onChange={field.onChange}
+                  triggerLabel={`${storedOrganization?.station_owner.user.first_name} ${storedOrganization?.station_owner.user.last_name}`}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -172,19 +174,21 @@ export default function OrganizationForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{organizationsT("formLabel.stationArea")}</FormLabel>
-                <FormAutocomplete
-                  options={areas}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder={organizationsT("formLabel.stationAreaPh")}
-                  title={organizationsT("formLabel.stationAreaPh")}
-                  externalLabel={
-                    storedOrganization?.station_area[
-                      `area_name_${i18n.language as Locale}`
-                    ]
-                  }
-                  isLocalSearch
-                />
+                <FormControl>
+                  <FormAutocomplete
+                    options={areas}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={organizationsT("formLabel.stationAreaPh")}
+                    title={organizationsT("formLabel.stationAreaPh")}
+                    externalLabel={
+                      storedOrganization?.station_area[
+                        `area_name_${i18n.language as Locale}`
+                      ]
+                    }
+                    isLocalSearch
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

@@ -11,6 +11,8 @@ export type OrdersStatuses =
   | "IN_DEPARTMENT"
   | "TAKEN"
 
+export type MarketCompany = "PINDODO" | "TEMU"
+
 export type OrderGoods = BaseDataFields & {
   goods_name_kk: string
   goods_name_en: string
@@ -21,7 +23,7 @@ export type OrderGoods = BaseDataFields & {
 export type OrderItem = BaseDataFields & {
   order_no: string
   order_goods: OrderGoods[]
-  market_company: string
+  market_company: MarketCompany
   total_weight: string
   amount: string
   amount_currency: string

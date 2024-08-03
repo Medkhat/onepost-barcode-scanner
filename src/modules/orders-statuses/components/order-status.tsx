@@ -1,5 +1,5 @@
 import { OrdersStatuses } from "@/modules/orders-statuses/api/orders-statuses.types"
-import { useOrderStatusLabels } from "@/modules/orders-statuses/lib/orders-statuses-constants"
+import { useOrderStatusLabels } from "@/modules/orders-statuses/hooks/use-orders-statuses-constants"
 import { Badge } from "@/shared/components/ui/badge"
 import { cn } from "@/shared/lib/utils"
 
