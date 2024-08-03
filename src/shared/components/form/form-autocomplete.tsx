@@ -33,7 +33,6 @@ type FormAutocompleteProps = {
   onScrollEnd?: () => void
   isFetchingNext?: boolean
   isLoading?: boolean
-  externalLabel?: string
   triggerClassName?: string
 }
 
@@ -47,7 +46,6 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   onScrollEnd,
   isFetchingNext,
   isLoading,
-  externalLabel,
   triggerClassName,
 }) => {
   const { queryParams } = useQueryParams()
@@ -127,9 +125,7 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             triggerClassName
           )}
         >
-          {value && selectedOption
-            ? selectedOption?.label
-            : externalLabel || placeholder}
+          {value && selectedOption ? selectedOption?.label : placeholder}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </SheetTrigger>

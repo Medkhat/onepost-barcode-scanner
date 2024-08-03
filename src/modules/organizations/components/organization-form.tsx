@@ -179,13 +179,14 @@ export default function OrganizationForm() {
                     options={areas}
                     value={field.value}
                     onChange={field.onChange}
-                    placeholder={organizationsT("formLabel.stationAreaPh")}
-                    title={organizationsT("formLabel.stationAreaPh")}
-                    externalLabel={
-                      storedOrganization?.station_area[
-                        `area_name_${i18n.language as Locale}`
-                      ]
+                    placeholder={
+                      isEditMode
+                        ? storedOrganization?.station_area[
+                            `area_name_${i18n.language as Locale}`
+                          ]
+                        : organizationsT("formLabel.stationAreaPh")
                     }
+                    title={organizationsT("formLabel.stationAreaPh")}
                     isLocalSearch
                   />
                 </FormControl>

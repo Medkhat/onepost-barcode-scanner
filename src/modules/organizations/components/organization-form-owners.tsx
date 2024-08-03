@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useInfiniteQuery } from "@tanstack/react-query"
 
 import { getOrgOwners } from "@/modules/org-owners/api/org-owners-requests"
+import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { LabelValue } from "@/shared/types/common.types"
@@ -18,6 +19,9 @@ export default function OrganizationFormOwners(
 ) {
   const { queryParams } = useQueryParams()
   const { t: organizationsT } = useTranslation("organizations")
+  const isEditMode = useOrganizationsStore((state) =>
+    Boolean(state.organization)
+  )
 
   const {
     data: ownersData,
@@ -66,12 +70,15 @@ export default function OrganizationFormOwners(
       options={formattedOwners}
       value={props.value}
       onChange={props.onChange}
-      placeholder={organizationsT("formLabel.stationOwnerPh")}
+      placeholder={
+        isEditMode
+          ? props.triggerLabel
+          : organizationsT("formLabel.stationOwnerPh")
+      }
       title={organizationsT("formLabel.stationOwnerPh")}
       onScrollEnd={onScrollEnd}
       isFetchingNext={isFetchingNextPage}
       isLoading={isLoading}
-      externalLabel={props.triggerLabel}
     />
   )
 }
