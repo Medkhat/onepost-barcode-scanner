@@ -11,11 +11,13 @@ import {
   OrganizationFormFields,
   OrganizationItem,
   STATION_TYPE_VALUE,
+  STATION_VALUE_TYPE,
 } from "@/modules/organizations/api/organizations.types"
-import { createOrg } from "@/modules/organizations/api/orgs-requests"
+import { createOrg, updateOrg } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormOwners from "@/modules/organizations/components/organization-form-owners"
 import OrganizationFormStationType from "@/modules/organizations/components/organization-form-station-type"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
+import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
 import FormSelect from "@/shared/components/form/form-select"
 import { Button } from "@/shared/components/ui/button"
@@ -32,56 +34,79 @@ import { SheetClose } from "@/shared/components/ui/sheet"
 import { useAreas } from "@/shared/hooks/use-areas"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { currencies } from "@/shared/lib/constants"
+import { Locale } from "@/shared/types/common.types"
 
 export default function OrganizationForm() {
   const closeBtnRef = useRef<HTMLButtonElement>(null)
 
-  const { t: organizationsT } = useTranslation("organizations")
+  const { t: organizationsT, i18n } = useTranslation("organizations")
   const { t: commonT } = useTranslation("common")
+
   const formSchema = useOrgFormSchema()
   const { queryParams } = useQueryParams()
-
   const areas = useAreas()
-  const qc = useQueryClient()
 
-  const creatMutation = useMutation<
+  const storedOrganization = useOrganizationsStore(
+    (state) => state.organization
+  )
+  const isEditMode = Boolean(storedOrganization)
+
+  const qc = useQueryClient()
+  const orgMutation = useMutation<
     OrganizationItem,
     AxiosError,
     OrganizationFormFields
   >({
-    mutationFn: createOrg,
+    mutationFn: isEditMode
+      ? (values) => updateOrg(storedOrganization?.id as string, { ...values })
+      : createOrg,
     onSuccess: () => {
       toast.success(organizationsT("createOrgSuccess"))
       closeBtnRef.current?.click()
       qc.invalidateQueries({
-        queryKey: ["orgs" + queryParams.page + queryParams.pSize],
+        queryKey: isEditMode
+          ? ["org", storedOrganization?.id]
+          : ["orgs" + queryParams.page + queryParams.pSize],
       })
     },
   })
 
   const form = useForm<OrganizationFields>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      station_name: "",
-      extra_station_name: "",
-      station_owner: "",
-      station_code: "",
-      post_code: "",
-      extra_code: "",
-      station_tel: "+7",
-      station_type: "station",
-      station_price: "",
-      price_currency: "KZT",
-      address_kk: "",
-      address_en: "",
-      address_ru: "",
-      latitude: "",
-      longitude: "",
-    },
+    defaultValues: isEditMode
+      ? {
+          ...storedOrganization,
+          station_owner: storedOrganization?.station_owner.user.id,
+          station_area: storedOrganization?.station_area.id,
+          station_type: STATION_VALUE_TYPE[
+            storedOrganization?.station_type as keyof typeof STATION_VALUE_TYPE
+          ] as keyof typeof STATION_TYPE_VALUE,
+          post_code: storedOrganization?.station_area.post_code,
+          station_price: storedOrganization?.station_price.toString(),
+          latitude: storedOrganization?.latitude.toString(),
+          longitude: storedOrganization?.longitude.toString(),
+        }
+      : {
+          station_name: "",
+          extra_station_name: "",
+          station_owner: "",
+          station_code: "",
+          post_code: "",
+          extra_code: "",
+          station_tel: "+7",
+          station_type: "station",
+          station_price: "",
+          price_currency: "KZT",
+          address_kk: "",
+          address_en: "",
+          address_ru: "",
+          latitude: "",
+          longitude: "",
+        },
   })
 
   const submitForm = (values: OrganizationFields) => {
-    creatMutation.mutate({
+    orgMutation.mutate({
       ...values,
       station_price: Number(values.station_price),
       latitude: Number(values.latitude),
@@ -134,6 +159,7 @@ export default function OrganizationForm() {
               <OrganizationFormOwners
                 value={field.value}
                 onChange={field.onChange}
+                triggerLabel={`${storedOrganization?.station_owner.user.first_name} ${storedOrganization?.station_owner.user.last_name}`}
               />
               <FormMessage />
             </FormItem>
@@ -152,6 +178,11 @@ export default function OrganizationForm() {
                   onChange={field.onChange}
                   placeholder={organizationsT("formLabel.stationAreaPh")}
                   title={organizationsT("formLabel.stationAreaPh")}
+                  externalLabel={
+                    storedOrganization?.station_area[
+                      `area_name_${i18n.language as Locale}`
+                    ]
+                  }
                   isLocalSearch
                 />
                 <FormMessage />
@@ -339,12 +370,12 @@ export default function OrganizationForm() {
             </Button>
           </SheetClose>
           <Button
-            disabled={creatMutation.isPending}
-            isLoading={creatMutation.isPending}
+            disabled={orgMutation.isPending}
+            isLoading={orgMutation.isPending}
             type="submit"
             className="flex-1 ml-2"
           >
-            {organizationsT("createOrg")}
+            {isEditMode ? commonT("button.save") : organizationsT("createOrg")}
           </Button>
         </div>
       </form>

@@ -1,32 +1,36 @@
 import { useTranslation } from "react-i18next"
-import { PlusCircleIcon } from "lucide-react"
 
 import OrganizationForm from "@/modules/organizations/components/organization-form"
-import { Button } from "@/shared/components/ui/button"
+import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/shared/components/ui/sheet"
 
 export default function OrganizationFormSheet() {
   const { t: organizationsT } = useTranslation("organizations")
+  const isOpen = useOrganizationsStore((state) => state.formModal)
+  const isEditMode = useOrganizationsStore((state) =>
+    Boolean(state.organization)
+  )
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      useOrganizationsStore.setState({ formModal: false, organization: null })
+    }
+  }
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button size="sm">
-          <PlusCircleIcon className="mr-1" />
-          {organizationsT("create")}
-        </Button>
-      </SheetTrigger>
+    <Sheet open={isOpen} onOpenChange={handleOpenChange}>
       <SheetContent className="p-0 w-3/4">
         <SheetHeader className="p-6 pb-0 mb-3">
           <SheetTitle className="line-clamp-1">
-            {organizationsT("enterData")}
+            {isEditMode
+              ? organizationsT("changeData")
+              : organizationsT("enterData")}
           </SheetTitle>
           <SheetDescription className="line-clamp-2">
             {organizationsT("formInstruction")}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
+import { useParams } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
@@ -52,7 +53,9 @@ export default function WorkingHoursForm({
   const [isSameTime, setIsSameTime] = useState(false)
   const [isAlwaysOpen, setIsAlwaysOpen] = useState(false)
 
-  const orgId = useOrganizationsStore((state) => state.organizationId)
+  const storedOrgId = useOrganizationsStore((state) => state.organizationId)
+  const orgId = useParams().id || storedOrgId
+
   const weekdays = useWeekdayLabels()
   const form = useForm({
     defaultValues: {
@@ -255,7 +258,7 @@ export default function WorkingHoursForm({
               ))}
           <div className="flex items-center pt-5">
             <Button type="button" variant="outline" onClick={handleCancel}>
-              {commonT("button.cancel")}
+              {commonT("button.reset")}
             </Button>
             <Button
               disabled={setWorkingHoursMutation.isPending}

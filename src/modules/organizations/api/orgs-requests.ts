@@ -16,6 +16,18 @@ export const createOrg = async (data: OrganizationFormFields) => {
   ).data
 }
 
+export const updateOrg = async (
+  id: string,
+  data: Partial<OrganizationFormFields>
+) => {
+  return (
+    await axiosInstanceWithToken(BaseApiPaths.USER).put<OrganizationItem>(
+      "/receiving-organization/" + id + "/",
+      data
+    )
+  ).data
+}
+
 export const getOrgs = async ({
   page,
   pSize,

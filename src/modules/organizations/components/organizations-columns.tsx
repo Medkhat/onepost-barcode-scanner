@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
 import OrganizationType from "@/modules/organizations/components/organization-type"
+import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import { Button } from "@/shared/components/ui/button"
@@ -140,6 +141,15 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => (
+      <DataTableRowActions
+        onClickEdit={() =>
+          useOrganizationsStore.setState({
+            formModal: true,
+            organization: row.original,
+          })
+        }
+      />
+    ),
   },
 ]

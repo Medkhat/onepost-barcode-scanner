@@ -1,16 +1,19 @@
 import { Fragment } from "react/jsx-runtime"
 import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
+import { PlusCircleIcon } from "lucide-react"
 
 import { getOrgs } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormSheet from "@/modules/organizations/components/form-sheet"
 import { organizationsColumns } from "@/modules/organizations/components/organizations-columns"
-import { useOrgTableFilters } from "@/modules/organizations/components/table-filters"
 import WorkingHoursSheet from "@/modules/organizations/components/work-hours"
+import { useOrgTableFilters } from "@/modules/organizations/hooks/use-org-table-filters"
+import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
 import PageTitle from "@/shared/components/page-title"
 import { DataTable } from "@/shared/components/table/data-table"
+import { Button } from "@/shared/components/ui/button"
 import { useAuthChecker } from "@/shared/hooks/use-auth-checker"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { getPageCount } from "@/shared/lib/utils"
@@ -29,6 +32,12 @@ export default function OrganizationsRoute() {
     queryFn: () => getOrgs(queryParams),
   })
 
+  const handleOpenOrgForm = () => {
+    useOrganizationsStore.setState({
+      formModal: true,
+    })
+  }
+
   return (
     <Fragment>
       <Layout>
@@ -39,7 +48,10 @@ export default function OrganizationsRoute() {
               title={organizationsT("welcome")}
               subtitle={organizationsT("welcomeText")}
             />
-            <OrganizationFormSheet />
+            <Button size="sm" onClick={handleOpenOrgForm}>
+              <PlusCircleIcon className="mr-1" />
+              {organizationsT("create")}
+            </Button>
           </div>
           <DataTable
             data={orgsData?.results}
@@ -52,6 +64,7 @@ export default function OrganizationsRoute() {
         </Layout.Body>
       </Layout>
       <WorkingHoursSheet />
+      <OrganizationFormSheet />
     </Fragment>
   )
 }

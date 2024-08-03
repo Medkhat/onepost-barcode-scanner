@@ -34,6 +34,7 @@ type FormAutocompleteProps = {
   onScrollEnd?: () => void
   isFetchingNext?: boolean
   isLoading?: boolean
+  externalLabel?: string
 }
 
 const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
@@ -46,6 +47,7 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   onScrollEnd,
   isFetchingNext,
   isLoading,
+  externalLabel,
 }) => {
   const { queryParams } = useQueryParams()
   const { t: commonT } = useTranslation("common")
@@ -121,10 +123,12 @@ const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             role="combobox"
             className={cn(
               "flex w-full justify-between",
-              !selectedOption && "text-muted-foreground"
+              !selectedOption && !value && "text-muted-foreground"
             )}
           >
-            {value ? selectedOption?.label : placeholder}
+            {value && selectedOption
+              ? selectedOption?.label
+              : externalLabel || placeholder}
             <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </FormControl>

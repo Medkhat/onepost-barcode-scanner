@@ -23,8 +23,8 @@ export type OrganizationItem = BaseDataFields &
     "station_owner" | "station_area" | "station_type"
   > & {
     station_owner: OrgOwner
-    station_area: Omit<AreaItem, "sub_area"> & {
-      parent_area: Omit<AreaItem, "sub_area">
+    station_area: AreaItem & {
+      parent_area: AreaItem
     }
     station_region: AreaItem
     work_times: WorkingHour[]
@@ -50,4 +50,11 @@ export const STATION_TYPE_VALUE = {
   warehouse: 3,
   office: 4,
   market: 5,
+}
+export const STATION_VALUE_TYPE = {
+  1: "other",
+  2: "station",
+  3: "warehouse",
+  4: "office",
+  5: "market",
 }

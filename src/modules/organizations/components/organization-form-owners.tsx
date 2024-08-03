@@ -10,6 +10,7 @@ import { LabelValue } from "@/shared/types/common.types"
 type OrganizationFormOwnersProps = {
   value: string
   onChange: (value: string) => void
+  triggerLabel?: string
 }
 const P_SIZE = 30
 export default function OrganizationFormOwners(
@@ -70,6 +71,7 @@ export default function OrganizationFormOwners(
       onScrollEnd={onScrollEnd}
       isFetchingNext={isFetchingNextPage}
       isLoading={isLoading}
+      externalLabel={props.triggerLabel}
     />
   )
 }

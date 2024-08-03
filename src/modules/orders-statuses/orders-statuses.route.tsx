@@ -24,12 +24,12 @@ export default function OrdersStatusesRoute() {
   const { t: ordersT } = useTranslation("orders")
 
   const {
-    queryParams: { page, pSize },
+    queryParams: { page, pSize, search },
   } = useQueryParams()
 
   const { data: statusesData, isLoading } = useQuery({
-    queryKey: ["statuses" + page + pSize],
-    queryFn: () => getOrdersStatuses({ page, pSize }),
+    queryKey: ["statuses", page, pSize, search],
+    queryFn: () => getOrdersStatuses({ page, pSize, search }),
   })
 
   return (
@@ -46,6 +46,7 @@ export default function OrdersStatusesRoute() {
             columns={ordersStatusesColumns}
             isLoading={isLoading}
             pageCount={getPageCount(statusesData?.count, pSize)}
+            inputPlaceholder={ordersT("searchPh")}
           />
           <DialogContent className="max-h-[calc(100svh-24px)] overflow-y-auto">
             <DialogHeader>
