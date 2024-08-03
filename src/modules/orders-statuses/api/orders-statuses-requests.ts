@@ -5,12 +5,28 @@ import {
 import { axiosInstanceWithToken, BaseApiPaths } from "@/shared/api/axios-config"
 import { BaseQueryParams } from "@/shared/api/types"
 
-export const getOrdersStatuses = async (params: BaseQueryParams) => {
+export const getOrdersStatuses = async ({
+  page,
+  pSize,
+  search,
+  station,
+  status_type,
+  is_payed,
+  market_company,
+}: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(
       BaseApiPaths.EXPRESS
     ).get<OrdersStatusesResponse>("/order-status/", {
-      params,
+      params: {
+        page,
+        pSize,
+        search,
+        station,
+        status_type,
+        is_payed,
+        market_company,
+      },
     })
   ).data
 }
