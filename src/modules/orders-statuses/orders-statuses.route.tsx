@@ -27,10 +27,11 @@ export default function OrdersStatusesRoute() {
 
   const { queryParams } = useQueryParams()
   const filters = useOrdersStatusesTableFilters()
-
+  const newQueryParams = { ...queryParams }
+  delete newQueryParams.autocomplete
   const { data: statusesData, isLoading } = useQuery({
-    queryKey: ["statuses", JSON.stringify(queryParams)],
-    queryFn: () => getOrdersStatuses(queryParams),
+    queryKey: ["statuses", JSON.stringify(newQueryParams)],
+    queryFn: () => getOrdersStatuses(newQueryParams),
   })
 
   return (
