@@ -18,9 +18,9 @@ export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
     ),
     cell: ({ row }) => (
       <CellImage
-        image={row.original.order.order_goods[0].goods_image}
+        image={row.original.order.order_goods?.[0]?.goods_image}
         title={
-          row.original.order.order_goods[0][
+          row.original.order.order_goods?.[0]?.[
             `goods_name_${i18n.language as Locale}`
           ]
         }
@@ -39,7 +39,7 @@ export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
     cell: ({ row }) => (
       <span className="min-w-32 line-clamp-2">
         {
-          row.original.order.order_goods[0][
+          row.original.order.order_goods[0]?.[
             `goods_name_${i18n.language as Locale}`
           ]
         }
