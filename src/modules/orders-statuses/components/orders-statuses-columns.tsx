@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { CheckCheckIcon, CircleXIcon } from "lucide-react"
+import { CheckCircleIcon, CircleXIcon } from "lucide-react"
 
 import { OrderStatus } from "@/modules/orders-statuses/api/orders-statuses.types"
 import ChangeStatusButton from "@/modules/orders-statuses/components/change-status-button"
@@ -104,7 +104,7 @@ export const ordersStatusesColumns: ColumnDef<OrderStatus>[] = [
     ),
     cell: ({ row }) =>
       row.original.order.is_payed ? (
-        <CheckCheckIcon className="w-7 h-7 text-green-600" />
+        <CheckCircleIcon className="w-7 h-7 text-green-600" />
       ) : (
         <CircleXIcon className="w-7 h-7 text-destructive" />
       ),
