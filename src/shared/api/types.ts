@@ -3,29 +3,12 @@ import {
   OrdersStatuses,
 } from "@/modules/orders-statuses/api/orders-statuses.types"
 
-export enum GeneralErrorCodes {
-  "400x1" = "GET_OTP_FAILED",
-  "400x2" = "INVALID_PHONE",
-  "400x3" = "INVALID_COUNTRY_CODE",
-  "400x4" = "INVALID_VERIFICATION_CODE",
-  "400x5" = "VALIDATION_ERROR_CODE",
-  "401x1" = "INVALID_TOKEN",
-  "401x2" = "TOKEN_REQUIRED",
-  "401x3" = "USER_ID_REQUIRED",
-  "401x4" = "USER_NOT_ACTIVE",
-  "401x5" = "USER_NOT_FOUND",
-}
-
-export type GeneralSuccessResponse = {
-  code: number
-  message: string
-  message_code: string
-}
+export type GeneralSuccessResponse = GeneralErrorResponse
 
 export type GeneralErrorResponse = {
-  code: number
-  message: GeneralErrorCodes
-  message_code: GeneralErrorCodes
+  status_code: number
+  message: string
+  message_code: string[]
 }
 
 export type BaseDataFields = {

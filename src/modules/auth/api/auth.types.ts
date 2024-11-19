@@ -1,5 +1,12 @@
 import { BaseDataFields } from "@/shared/api/types"
 
+export type SignInPayload = {
+  phone: string
+  password: string
+}
+
+// We can remove below types if we don't use them in the future
+/* UDA Express API types: start */
 export type GetOTPPayload = {
   phone: string
   country_code: string
@@ -23,3 +30,4 @@ export type VerifyOTPResponse = {
   access_token: string
   refresh_token: string
 }
+/* UDA Express API types: end */

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { useAuthStore } from "@/modules/auth/store/auth.store"
+import { useAuthStore } from "@/modules/auth/auth.store"
 
 const axiosInstance = axios.create({
   headers: {
@@ -10,11 +10,10 @@ const axiosInstance = axios.create({
 })
 
 export const BaseApiPaths = {
-  AUTH: import.meta.env.UDA_AUTH_API_URL,
-  USER: import.meta.env.UDA_USER_API_URL,
-  APP: import.meta.env.UDA_APP_API_URL,
-  EXPRESS: import.meta.env.UDA_EXPRESS_API_URL,
-  IDENTITY: import.meta.env.UDA_IDENTITY_API_URL,
+  AUTH: import.meta.env.OP_API_URL + "/auth/api/v1",
+  USER: import.meta.env.OP_API_URL + "/user/staff/api/v1",
+  APP: import.meta.env.OP_API_URL + "/app/api/v1",
+  EXPRESS: import.meta.env.OP_API_URL + "/express/staff/api/v1",
 }
 
 export const axiosInstanceWithoutToken = (basePath: string) => {

@@ -13,10 +13,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        ptrootui: ["PTRootUI_Regular", "sans-serif"],
-        light: ["PTRootUI_Light", "sans-serif"],
-        medium: ["PTRootUI_Medium", "sans-serif"],
-        bold: ["PTRootUI_Bold", "sans-serif"],
+        "fira-sans": ["Fira Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

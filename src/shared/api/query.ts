@@ -2,7 +2,7 @@ import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
-import { useAuthStore } from "@/modules/auth/store/auth.store"
+import { useAuthStore } from "@/modules/auth/auth.store"
 import { GeneralErrorCodes, GeneralErrorResponse } from "@/shared/api/types"
 
 export const queryClient = new QueryClient({

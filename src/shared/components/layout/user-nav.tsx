@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { useAuthStore } from "@/modules/auth/store/auth.store"
+import { useAuthStore } from "@/modules/auth/auth.store"
 import { Avatar, AvatarFallback } from "@/shared/components/ui/avatar"
 import { Button } from "@/shared/components/ui/button"
 import {

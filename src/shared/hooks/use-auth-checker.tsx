@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { useAuthStore } from "@/modules/auth/store/auth.store"
+import { useAuthStore } from "@/modules/auth/auth.store"
 import { RouteNames } from "@/shared/lib/constants"
 
 export const useAuthChecker = () => {
