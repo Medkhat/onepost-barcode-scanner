@@ -65,6 +65,9 @@ export function UserAuthForm() {
 
   const handleChangeEmailLogin = (checked: boolean) => {
     setLoginType(checked ? "email" : "phone")
+    form.reset({
+      phone: checked ? "" : "+7",
+    })
   }
 
   return (
