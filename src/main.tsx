@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom"
 import { QueryClientProvider } from "@tanstack/react-query"
 
 import { router } from "@/router"
-import { queryClient } from "@/shared/api/query"
+import { queryClient } from "@/shared/api/query.config"
 import ImageViewer from "@/shared/components/image-viewer"
 import { ThemeProvider } from "@/shared/components/theme/provider.tsx"
 import { Toaster } from "@/shared/components/ui/sonner"

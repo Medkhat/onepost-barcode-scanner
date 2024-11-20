@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom"
 import { ColumnDef } from "@tanstack/react-table"
 
-import { OrganizationItem } from "@/modules/organizations/api/organizations.types"
+import { OrganizationListItem } from "@/modules/organizations/api/organizations.types"
 import OrganizationType from "@/modules/organizations/components/organization-type"
 import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import { Button } from "@/shared/components/ui/button"
-import i18n from "@/shared/i18n/i18n.config"
 import { RouteNames } from "@/shared/lib/constants"
 import { formatPhoneNumber } from "@/shared/lib/utils"
-import { Locale } from "@/shared/types/common.types"
 
-export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
+export const organizationsColumns: ColumnDef<OrganizationListItem>[] = [
   {
     accessorKey: "station_name",
     header: ({ column }) => (
@@ -74,20 +72,6 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
     cell: ({ row }) => <OrganizationType type={row.original.station_type} />,
   },
   {
-    accessorKey: "station_price",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.price"
-      />
-    ),
-    cell: ({ row }) => (
-      <span>
-        {row.getValue("station_price")} {row.original.price_currency}
-      </span>
-    ),
-  },
-  {
     accessorKey: "station_tel",
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -97,48 +81,39 @@ export const organizationsColumns: ColumnDef<OrganizationItem>[] = [
     ),
     cell: ({ row }) => (
       <span className="whitespace-nowrap">
-        {formatPhoneNumber(row.original.station_tel)}
+        {formatPhoneNumber("+7" + row.original.station_tel)}
       </span>
     ),
   },
-  {
-    accessorKey: "station_area",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.org.area"
-      />
-    ),
-    cell: ({ row }) => {
-      const lang = i18n.language as Locale
-      return (
-        <span className="whitespace-nowrap">
-          {row.original.station_area.parent_area[`area_name_${lang}`]}
-          ,
-          <br />
-          {row.original.station_area[`area_name_${lang}`]}
-        </span>
-      )
-    },
-  },
-  {
-    accessorKey: `address_${i18n.language as Locale}`,
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.org.address"
-      />
-    ),
-  },
-  {
-    accessorKey: "station_area.post_code",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        titleKey="tableHeaderTitles.postalCode"
-      />
-    ),
-  },
+  // {
+  //   accessorKey: "station_area",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader
+  //       column={column}
+  //       titleKey="tableHeaderTitles.org.area"
+  //     />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const lang = i18n.language as Locale
+  //     return (
+  //       <span className="whitespace-nowrap">
+  //         {row.original.station_area?.parent_area[`area_name_${lang}`]}
+  //         ,
+  //         <br />
+  //         {row.original.station_area[`area_name_${lang}`]}
+  //       </span>
+  //     )
+  //   },
+  // },
+  // {
+  //   accessorKey: `address_${i18n.language as Locale}`,
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader
+  //       column={column}
+  //       titleKey="tableHeaderTitles.org.address"
+  //     />
+  //   ),
+  // },
   {
     id: "actions",
     cell: ({ row }) => (

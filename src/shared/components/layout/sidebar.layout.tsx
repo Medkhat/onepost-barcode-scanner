@@ -53,10 +53,7 @@ export default function Sidebar({
           sticky
           className="z-50 flex justify-between px-4 py-3 shadow-sm md:px-4"
         >
-          <div className={`flex items-center ${!isCollapsed ? "gap-2" : ""}`}>
-            <Logo onlyImg={isCollapsed} />
-            <h1 className="text-primary text-lg font-bold ml-2">Admin</h1>
-          </div>
+          <Logo onlyImg={isCollapsed} />
 
           {/* Toggle Button in mobile */}
           <Button

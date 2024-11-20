@@ -38,7 +38,7 @@ export const getOrgs = async ({
   return (
     await axiosInstanceWithToken(
       BaseApiPaths.USER
-    ).get<OrganizationListResponse>("/receiving-organization/", {
+    ).get<OrganizationListResponse>("/stations/", {
       params: { page, pSize, search, station_region, station_type },
     })
   ).data

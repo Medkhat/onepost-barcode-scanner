@@ -4,6 +4,7 @@ import { OrgOwner } from "@/modules/org-owners/api/org-owners.types"
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { AreaItem } from "@/shared/api/areas.types"
 import { BaseDataFields, BaseResponse } from "@/shared/api/types"
+import { Locale } from "@/shared/types/common.types"
 
 export type OrganizationFields = z.infer<ReturnType<typeof useOrgFormSchema>>
 
@@ -17,21 +18,38 @@ export type OrganizationFormFields = Omit<
   station_type: number
 }
 
-export type OrganizationItem = BaseDataFields &
+export type OrganizationListItem = BaseDataFields &
   Omit<
     OrganizationFields,
-    "station_owner" | "station_area" | "station_type"
+    | "station_owner"
+    | "station_area"
+    | "station_type"
+    | "address_kk"
+    | "address_en"
+    | "address_ru"
+    | "post_code"
   > & {
     station_owner: OrgOwner
-    station_area: AreaItem & {
-      parent_area: AreaItem
-    }
-    station_region: AreaItem
+    station_address: OrganizationAddress[]
     work_times: WorkingHour[]
-    station_type: number
+    station_type: keyof typeof STATION_VALUE_TYPE
+    is_active: boolean
+    is_deleted: boolean
   }
 
-export type OrganizationListResponse = BaseResponse<OrganizationItem>
+export type OrganizationListResponse = BaseResponse<OrganizationListItem>
+
+export type OrganizationItem = OrganizationListItem & {
+  station_area: AreaItem & {
+    parent_area: AreaItem
+  }
+  station_region: AreaItem
+}
+
+export type OrganizationAddress = {
+  lang: Locale
+  address: string
+}
 
 export type WorkingHour = {
   day: number
@@ -51,6 +69,7 @@ export const STATION_TYPE_VALUE = {
   office: 4,
   market: 5,
 }
+
 export const STATION_VALUE_TYPE = {
   1: "other",
   2: "station",
