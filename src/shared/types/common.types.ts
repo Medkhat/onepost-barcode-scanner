@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react"
 
-export type Locale = "kk" | "ru"
+export type Locale = "kk" | "ru" | "en"
 
 export type LabelValue = {
   label: string

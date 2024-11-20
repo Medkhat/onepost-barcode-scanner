@@ -12,5 +12,9 @@ export const useOrgOwnerFormSchema = () => {
       .string()
       .min(12, orgOwnersT("validation.phone"))
       .max(12, orgOwnersT("validation.phone")),
+    is_active: z.boolean(),
   })
 }
+export type OrgOwnerFormFields = z.infer<
+  ReturnType<typeof useOrgOwnerFormSchema>
+>

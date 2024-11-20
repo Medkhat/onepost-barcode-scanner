@@ -1,11 +1,9 @@
 import { useTranslation } from "react-i18next"
 import {
-  BookUserIcon,
   BringToFrontIcon,
   Building2Icon,
   LayoutDashboardIcon,
   SquareUserRoundIcon,
-  UserRoundSearchIcon,
 } from "lucide-react"
 
 import { iconSizes, RouteNames } from "@/shared/lib/constants"
@@ -42,18 +40,18 @@ export const useSidelinks = (): SideLink[] => {
       href: RouteNames.ORG_OWNERS,
       icon: <SquareUserRoundIcon size={iconSizes.xs} />,
     },
-    {
-      title: commonT("nav.staff"),
-      label: "",
-      href: RouteNames.STAFF,
-      icon: <UserRoundSearchIcon size={iconSizes.xs} />,
-    },
-    {
-      title: commonT("nav.usersData"),
-      label: "",
-      href: RouteNames.USERS_DATA,
-      icon: <BookUserIcon size={iconSizes.xs} />,
-    },
+    // {
+    //   title: commonT("nav.staff"),
+    //   label: "",
+    //   href: RouteNames.STAFF,
+    //   icon: <UserRoundSearchIcon size={iconSizes.xs} />,
+    // },
+    // {
+    //   title: commonT("nav.usersData"),
+    //   label: "",
+    //   href: RouteNames.USERS_DATA,
+    //   icon: <BookUserIcon size={iconSizes.xs} />,
+    // },
     {
       title: commonT("nav.ordersStatuses"),
       label: "",

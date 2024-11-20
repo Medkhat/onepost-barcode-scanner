@@ -11,28 +11,40 @@ export type OrdersStatuses =
   | "IN_DEPARTMENT"
   | "TAKEN"
 
-export type MarketCompany = "PINDODO" | "TEMU"
+export type MarketCompany = "PINDUODUO" | "TEMU"
+
+export type OrderListItem = BaseDataFields & {
+  order_no: string
+  extra_no: string
+  market_company: MarketCompany
+  full_address: string
+  contact_phone: string
+  total_weight: string
+  station: string
+}
+
+export type OrderStatusListItem = BaseDataFields & {
+  status_type: OrdersStatuses
+  order: OrderListItem
+}
+
+export type OrdersStatusesResponse = BaseResponse<OrderStatusListItem>
 
 export type OrderGoods = BaseDataFields & {
   goods_name_kk: string
   goods_name_en: string
   goods_name_ru: string
   goods_image: string
+  order: string
+  goods_price: string
+  goods_count: number
 }
 
-export type OrderItem = BaseDataFields & {
-  order_no: string
-  order_goods: OrderGoods[]
-  market_company: MarketCompany
-  total_weight: string
-  amount: string
-  amount_currency: string
+export type OrderItem = OrderListItem & {
   is_payed: boolean
+  order_goods: OrderGoods[]
 }
 
-export type OrderStatus = BaseDataFields & {
-  status_type: OrdersStatuses
+export type OrderStatusItem = Omit<OrderStatusListItem, "order"> & {
   order: OrderItem
 }
-
-export type OrdersStatusesResponse = BaseResponse<OrderStatus>

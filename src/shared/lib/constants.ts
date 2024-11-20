@@ -21,6 +21,7 @@ export enum StorageKeys {
 export const locales: Record<Locale, string> = {
   kk: "Қазақша",
   ru: "Русский",
+  en: "English",
 }
 
 export const iconSizes = {

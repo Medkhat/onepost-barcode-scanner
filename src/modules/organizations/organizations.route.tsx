@@ -28,6 +28,7 @@ export default function OrganizationsRoute() {
   const { queryParams } = useQueryParams()
   const newQueryParams = { ...queryParams }
   delete newQueryParams.autocomplete
+
   const { data: orgsData, isLoading } = useQuery({
     queryKey: ["orgs", JSON.stringify(newQueryParams)],
     queryFn: () => getOrgs(newQueryParams),

@@ -41,7 +41,7 @@ i18n.use(initReactI18next).init({
   lng: localStorage.getItem(StorageKeys.LANGUAGE) || "kk",
   fallbackLng: "kk",
   debug: process.env.NODE_ENV === "development",
-  supportedLngs: ["kk", "ru"],
+  supportedLngs: ["kk", "ru", "en"],
   compatibilityJSON: "v4",
   defaultNS: "common",
   ns: ["common", "auth", "organizations", "orders", "usersData"],

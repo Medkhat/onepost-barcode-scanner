@@ -12,6 +12,7 @@ import { Button } from "@/shared/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,6 +20,7 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { SheetClose } from "@/shared/components/ui/sheet"
+import { Switch } from "@/shared/components/ui/switch"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
 
 export default function OrgOwnerForm() {
@@ -26,7 +28,6 @@ export default function OrgOwnerForm() {
 
   const { t: orgOwnersT } = useTranslation("orgOwners")
   const { t: commonT } = useTranslation("common")
-  const formSchema = useOrgOwnerFormSchema()
   const { queryParams } = useQueryParams()
 
   const qc = useQueryClient()
@@ -36,18 +37,24 @@ export default function OrgOwnerForm() {
       toast.success(orgOwnersT("createOrgOwnerSuccess"))
       closeBtnRef.current?.click()
       qc.invalidateQueries({
-        queryKey: ["orgOwners" + queryParams.page + queryParams.pSize],
+        queryKey: [
+          "orgOwners",
+          queryParams.page,
+          queryParams.pSize,
+          queryParams.search,
+        ],
       })
     },
   })
 
   const form = useForm<OrgOwnerPayload>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(useOrgOwnerFormSchema()),
     defaultValues: {
       first_name: "",
       last_name: "",
       email: "",
       phone: "+7",
+      is_active: true,
     },
   })
 
@@ -111,6 +118,28 @@ export default function OrgOwnerForm() {
                 <Input type="tel" {...field} />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="is_active"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5 mr-2">
+                <FormLabel className="text-base">
+                  {orgOwnersT("formLabel.active")}
+                </FormLabel>
+                <FormDescription>
+                  {orgOwnersT("formLabel.activeSubtitle")}
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

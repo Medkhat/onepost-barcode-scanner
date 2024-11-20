@@ -13,7 +13,7 @@ export const getOrgOwners = async ({
 }: BaseQueryParams) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).get<GetOrgOwnersResponse>(
-      "/organization-owner/",
+      "/station-owners/",
       {
         params: {
           page,
@@ -27,7 +27,7 @@ export const getOrgOwners = async ({
 
 export const createOrgOwner = (paylaod: OrgOwnerPayload) => {
   return axiosInstanceWithToken(BaseApiPaths.USER).post<OrgOwner>(
-    "/organization-owner/",
+    "/station-owners/",
     paylaod
   )
 }

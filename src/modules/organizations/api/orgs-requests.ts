@@ -10,7 +10,7 @@ import { BaseQueryParams } from "@/shared/api/types"
 export const createOrg = async (data: OrganizationFormFields) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).post<OrganizationItem>(
-      "/receiving-organization/",
+      "/stations/",
       data
     )
   ).data
@@ -22,7 +22,7 @@ export const updateOrg = async (
 ) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).put<OrganizationItem>(
-      "/receiving-organization/" + id + "/",
+      "/stations/" + id + "/",
       data
     )
   ).data
@@ -47,7 +47,7 @@ export const getOrgs = async ({
 export const getOrgDetail = async (orgId: string) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).get<OrganizationItem>(
-      `/receiving-organization/${orgId}/`
+      `/stations/${orgId}/`
     )
   ).data
 }

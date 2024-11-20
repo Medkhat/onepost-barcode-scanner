@@ -36,7 +36,8 @@
       "type": "Тип"
     },
     "order": {
-      "no": "№"
+      "no": "№",
+      "totalWeight": "Общий вес"
     },
     "fullName": "ФИО",
     "usersData": {

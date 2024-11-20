@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { OrgOwner } from "@/modules/org-owners/api/org-owners.types"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
 import { Badge } from "@/shared/components/ui/badge"
+import { formatPhoneNumber } from "@/shared/lib/utils"
 
 export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
   {
@@ -26,6 +27,11 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
         column={column}
         titleKey="tableHeaderTitles.phone"
       />
+    ),
+    cell: ({ row }) => (
+      <span className="whitespace-nowrap">
+        {formatPhoneNumber("+7" + row.original.user.phone)}
+      </span>
     ),
   },
   {

@@ -19,11 +19,11 @@ import OrganizationFormStationType from "@/modules/organizations/components/orga
 import { useOrgFormSchema } from "@/modules/organizations/hooks/use-form-schema"
 import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import FormAutocomplete from "@/shared/components/form/form-autocomplete"
-import FormSelect from "@/shared/components/form/form-select"
 import { Button } from "@/shared/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,9 +31,9 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { SheetClose } from "@/shared/components/ui/sheet"
+import { Switch } from "@/shared/components/ui/switch"
 import { useAreas } from "@/shared/hooks/use-areas"
 import { useQueryParams } from "@/shared/hooks/use-query-params"
-import { currencies } from "@/shared/lib/constants"
 import { Locale } from "@/shared/types/common.types"
 
 export default function OrganizationForm() {
@@ -42,8 +42,6 @@ export default function OrganizationForm() {
   const { t: organizationsT, i18n } = useTranslation("organizations")
   const { t: commonT } = useTranslation("common")
 
-  const formSchema = useOrgFormSchema()
-  const { queryParams } = useQueryParams()
   const areas = useAreas()
 
   const storedOrganization = useOrganizationsStore(
@@ -51,7 +49,12 @@ export default function OrganizationForm() {
   )
   const isEditMode = Boolean(storedOrganization)
 
+  const { queryParams } = useQueryParams()
+  const newQueryParams = { ...queryParams }
+  delete newQueryParams.autocomplete
+
   const qc = useQueryClient()
+
   const orgMutation = useMutation<
     OrganizationItem,
     AxiosError,
@@ -66,23 +69,30 @@ export default function OrganizationForm() {
       qc.invalidateQueries({
         queryKey: isEditMode
           ? ["org", storedOrganization?.id]
-          : ["orgs" + queryParams.page + queryParams.pSize],
+          : ["orgs" + JSON.stringify(newQueryParams)],
       })
     },
   })
 
   const form = useForm<OrganizationFields>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(useOrgFormSchema()),
     defaultValues: isEditMode
       ? {
           ...storedOrganization,
           station_owner: storedOrganization?.station_owner.user.id,
+          address_en: storedOrganization?.station_address.find(
+            (item) => item.lang === i18n.language
+          )?.address,
+          address_ru: storedOrganization?.station_address.find(
+            (item) => item.lang === i18n.language
+          )?.address,
+          address_kk: storedOrganization?.station_address.find(
+            (item) => item.lang === i18n.language
+          )?.address,
           station_area: storedOrganization?.station_area.id,
           station_type: STATION_VALUE_TYPE[
             storedOrganization?.station_type as keyof typeof STATION_VALUE_TYPE
           ] as keyof typeof STATION_TYPE_VALUE,
-          post_code: storedOrganization?.station_area.post_code,
-          station_price: storedOrganization?.station_price.toString(),
           latitude: storedOrganization?.latitude.toString(),
           longitude: storedOrganization?.longitude.toString(),
         }
@@ -91,24 +101,36 @@ export default function OrganizationForm() {
           extra_station_name: "",
           station_owner: "",
           station_code: "",
-          post_code: "",
           extra_code: "",
           station_tel: "+7",
           station_type: "station",
-          station_price: "",
-          price_currency: "KZT",
           address_kk: "",
           address_en: "",
           address_ru: "",
           latitude: "",
           longitude: "",
+          is_active: true,
         },
   })
 
   const submitForm = (values: OrganizationFields) => {
     orgMutation.mutate({
       ...values,
-      station_price: Number(values.station_price),
+      station_address: [
+        {
+          lang: "kk",
+          address: values.address_kk,
+        },
+        {
+          lang: "en",
+          address: values.address_en,
+        },
+        {
+          lang: "ru",
+          address: values.address_ru,
+        },
+      ],
+      station_tel: values.station_tel.substring(2),
       latitude: Number(values.latitude),
       longitude: Number(values.longitude),
       station_type: STATION_TYPE_VALUE[values.station_type],
@@ -214,19 +236,6 @@ export default function OrganizationForm() {
         <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
           <FormField
             control={form.control}
-            name="post_code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{organizationsT("formLabel.postalCode")}</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="station_code"
             render={({ field }) => (
               <FormItem>
@@ -265,44 +274,6 @@ export default function OrganizationForm() {
             </FormItem>
           )}
         />
-        <div className="flex items-center justify-between space-x-3 [&>div]:flex-1">
-          <FormField
-            control={form.control}
-            name="station_price"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {organizationsT("formLabel.stationPrice")}
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="price_currency"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {organizationsT("formLabel.priceCurrency")}
-                </FormLabel>
-                <FormControl>
-                  <FormSelect
-                    defaultValue={field.value}
-                    onValueChange={field.onChange}
-                    options={currencies}
-                    placeholder={organizationsT("formLabel.priceCurrencyPh")}
-                    isFormItem
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
         <FormField
           control={form.control}
           name="address_kk"
@@ -365,6 +336,28 @@ export default function OrganizationForm() {
                 <Input {...field} />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="is_active"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5 mr-2">
+                <FormLabel className="text-base">
+                  {organizationsT("formLabel.active")}
+                </FormLabel>
+                <FormDescription>
+                  {organizationsT("formLabel.activeSubtitle")}
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

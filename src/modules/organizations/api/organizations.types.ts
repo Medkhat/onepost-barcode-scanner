@@ -10,9 +10,14 @@ export type OrganizationFields = z.infer<ReturnType<typeof useOrgFormSchema>>
 
 export type OrganizationFormFields = Omit<
   OrganizationFields,
-  "station_price" | "latitude" | "longitude" | "station_type"
+  | "latitude"
+  | "longitude"
+  | "station_type"
+  | "address_kk"
+  | "address_en"
+  | "address_ru"
 > & {
-  station_price: number
+  station_address: OrganizationAddress[]
   latitude: number
   longitude: number
   station_type: number

@@ -15,7 +15,9 @@
     "firstName": "Аты",
     "lastName": "Тегі",
     "email": "Эл. пошта",
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "active": "Басшы белсенді",
+    "activeSubtitle": "Басшының жұмыс жасауын/жасамайтынын білдіреді"
   },
   "createOrgOwner": "Басшыны қосу",
   "createOrgOwnerSuccess": "Басшы сәтті қосылды"

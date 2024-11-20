@@ -36,7 +36,8 @@
       "type": "Түрі"
     },
     "order": {
-      "no": "№"
+      "no": "№",
+      "totalWeight": "Жалпы салмағы"
     },
     "fullName": "Аты-жөні",
     "usersData": {

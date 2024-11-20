@@ -13,7 +13,6 @@ export const useOrgFormSchema = () => {
       .string()
       .min(1, organizationsT("formValidation.stationCode")),
     extra_code: z.string().optional(),
-    post_code: z.string().min(1, organizationsT("formValidation.postalCode")),
     station_tel: z
       .string()
       .min(12, organizationsT("formValidation.stationTel"))
@@ -28,16 +27,11 @@ export const useOrgFormSchema = () => {
       }
     ),
     station_area: z.string().uuid(organizationsT("formValidation.stationArea")),
-    station_price: z
-      .string()
-      .min(1, organizationsT("formValidation.stationPrice")),
-    price_currency: z.enum(["USD", "EUR", "KZT"], {
-      message: organizationsT("formValidation.priceCurrency"),
-    }),
     address_kk: z.string().min(1, organizationsT("formValidation.addressKz")),
     address_en: z.string().min(1, organizationsT("formValidation.addressEn")),
     address_ru: z.string().min(1, organizationsT("formValidation.addressRu")),
     latitude: z.string().min(1, organizationsT("formValidation.latitude")),
     longitude: z.string().min(1, organizationsT("formValidation.longitude")),
+    is_active: z.boolean(),
   })
 }

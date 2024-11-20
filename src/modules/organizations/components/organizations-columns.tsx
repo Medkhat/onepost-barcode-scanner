@@ -3,9 +3,7 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { OrganizationListItem } from "@/modules/organizations/api/organizations.types"
 import OrganizationType from "@/modules/organizations/components/organization-type"
-import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import { DataTableColumnHeader } from "@/shared/components/table/data-table-column-header"
-import { DataTableRowActions } from "@/shared/components/table/data-table-row-actions"
 import { Button } from "@/shared/components/ui/button"
 import { RouteNames } from "@/shared/lib/constants"
 import { formatPhoneNumber } from "@/shared/lib/utils"
@@ -55,9 +53,9 @@ export const organizationsColumns: ColumnDef<OrganizationListItem>[] = [
     ),
     cell: ({ row }) => (
       <span className="whitespace-nowrap">
-        {row.original.station_owner.user.first_name}
-        <br />
-        {row.original.station_owner.user.last_name}
+        {row.original.station_owner.user.first_name +
+          " " +
+          row.original.station_owner.user.last_name}
       </span>
     ),
   },
@@ -86,45 +84,16 @@ export const organizationsColumns: ColumnDef<OrganizationListItem>[] = [
     ),
   },
   // {
-  //   accessorKey: "station_area",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader
-  //       column={column}
-  //       titleKey="tableHeaderTitles.org.area"
-  //     />
-  //   ),
-  //   cell: ({ row }) => {
-  //     const lang = i18n.language as Locale
-  //     return (
-  //       <span className="whitespace-nowrap">
-  //         {row.original.station_area?.parent_area[`area_name_${lang}`]}
-  //         ,
-  //         <br />
-  //         {row.original.station_area[`area_name_${lang}`]}
-  //       </span>
-  //     )
-  //   },
-  // },
-  // {
-  //   accessorKey: `address_${i18n.language as Locale}`,
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader
-  //       column={column}
-  //       titleKey="tableHeaderTitles.org.address"
+  //   id: "actions",
+  //   cell: ({ row }) => (
+  //     <DataTableRowActions
+  //       onClickEdit={() =>
+  //         useOrganizationsStore.setState({
+  //           formModal: true,
+  //           organization: row.original,
+  //         })
+  //       }
   //     />
   //   ),
   // },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <DataTableRowActions
-        onClickEdit={() =>
-          useOrganizationsStore.setState({
-            formModal: true,
-            organization: row.original,
-          })
-        }
-      />
-    ),
-  },
 ]

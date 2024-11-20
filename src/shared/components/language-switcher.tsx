@@ -26,15 +26,17 @@ export default function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
-        {Object.keys(locales).map((item) => (
-          <DropdownMenuItem
-            key={item}
-            onClick={() => handleLanguageChange(item as Locale)}
-            className="justify-center"
-          >
-            {locales[item as Locale]}
-          </DropdownMenuItem>
-        ))}
+        {Object.keys(locales)
+          .filter((locale) => locale !== "en")
+          .map((item) => (
+            <DropdownMenuItem
+              key={item}
+              onClick={() => handleLanguageChange(item as Locale)}
+              className="justify-center"
+            >
+              {locales[item as Locale]}
+            </DropdownMenuItem>
+          ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

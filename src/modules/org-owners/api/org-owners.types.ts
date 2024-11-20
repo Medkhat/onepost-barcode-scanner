@@ -1,7 +1,5 @@
-import { z } from "zod"
-
 import { USER_ROLE, UserFields } from "@/modules/auth/api/auth.types"
-import { useStaffFormSchema } from "@/modules/staff/hooks/use-staff-form-schema"
+import { OrgOwnerFormFields } from "@/modules/org-owners/hooks/use-org-owner-form-schema"
 import { BaseDataFields, BaseResponse } from "@/shared/api/types"
 
 export type OrgOwner = BaseDataFields & {
@@ -11,4 +9,4 @@ export type OrgOwner = BaseDataFields & {
 
 export type GetOrgOwnersResponse = BaseResponse<OrgOwner>
 
-export type OrgOwnerPayload = z.infer<ReturnType<typeof useStaffFormSchema>>
+export type OrgOwnerPayload = OrgOwnerFormFields

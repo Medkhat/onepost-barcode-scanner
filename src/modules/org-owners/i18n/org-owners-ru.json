@@ -15,7 +15,9 @@
     "firstName": "Имя",
     "lastName": "Фамилия",
     "email": "Эл. почта",
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "active": "Владелец активен",
+    "activeSubtitle": "Указывает, работает/не работает владелец"
   },
   "createOrgOwner": "Добавить владельца",
   "createOrgOwnerSuccess": "Владелец успешно добавлен"
