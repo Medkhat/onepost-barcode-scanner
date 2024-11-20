@@ -1,9 +1,9 @@
 import { create } from "zustand"
 
-import { OrderStatus } from "@/modules/orders-statuses/api/orders-statuses.types"
+import { OrderStatusListItem } from "@/modules/orders-statuses/api/orders-statuses.types"
 
 type OrdersStatusesStore = {
-  selectedOrderStatus: OrderStatus | null
+  selectedOrderStatus: OrderStatusListItem | null
 }
 
 export const useOrdersStatusesStore = create<OrdersStatusesStore>(() => ({

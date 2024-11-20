@@ -49,7 +49,6 @@ export default function OrganizationRoute() {
       code: orgData.station_code,
       owner: `${orgData.station_owner?.user?.first_name} ${orgData.station_owner?.user?.last_name}`,
       tel: formatPhoneNumber(orgData.station_tel),
-      price: orgData.station_price + " " + orgData.price_currency,
       type: stationTypeLabel,
       province:
         orgData.station_region[`area_name_${i18n.language as Locale}`] +

@@ -8,7 +8,7 @@ import { BaseQueryParams } from "@/shared/api/types"
 
 export const getUsersData = async ({ page, pSize }: BaseQueryParams) => {
   return (
-    await axiosInstanceWithToken(BaseApiPaths.IDENTITY).get<UsersDataResponse>(
+    await axiosInstanceWithToken(BaseApiPaths.USER).get<UsersDataResponse>(
       "/identity-verifications/",
       {
         params: { page, pSize },
@@ -22,7 +22,7 @@ export const changeUserStatus = async (
   payload: ChangeUserStatusPayload
 ) => {
   return (
-    await axiosInstanceWithToken(BaseApiPaths.IDENTITY).put<UsersData>(
+    await axiosInstanceWithToken(BaseApiPaths.USER).put<UsersData>(
       `/identity-verifications/${userId}/`,
       payload
     )
