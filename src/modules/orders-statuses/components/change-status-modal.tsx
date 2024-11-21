@@ -1,11 +1,9 @@
 import { ElementRef, useRef, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { useTranslation } from "react-i18next"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
 import { OrdersStatuses } from "@/modules/orders-statuses/api/orders-statuses.types"
-import { changeOrderStatus } from "@/modules/orders-statuses/api/orders-statuses-requests"
 import OrderStatusComponent from "@/modules/orders-statuses/components/order-status"
 import { useOrderStatusLabels } from "@/modules/orders-statuses/hooks/use-orders-statuses-constants"
 import { useOrdersStatusesStore } from "@/modules/orders-statuses/store/status.store"
@@ -13,15 +11,14 @@ import { Button } from "@/shared/components/ui/button"
 import { DialogClose } from "@/shared/components/ui/dialog"
 import { Label } from "@/shared/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
-import { useQueryParams } from "@/shared/hooks/use-query-params"
 import { cn } from "@/shared/lib/utils"
 
 export default function ChangeStatusModal() {
   const { t: commonT } = useTranslation("common")
   const { t: ordersT } = useTranslation("orders")
-  const {
-    queryParams: { pSize, page },
-  } = useQueryParams()
+  // const {
+  //   queryParams: { pSize, page },
+  // } = useQueryParams()
   const selectedOrderStatus = useOrdersStatusesStore(
     (state) => state.selectedOrderStatus
   )
@@ -32,20 +29,25 @@ export default function ChangeStatusModal() {
     selectedOrderStatus?.status_type as OrdersStatuses
   )
 
-  const qc = useQueryClient()
-  const changeStatusMut = useMutation({
-    mutationFn: () =>
-      changeOrderStatus(selectedOrderStatus?.id as string, {
-        status_type: selectedValue,
-      }),
-    onSuccess: () => {
-      qc.invalidateQueries({
-        queryKey: ["statuses" + page + pSize],
-      })
-      toast.success(ordersT("changeStatusSuccess"))
-      closeRef.current?.click()
-    },
-  })
+  // const qc = useQueryClient()
+  // const changeStatusMut = useMutation({
+  //   mutationFn: () =>
+  //     changeOrderStatus(selectedOrderStatus?.id as string, {
+  //       status_type: selectedValue,
+  //     }),
+  //   onSuccess: () => {
+  //     qc.invalidateQueries({
+  //       queryKey: ["statuses" + page + pSize],
+  //     })
+  //     toast.success(ordersT("changeStatusSuccess"))
+  //     closeRef.current?.click()
+  //   },
+  // })
+
+  const handleSave = () => {
+    // changeStatusMut.mutate()
+    toast.success(ordersT("changeStatusSuccess"))
+  }
 
   return (
     <Fragment>
@@ -66,10 +68,10 @@ export default function ChangeStatusModal() {
         ))}
       </RadioGroup>
       <Button
-        onClick={() => changeStatusMut.mutate()}
-        isLoading={changeStatusMut.isPending}
+        onClick={handleSave}
+        // isLoading={changeStatusMut.isPending}
         disabled={
-          changeStatusMut.isPending ||
+          // changeStatusMut.isPending ||
           selectedOrderStatus?.status_type === selectedValue
         }
       >
