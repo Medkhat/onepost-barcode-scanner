@@ -47,6 +47,7 @@ export default function ChangeStatusModal() {
   const handleSave = () => {
     // changeStatusMut.mutate()
     toast.success(ordersT("changeStatusSuccess"))
+    closeRef.current?.click()
   }
 
   return (

@@ -5,5 +5,6 @@
   "todayOrdersWeight": "Вес заказов сегодня",
   "fromLastMonth": "с прошлого месяца",
   "topOrganizations": "Топ организаций",
-  "topOrganizationsDesc": "Топ организаций по количеству заказов"
+  "topOrganizationsDesc": "Топ организаций по количеству заказов",
+  "chart": "График"
 }

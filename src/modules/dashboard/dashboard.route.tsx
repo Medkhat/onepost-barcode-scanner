@@ -64,9 +64,9 @@ export default function Dashboard() {
                   <PackageIcon className="w-5 h-5 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">+2350</div>
+                  <div className="text-2xl font-bold">+21</div>
                   <p className="text-xs text-muted-foreground">
-                    +180.1% {dashboardT("fromLastMonth")}
+                    +18.1% {dashboardT("fromLastMonth")}
                   </p>
                 </CardContent>
               </Card>
@@ -102,7 +102,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
               <Card className="col-span-1 lg:col-span-4">
                 <CardHeader>
-                  <CardTitle>Overview</CardTitle>
+                  <CardTitle>{dashboardT("chart")}</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
                   <OverviewChart />
