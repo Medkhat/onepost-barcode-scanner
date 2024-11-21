@@ -55,7 +55,7 @@ export const getOrgDetail = async (orgId: string) => {
 export const setWorkingHours = async (payload: OrgWorkingHours) => {
   return (
     await axiosInstanceWithToken(BaseApiPaths.USER).post<void>(
-      "/organization-work-time/",
+      "/station-time/",
       payload
     )
   ).data

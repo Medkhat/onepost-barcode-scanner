@@ -79,7 +79,7 @@ export const organizationsColumns: ColumnDef<OrganizationListItem>[] = [
     ),
     cell: ({ row }) => (
       <span className="whitespace-nowrap">
-        {formatPhoneNumber("+7" + row.original.station_tel)}
+        {formatPhoneNumber(row.original.station_tel)}
       </span>
     ),
   },

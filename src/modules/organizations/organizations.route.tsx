@@ -1,13 +1,12 @@
 import { Fragment } from "react/jsx-runtime"
 import { useTranslation } from "react-i18next"
-import { useQuery } from "@tanstack/react-query"
 import { PlusCircleIcon } from "lucide-react"
 
-import { getOrgs } from "@/modules/organizations/api/orgs-requests"
 import OrganizationFormSheet from "@/modules/organizations/components/form-sheet"
 import { organizationsColumns } from "@/modules/organizations/components/organizations-columns"
 import WorkingHoursSheet from "@/modules/organizations/components/work-hours"
 import { useOrgTableFilters } from "@/modules/organizations/hooks/use-org-table-filters"
+import { useOrganizationsQuery } from "@/modules/organizations/hooks/use-queries"
 import { useOrganizationsStore } from "@/modules/organizations/store/organizations.store"
 import GeneralHeader from "@/shared/components/layout/general-header"
 import { Layout } from "@/shared/components/layout/main.layout"
@@ -26,13 +25,7 @@ export default function OrganizationsRoute() {
   const tableFilters: LabelValue[] = useOrgTableFilters()
 
   const { queryParams } = useQueryParams()
-  const newQueryParams = { ...queryParams }
-  delete newQueryParams.autocomplete
-
-  const { data: orgsData, isLoading } = useQuery({
-    queryKey: ["orgs", JSON.stringify(newQueryParams)],
-    queryFn: () => getOrgs(newQueryParams),
-  })
+  const { data: orgsData, isLoading } = useOrganizationsQuery()
 
   const handleOpenOrgForm = () => {
     useOrganizationsStore.setState({

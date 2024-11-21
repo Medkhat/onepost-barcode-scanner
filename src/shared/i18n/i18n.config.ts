@@ -3,6 +3,8 @@ import i18n from "i18next"
 
 import kkAuth from "@/modules/auth/i18n/auth-kk.json"
 import ruAuth from "@/modules/auth/i18n/auth-ru.json"
+import kkDashboard from "@/modules/dashboard/i18n/dashboard-kk.json"
+import ruDashboard from "@/modules/dashboard/i18n/dashboard-ru.json"
 import kkOrders from "@/modules/orders-statuses/i18n/orders-statuses-kk.json"
 import ruOrders from "@/modules/orders-statuses/i18n/orders-statuses-ru.json"
 import kkOrgOwners from "@/modules/org-owners/i18n/org-owners-kk.json"
@@ -27,6 +29,7 @@ i18n.use(initReactI18next).init({
       orders: kkOrders,
       usersData: kkUsersData,
       staff: kkStaff,
+      dashboard: kkDashboard,
     },
     ru: {
       common: ruCommon,
@@ -36,6 +39,7 @@ i18n.use(initReactI18next).init({
       orders: ruOrders,
       usersData: ruUsersData,
       staff: ruStaff,
+      dashboard: ruDashboard,
     },
   },
   lng: localStorage.getItem(StorageKeys.LANGUAGE) || "kk",
@@ -44,7 +48,15 @@ i18n.use(initReactI18next).init({
   supportedLngs: ["kk", "ru", "en"],
   compatibilityJSON: "v4",
   defaultNS: "common",
-  ns: ["common", "auth", "organizations", "orders", "usersData"],
+  ns: [
+    "common",
+    "auth",
+    "organizations",
+    "orders",
+    "usersData",
+    "staff",
+    "dashboard",
+  ],
   interpolation: {
     escapeValue: false,
   },

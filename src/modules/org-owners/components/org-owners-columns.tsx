@@ -30,7 +30,7 @@ export const orgOwnersColumns: ColumnDef<OrgOwner>[] = [
     ),
     cell: ({ row }) => (
       <span className="whitespace-nowrap">
-        {formatPhoneNumber("+7" + row.original.user.phone)}
+        {formatPhoneNumber(row.original.user.phone)}
       </span>
     ),
   },

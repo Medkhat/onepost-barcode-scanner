@@ -46,10 +46,13 @@ export function formatPhoneNumber(phoneNumber: string): string {
   if (!phoneNumber) {
     return ""
   }
-  const code = phoneNumber.slice(0, 2)
-  const area = phoneNumber.slice(2, 5)
-  const mid = phoneNumber.slice(5, 8)
-  const end1 = phoneNumber.slice(8, 10)
-  const end2 = phoneNumber.slice(10, 12)
+  const newPhone = phoneNumber.startsWith("+7")
+    ? phoneNumber
+    : `+7${phoneNumber}`
+  const code = newPhone.slice(0, 2)
+  const area = newPhone.slice(2, 5)
+  const mid = newPhone.slice(5, 8)
+  const end1 = newPhone.slice(8, 10)
+  const end2 = newPhone.slice(10, 12)
   return `${code} (${area}) ${mid}-${end1}-${end2}`
 }

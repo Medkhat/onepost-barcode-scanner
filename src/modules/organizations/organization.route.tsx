@@ -51,12 +51,14 @@ export default function OrganizationRoute() {
       tel: formatPhoneNumber(orgData.station_tel),
       type: stationTypeLabel,
       province:
-        orgData.station_region[`area_name_${i18n.language as Locale}`] +
+        orgData.station_area.parent_area[
+          `area_name_${i18n.language as Locale}`
+        ] +
         ", " +
         orgData.station_area[`area_name_${i18n.language as Locale}`],
       address: orgData.station_address.find(
         (item) => item.lang === i18n.language
-      ),
+      )?.address,
       postalCode: orgData.station_area.post_code,
       coords: orgData.latitude + ", " + orgData.longitude,
     }

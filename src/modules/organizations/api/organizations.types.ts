@@ -48,7 +48,8 @@ export type OrganizationItem = OrganizationListItem & {
   station_area: AreaItem & {
     parent_area: AreaItem
   }
-  station_region: AreaItem
+  station_region: string
+  work_times: OrgWorkingHours
 }
 
 export type OrganizationAddress = {
@@ -56,16 +57,22 @@ export type OrganizationAddress = {
   address: string
 }
 
+export type WeekDay = "MO" | "TU" | "WE" | "TH" | "FR" | "SA" | "SU"
+
 export type WorkingHour = {
-  day: number
-  open_time: string
-  close_time: string
+  day: WeekDay
+  start_time: string
+  end_time: string
 }
 
 export type OrgWorkingHours = {
-  organization: string
-  work_time: WorkingHour[]
+  id?: string | null
+  station: string | null
+  week_days: WorkingHour[] | null
+  is_active: boolean
 }
+
+export const WEEKDAYS: WeekDay[] = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
 
 export const STATION_TYPE_VALUE = {
   other: 1,

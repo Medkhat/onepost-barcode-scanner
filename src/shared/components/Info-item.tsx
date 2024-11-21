@@ -14,7 +14,7 @@ export default function InfoItem({
       <div className="w-40 p-3 text-center bg-muted rounded-l-xl">
         <p>{label}</p>
       </div>
-      <div className="p-3 text-center">
+      <div className="p-3 flex-1">
         <p>{value}</p>
       </div>
     </div>

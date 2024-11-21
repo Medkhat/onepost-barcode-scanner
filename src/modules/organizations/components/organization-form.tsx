@@ -95,6 +95,9 @@ export default function OrganizationForm() {
           ] as keyof typeof STATION_TYPE_VALUE,
           latitude: storedOrganization?.latitude.toString(),
           longitude: storedOrganization?.longitude.toString(),
+          station_tel: storedOrganization?.station_tel.startsWith("+7")
+            ? storedOrganization?.station_tel
+            : `+7${storedOrganization?.station_tel}`,
         }
       : {
           station_name: "",

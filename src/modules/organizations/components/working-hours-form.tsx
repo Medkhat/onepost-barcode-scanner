@@ -6,7 +6,11 @@ import { useParams } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
-import { WorkingHour } from "@/modules/organizations/api/organizations.types"
+import {
+  OrgWorkingHours,
+  WEEKDAYS,
+  WorkingHour,
+} from "@/modules/organizations/api/organizations.types"
 import { setWorkingHours } from "@/modules/organizations/api/orgs-requests"
 import WorkingHourFormSkeleton from "@/modules/organizations/components/workin-hours-form-skeleton"
 import {
@@ -33,10 +37,10 @@ type WorkingHourFormField = WorkingHour & {
 }
 
 export default function WorkingHoursForm({
-  workTimes = [],
+  workTimes,
   isLoading,
 }: {
-  workTimes?: WorkingHour[]
+  workTimes?: OrgWorkingHours
   isLoading?: boolean
 }) {
   const { t: organizationsT } = useTranslation("organizations")
@@ -44,9 +48,9 @@ export default function WorkingHoursForm({
 
   const [defaultValues, setDefaultValues] = useState<WorkingHourFormField[]>(
     Array.from({ length: 7 }, (_, i) => ({
-      day: i + 1,
-      open_time: "",
-      close_time: "",
+      day: WEEKDAYS[i],
+      start_time: "",
+      end_time: "",
       disabled: false,
     }))
   )
@@ -85,26 +89,27 @@ export default function WorkingHoursForm({
   const onSubmit = useCallback(
     (data: { workingHours: WorkingHourFormField[] }) => {
       setWorkingHoursMutation.mutate({
-        organization: orgId as string,
-        work_time: data.workingHours.map((item) => {
+        station: orgId as string,
+        is_active: true,
+        week_days: data.workingHours.map((item) => {
           if (isAlwaysOpen) {
             return {
               day: item.day,
-              open_time: "00:00",
-              close_time: "23:59",
+              start_time: "00:00",
+              end_time: "23:59",
             }
           }
           if (isSameTime) {
             return {
               day: item.day,
-              open_time: data.workingHours[0].open_time,
-              close_time: data.workingHours[0].close_time,
+              start_time: data.workingHours[0].start_time,
+              end_time: data.workingHours[0].end_time,
             }
           }
           return {
             day: item.day,
-            open_time: item.disabled ? "00:00" : item.open_time,
-            close_time: item.disabled ? "00:00" : item.close_time,
+            start_time: item.disabled ? "00:00" : item.start_time,
+            end_time: item.disabled ? "00:00" : item.end_time,
           }
         }),
       })
@@ -115,13 +120,13 @@ export default function WorkingHoursForm({
   const handleChangeNotWork = useCallback(
     (checked: boolean, day: number) => {
       const newValues = defaultValues.map((value) => {
-        if (value.day === day) {
+        if (value.day === WEEKDAYS[day]) {
           return { ...value, disabled: checked }
         }
         return value
       })
       setDefaultValues(newValues)
-      form.setValue(`workingHours.${day - 1}.disabled`, checked)
+      form.setValue(`workingHours.${day}.disabled`, checked)
     },
     [defaultValues, form]
   )
@@ -136,11 +141,13 @@ export default function WorkingHoursForm({
 
   const workingHoursData = useMemo(
     () =>
-      workTimes.map((item) => ({
-        ...item,
-        open_time: item.open_time.slice(0, 5),
-        close_time: item.close_time.slice(0, 5),
-      })),
+      workTimes?.week_days
+        ? workTimes?.week_days.map((item) => ({
+            ...item,
+            start_time: item.start_time.slice(0, 5),
+            end_time: item.end_time.slice(0, 5),
+          }))
+        : [],
     [workTimes]
   )
 
@@ -155,7 +162,7 @@ export default function WorkingHoursForm({
       const newValues = workingHoursData.map((item) => {
         return {
           ...item,
-          disabled: item.open_time === "00:00" && item.close_time === "00:00",
+          disabled: item.start_time === "00:00" && item.end_time === "00:00",
         }
       })
       setDefaultValues(newValues)
@@ -190,13 +197,13 @@ export default function WorkingHoursForm({
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {!isAlwaysOpen &&
             fields
-              .filter((item) => (isSameTime ? item.day === 1 : item))
+              .filter((item) => (isSameTime ? item.day === "MO" : item))
               .map((fieldItem, index, arr) => (
                 <Fragment key={fieldItem.id}>
                   <div className="flex justify-between space-x-3">
                     <FormField
                       control={form.control}
-                      name={`workingHours.${index}.open_time`}
+                      name={`workingHours.${index}.start_time`}
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormLabel>{organizationsT("open")}</FormLabel>
@@ -213,7 +220,7 @@ export default function WorkingHoursForm({
                     />
                     <FormField
                       control={form.control}
-                      name={`workingHours.${index}.close_time`}
+                      name={`workingHours.${index}.end_time`}
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormLabel>{organizationsT("close")}</FormLabel>
@@ -241,7 +248,7 @@ export default function WorkingHoursForm({
                               <Checkbox
                                 checked={field.value}
                                 onCheckedChange={(checked: boolean) => {
-                                  handleChangeNotWork(checked, fieldItem.day)
+                                  handleChangeNotWork(checked, index)
                                   field.onChange(checked)
                                 }}
                                 className="mr-2 w-5 h-5"
