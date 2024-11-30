@@ -162,7 +162,7 @@ export default function WorkingHoursForm({
       const newValues = workingHoursData.map((item) => {
         return {
           ...item,
-          disabled: item.start_time === "00:00" && item.end_time === "00:00",
+          disabled: item.start_time === "00:00" && item.end_time === "00:01",
         }
       })
       setDefaultValues(newValues)
