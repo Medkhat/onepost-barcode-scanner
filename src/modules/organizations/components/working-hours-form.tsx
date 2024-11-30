@@ -81,7 +81,7 @@ export default function WorkingHoursForm({
       })
       toast.success(organizationsT("workingHoursSaved"))
       queryClient.invalidateQueries({
-        queryKey: ["orgDetail", orgId],
+        queryKey: ["org", orgId],
       })
     },
   })
@@ -109,7 +109,7 @@ export default function WorkingHoursForm({
           return {
             day: item.day,
             start_time: item.disabled ? "00:00" : item.start_time,
-            end_time: item.disabled ? "00:00" : item.end_time,
+            end_time: item.disabled ? "00:01" : item.end_time,
           }
         }),
       })
