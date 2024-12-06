@@ -14,7 +14,7 @@ export default function AuthenticationPage() {
 
   return (
     <div className="container relative fixed-h-screen flex-col items-stretch justify-center md:grid md:grid-cols-2 px-0 lg:max-w-none">
-      <div className="relative h-1/3 md:h-full flex flex-col items-center sm:items-start bg-muted p-10 text-white dark:border-r bg-[url('/images/supply-chain.jpeg')] bg-no-repeat bg-cover bg-center">
+      <div className="relative h-1/3 md:h-full flex flex-col items-center sm:items-start bg-muted p-10 text-white dark:border-r bg-[url('/images/barcodes.png')] bg-no-repeat bg-contain bg-center">
         <div className="absolute inset-0 bg-black/65" />
         <Logo className="z-10" />
         <div className="relative z-20 mt-auto text-center sm:text-left">

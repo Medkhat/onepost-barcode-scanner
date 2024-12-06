@@ -69,7 +69,7 @@
 
 @layer base {
   * {
-    @apply border-border font-fira-sans font-medium;
+    @apply border-border font-fira-sans font-light;
     -webkit-tap-highlight-color: transparent;
   }
   body {

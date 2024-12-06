@@ -17,12 +17,7 @@
     "system": "Жүйелік"
   },
   "nav": {
-    "dashboard": "Аналитика",
-    "organizations": "Бөлімшелер",
-    "orgOwners": "Бөлімше басшылары",
-    "ordersStatuses": "Тапсырыс статустары",
-    "usersData": "Қолданушылар мәліметі",
-    "staff": "Қызметкерлер"
+    "barcodes": "Штрихкодтар"
   },
   "tableHeaderTitles": {
     "name": "Атауы",

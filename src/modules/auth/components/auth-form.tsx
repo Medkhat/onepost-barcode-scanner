@@ -32,7 +32,7 @@ export function UserAuthForm() {
   const [loginType, setLoginType] = useState<LoginType>("phone")
 
   const signInMutation = useMutation({
-    mutationFn: signIn,
+    mutationFn: (values: SignInPayload) => signIn(values, loginType),
     onSuccess: (data) => {
       useAuthStore.getState().setStoreData({
         isLoggedIn: true,

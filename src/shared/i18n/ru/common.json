@@ -17,12 +17,7 @@
     "system": "Системная"
   },
   "nav": {
-    "dashboard": "Аналитика",
-    "organizations": "Организации",
-    "orgOwners": "Владельцы организаций",
-    "ordersStatuses": "Статусы заказов",
-    "usersData": "Данные пользователей",
-    "staff": "Персонал"
+    "barcodes": "Штрихкоды"
   },
   "tableHeaderTitles": {
     "name": "Название",

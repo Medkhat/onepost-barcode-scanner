@@ -7,7 +7,7 @@ export default defineConfig(() => {
 
   return {
     plugins: [react()],
-    envPrefix: "OP",
+    envPrefix: "OPSP",
     server: {
       port: 3000,
       // proxy: {
