@@ -28,10 +28,23 @@ export default function BarcodeFieldAutofill() {
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isEmptyResult) {
-      setIsEmptyResult(false)
+    const nativeEvent = e.nativeEvent as InputEvent
+    if (!nativeEvent.inputType) {
+      if (isEmptyResult) {
+        setIsEmptyResult(false)
+      }
+      setInputValue(e.target.value)
     }
-    setInputValue(e.target.value)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow only keyboard shortcuts (like Ctrl+A, Ctrl+C)
+    if (!e.ctrlKey && !e.metaKey) {
+      e.preventDefault()
+    }
+  }
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault()
   }
 
   useEffect(() => {
@@ -59,8 +72,9 @@ export default function BarcodeFieldAutofill() {
         value={inputValue}
         ref={inputRef}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onPaste={handlePaste}
         placeholder={barcodesT("scanTheBarcode")}
-        readOnly
       />
       {findOrderMutation.isPending && (
         <div className="flex items-center mt-2">
