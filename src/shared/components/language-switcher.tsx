@@ -21,7 +21,7 @@ export default function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="font-light">
           {locales[i18n.language as Locale]}
         </Button>
       </DropdownMenuTrigger>

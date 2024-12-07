@@ -1,8 +1,3 @@
-import {
-  MarketCompany,
-  OrdersStatuses,
-} from "@/modules/orders-statuses/api/orders-statuses.types"
-
 export type GeneralSuccessResponse = GeneralErrorResponse
 
 export type GeneralErrorResponse = {
@@ -31,8 +26,6 @@ export interface BaseQueryParams {
   autocomplete?: string
   station_region?: string
   station_type?: number
-  status_type?: OrdersStatuses
-  market_company?: MarketCompany
   station?: string
   is_payed?: string
 }
