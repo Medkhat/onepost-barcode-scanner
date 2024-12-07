@@ -19,8 +19,6 @@ export function useQueryParams<TParams extends BaseQueryParams>(): {
       station_type: searchParams.get("station_type")
         ? Number(searchParams.get("station_type"))
         : undefined,
-      status_type: searchParams.get("status_type") ?? "",
-      market_company: searchParams.get("market_company") ?? "",
       station: searchParams.get("station") ?? "",
       is_payed: searchParams.get("is_payed"),
     } as TParams,

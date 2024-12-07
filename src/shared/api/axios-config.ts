@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
 })
 
 export const BaseApiPaths = {
+  APP: import.meta.env.OP_API_URL + "/app/api/v1",
   AUTH: import.meta.env.OPSP_API_URL + "/auth/api/v1",
   EXPRESS_STAFF: import.meta.env.OPSP_API_URL + "/express/staff/api/v1",
   EXPRESS_WAREHOUSE_STAFF:
