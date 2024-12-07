@@ -43,9 +43,6 @@ export default function BarcodeFieldAutofill() {
       e.preventDefault()
     }
   }
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault()
-  }
 
   useEffect(() => {
     if (inputValue.length > 0) {
@@ -73,7 +70,6 @@ export default function BarcodeFieldAutofill() {
         ref={inputRef}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        onPaste={handlePaste}
         placeholder={barcodesT("scanTheBarcode")}
       />
       {findOrderMutation.isPending && (
